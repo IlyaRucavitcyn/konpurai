@@ -1,10 +1,6 @@
 import { Router } from "express";
 import {
-  getLiveness,
-  getReadiness,
-  getDeepHealth,
-  getComponentsHealth,
-  getBasicHealth,
+  getHealth,
   getCircuitBreakerStatus,
   getServiceCircuitBreakerStatus,
   resetCircuitBreaker,
@@ -13,30 +9,17 @@ import {
 const router = Router();
 
 /**
- * Health Check Routes
- * Provides comprehensive health monitoring endpoints for the VerifyWise backend
+ * Health Check Routes - Enterprise Standard
+ * Single /health endpoint with configurable detail levels
  */
 
-// Basic health status (default endpoint)
-router.get("/", getBasicHealth);
+// Main health endpoint - supports query parameters for detail level
+// ?level=basic (default) - basic health status
+// ?level=detailed - comprehensive system status including components
+// ?level=circuit-breakers - include circuit breaker status
+router.get("/", getHealth);
 
-// Liveness probe - basic service availability check
-// Used by Docker/Kubernetes to determine if container should be restarted
-router.get("/live", getLiveness);
-
-// Readiness probe - service ready to accept traffic
-// Used by load balancers to determine if instance should receive requests
-router.get("/ready", getReadiness);
-
-// Deep health check - comprehensive system status
-// Used by monitoring dashboards and detailed analysis
-router.get("/deep", getDeepHealth);
-
-// Component-specific health status
-// Used for debugging individual service components
-router.get("/components", getComponentsHealth);
-
-// Circuit breaker monitoring endpoints
+// Circuit breaker monitoring endpoints (admin only)
 // Circuit breaker status for all services
 router.get("/circuit-breakers", getCircuitBreakerStatus);
 

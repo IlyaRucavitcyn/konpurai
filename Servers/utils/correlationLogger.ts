@@ -202,11 +202,9 @@ class CorrelationLogger {
   logCircuitBreakerEvent(
     serviceName: string,
     event: string,
-    state: string,
-    correlationId?: string
+    state: string
   ): void {
     this.logger.warn("Circuit breaker event", {
-      correlationId,
       event: "circuit_breaker",
       serviceName,
       circuitEvent: event,

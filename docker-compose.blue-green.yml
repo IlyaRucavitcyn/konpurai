@@ -1,0 +1,169 @@
+version: '3.9'
+
+# Blue-Green Deployment Configuration for VerifyWise
+# This setup provides zero-downtime deployments with health-based traffic switching
+
+x-backend-common: &backend-common
+  image: ghcr.io/bluewave-labs/verifywise-backend:latest
+  pull_policy: always
+  environment:
+    - DB_HOST=postgresdb
+    - DB_USER=${DB_USER}
+    - DB_PORT=${DB_PORT}
+    - DB_PASSWORD=${DB_PASSWORD}
+    - DB_NAME=${DB_NAME}
+    - JWT_SECRET=${JWT_SECRET}
+    - SMTP_HOST=smtp.gmail.com
+    - SMTP_PORT=587
+    - REDIS_URL=redis://redis:6379/0
+    - FAIRNESS_AND_BIAS_URL=http://bias_and_fairness_backend:8000
+    - NODE_ENV=${NODE_ENV:-production}
+  depends_on:
+    postgresdb:
+      condition: service_healthy
+    redis:
+      condition: service_started
+  networks:
+    - internal-network
+  expose:
+    - "3000"
+  healthcheck:
+    test: ["CMD", "curl", "-f", "http://localhost:3000/health"]
+    interval: 10s
+    timeout: 5s
+    retries: 3
+    start_period: 30s
+
+services:
+  # Shared infrastructure components
+  postgresdb:
+    image: postgres:16.8
+    volumes:
+      - db:/var/lib/postgresql/data
+    environment:
+      - POSTGRES_USER=${DB_USER}
+      - POSTGRES_PASSWORD=${DB_PASSWORD}
+      - POSTGRES_DB=${DB_NAME}
+    healthcheck:
+      test: ["CMD", "pg_isready", "-U", "${DB_USER}", "-d", "${DB_NAME}"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    networks:
+      - internal-network
+    restart: unless-stopped
+
+  redis:
+    image: redis:7
+    expose:
+      - "6379"
+    restart: unless-stopped
+    networks:
+      - internal-network
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 3
+
+  # Shared bias and fairness backend
+  bias_and_fairness_backend:
+    image: ghcr.io/bluewave-labs/verifywise-bias-and-fairness-backend:latest
+    expose:
+      - "8000"
+    environment:
+      - DB_HOST=postgresdb
+      - DB_USER=${DB_USER}
+      - DB_PORT=${DB_PORT}
+      - DB_PASSWORD=${DB_PASSWORD}
+      - DB_NAME=${DB_NAME}
+      - BACKEND_URL=http://nginx-lb:80
+      - REDIS_URL=redis://redis:6379/0
+    depends_on:
+      - postgresdb
+      - redis
+    networks:
+      - internal-network
+    restart: unless-stopped
+
+  # Load balancer with health-based routing
+  nginx-lb:
+    image: nginx:alpine
+    ports:
+      - "${BACKEND_PORT:-3000}:80"
+    volumes:
+      - ./nginx/nginx.blue-green.conf:/etc/nginx/nginx.conf:ro
+      - ./nginx/conf.d:/etc/nginx/conf.d:ro
+      - nginx-state:/etc/nginx/state
+    depends_on:
+      - backend-blue
+      - backend-green
+    networks:
+      - internal-network
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:80/health"]
+      interval: 10s
+      timeout: 5s
+      retries: 3
+
+  # Blue environment (Primary)
+  backend-blue:
+    <<: *backend-common
+    container_name: verifywise-backend-blue
+    environment:
+      - PORT=3000
+      - DEPLOYMENT_SLOT=blue
+      - DB_HOST=postgresdb
+      - DB_USER=${DB_USER}
+      - DB_PORT=${DB_PORT}
+      - DB_PASSWORD=${DB_PASSWORD}
+      - DB_NAME=${DB_NAME}
+      - JWT_SECRET=${JWT_SECRET}
+      - SMTP_HOST=smtp.gmail.com
+      - SMTP_PORT=587
+      - REDIS_URL=redis://redis:6379/0
+      - FAIRNESS_AND_BIAS_URL=http://bias_and_fairness_backend:8000
+      - NODE_ENV=${NODE_ENV:-production}
+
+  # Green environment (Secondary)
+  backend-green:
+    <<: *backend-common
+    container_name: verifywise-backend-green
+    environment:
+      - PORT=3000
+      - DEPLOYMENT_SLOT=green
+      - DB_HOST=postgresdb
+      - DB_USER=${DB_USER}
+      - DB_PORT=${DB_PORT}
+      - DB_PASSWORD=${DB_PASSWORD}
+      - DB_NAME=${DB_NAME}
+      - JWT_SECRET=${JWT_SECRET}
+      - SMTP_HOST=smtp.gmail.com
+      - SMTP_PORT=587
+      - REDIS_URL=redis://redis:6379/0
+      - FAIRNESS_AND_BIAS_URL=http://bias_and_fairness_backend:8000
+      - NODE_ENV=${NODE_ENV:-production}
+
+  # Frontend service
+  frontend:
+    image: ghcr.io/bluewave-labs/verifywise-frontend:latest
+    pull_policy: always
+    depends_on:
+      - nginx-lb
+    ports:
+      - "80:80"
+    networks:
+      - internal-network
+    restart: unless-stopped
+
+volumes:
+  db:
+    driver: local
+  nginx-state:
+    driver: local
+
+networks:
+  internal-network:
+    driver: bridge
+    internal: false

@@ -89,8 +89,7 @@ class InternalServiceCircuitBreaker {
   async executeWithCircuitBreaker<T>(
     serviceName: string,
     operation: () => Promise<T>,
-    fallback?: () => Promise<T>,
-    correlationId?: string
+    fallback?: () => Promise<T>
   ): Promise<T> {
     const state = this.getServiceState(serviceName);
     const config = this.configs.get(serviceName);
@@ -110,23 +109,20 @@ class InternalServiceCircuitBreaker {
         correlationLogger.logCircuitBreakerEvent(
           serviceName,
           "state_change",
-          "HALF_OPEN",
-          correlationId
+          "HALF_OPEN"
         );
       } else {
         // Circuit is open, use fallback or throw error
         correlationLogger.logCircuitBreakerEvent(
           serviceName,
           "circuit_open",
-          "OPEN",
-          correlationId
+          "OPEN"
         );
 
         if (fallback) {
           correlationLogger.info(
             `Using fallback for ${serviceName}`,
-            { serviceName, state: state.state },
-            correlationId
+            { serviceName, state: state.state }
           );
           return await fallback();
         }
@@ -149,7 +145,7 @@ class InternalServiceCircuitBreaker {
       this.updateMetrics(serviceName, true, responseTime);
 
       correlationLogger.logServiceCall(
-        correlationId || "unknown",
+        "system",
         serviceName,
         "circuit_breaker_execute",
         true,
@@ -165,7 +161,7 @@ class InternalServiceCircuitBreaker {
       this.updateMetrics(serviceName, false, responseTime);
 
       correlationLogger.logServiceCall(
-        correlationId || "unknown",
+        "system",
         serviceName,
         "circuit_breaker_execute",
         false,
@@ -176,8 +172,7 @@ class InternalServiceCircuitBreaker {
       if (fallback) {
         correlationLogger.info(
           `Using fallback for ${serviceName} after failure`,
-          { serviceName, error: error.message },
-          correlationId
+          { serviceName, error: error.message }
         );
         return await fallback();
       }
@@ -188,56 +183,48 @@ class InternalServiceCircuitBreaker {
   // Database operations with circuit breaker
   async executeDatabaseQuery<T>(
     query: () => Promise<T>,
-    fallback?: () => Promise<T>,
-    correlationId?: string
+    fallback?: () => Promise<T>
   ): Promise<T> {
     return this.executeWithCircuitBreaker(
       "database",
       query,
-      fallback,
-      correlationId
+      fallback
     );
   }
 
   // Internal API calls with circuit breaker
   async executeInternalApiCall<T>(
     apiCall: () => Promise<T>,
-    fallback?: () => Promise<T>,
-    correlationId?: string
+    fallback?: () => Promise<T>
   ): Promise<T> {
     return this.executeWithCircuitBreaker(
       "internal-api",
       apiCall,
-      fallback,
-      correlationId
+      fallback
     );
   }
 
   // File system operations with circuit breaker
   async executeFileSystemOperation<T>(
     operation: () => Promise<T>,
-    fallback?: () => Promise<T>,
-    correlationId?: string
+    fallback?: () => Promise<T>
   ): Promise<T> {
     return this.executeWithCircuitBreaker(
       "file-system",
       operation,
-      fallback,
-      correlationId
+      fallback
     );
   }
 
   // Authentication operations with circuit breaker
   async executeAuthOperation<T>(
     operation: () => Promise<T>,
-    fallback?: () => Promise<T>,
-    correlationId?: string
+    fallback?: () => Promise<T>
   ): Promise<T> {
     return this.executeWithCircuitBreaker(
       "auth-service",
       operation,
-      fallback,
-      correlationId
+      fallback
     );
   }
 

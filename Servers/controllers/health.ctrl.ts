@@ -3,134 +3,33 @@ import { healthService } from "../services/health.service";
 import { circuitBreaker } from "../services/circuitBreaker.service";
 
 /**
- * Health Controller
- * Provides multiple health check endpoints for different monitoring needs
+ * Health Controller - Enterprise Standard
+ * Single /health endpoint with configurable detail levels
  */
 
 /**
- * GET /health/live
- * Basic liveness probe - checks if the service is running
- * Used by Docker/Kubernetes for basic health checks
+ * GET /health
+ * Main health endpoint with configurable detail levels
+ * Query parameters:
+ * - level=basic (default): Basic health status
+ * - level=detailed: Comprehensive system status including components
+ * - level=circuit-breakers: Include circuit breaker status
+ * - cache=false: Skip cache (default: true)
  */
-export const getLiveness = async (req: Request, res: Response) => {
+export const getHealth = async (req: Request, res: Response) => {
   try {
-    const result = await healthService.getLiveness();
-    res.status(200).json(result);
-  } catch (error: any) {
-    res.status(503).json({
-      status: "down",
-      timestamp: new Date().toISOString(),
-      error: error.message,
-    });
-  }
-};
-
-/**
- * GET /health/ready
- * Readiness probe - checks if the service is ready to accept traffic
- * Used by load balancers to determine if instance should receive requests
- */
-export const getReadiness = async (req: Request, res: Response) => {
-  try {
-    const result = await healthService.getReadiness();
-    const statusCode = result.status === "ready" ? 200 : 503;
-    res.status(statusCode).json(result);
-  } catch (error: any) {
-    res.status(503).json({
-      status: "not_ready",
-      timestamp: new Date().toISOString(),
-      error: error.message,
-    });
-  }
-};
-
-/**
- * GET /health/deep
- * Comprehensive health check - detailed system status
- * Used by monitoring dashboards and detailed health analysis
- */
-export const getDeepHealth = async (req: Request, res: Response) => {
-  try {
+    const level = req.query.level as string || "basic";
     const useCache = req.query.cache !== "false";
-    const requestId = (req.headers["x-request-id"] as string) ||
-                     (req.headers["x-correlation-id"] as string) ||
-                     `req_${Date.now()}`;
+    const requestId = `health_${Date.now()}`;
 
-    const result = await healthService.getHealthSummary(useCache, requestId);
-
-    const statusCode = result.overall === "healthy" ? 200 :
-                      result.overall === "degraded" ? 200 : 503;
-
-    res.status(statusCode).json(result);
-  } catch (error: any) {
-    res.status(503).json({
-      overall: "down",
-      timestamp: new Date().toISOString(),
-      error: error.message,
-      metadata: {
-        requestId: `error_${Date.now()}`,
-        responseTime: 0,
-        checks: {
-          performed: 0,
-          passed: 0,
-          failed: 1,
-        },
-      },
-    });
-  }
-};
-
-/**
- * GET /health/components
- * Individual component health status
- * Used for debugging specific service issues
- */
-export const getComponentsHealth = async (req: Request, res: Response) => {
-  try {
-    const requestId = (req.headers["x-request-id"] as string) ||
-                     (req.headers["x-correlation-id"] as string) ||
-                     `comp_${Date.now()}`;
-
-    const result = await healthService.getHealthSummary(false, requestId);
-
-    const componentsOnly = {
-      timestamp: result.timestamp,
-      components: result.components,
-      metadata: result.metadata,
-    };
-
-    res.status(200).json(componentsOnly);
-  } catch (error: any) {
-    res.status(503).json({
-      timestamp: new Date().toISOString(),
-      components: [],
-      error: error.message,
-    });
-  }
-};
-
-/**
- * GET /health (default endpoint)
- * Basic health status - returns overall system health
- * Used for simple health monitoring
- */
-export const getBasicHealth = async (req: Request, res: Response) => {
-  try {
-    const result = await healthService.getHealthSummary(true);
-
-    const basicHealth = {
-      status: result.overall,
-      timestamp: result.timestamp,
-      uptime: result.uptime,
-      version: result.version,
-      environment: result.environment,
-      responseTime: result.metadata.responseTime,
-    };
-
-    const statusCode = result.overall === "healthy" ? 200 :
-                      result.overall === "degraded" ? 200 : 503;
-
-    res.status(statusCode).json(basicHealth);
+    switch (level) {
+      case "detailed":
+        return await getDetailedHealth(req, res, useCache, requestId);
+      case "circuit-breakers":
+        return await getHealthWithCircuitBreakers(req, res, useCache, requestId);
+      default:
+        return await getBasicHealth(req, res, useCache, requestId);
+    }
   } catch (error: any) {
     res.status(503).json({
       status: "down",
@@ -138,6 +37,68 @@ export const getBasicHealth = async (req: Request, res: Response) => {
       error: error.message,
     });
   }
+};
+
+/**
+ * Basic health status - lightweight check
+ */
+const getBasicHealth = async (req: Request, res: Response, useCache: boolean, requestId: string) => {
+  const result = await healthService.getHealthSummary(useCache);
+
+  const basicHealth = {
+    status: result.overall,
+    timestamp: result.timestamp,
+    uptime: result.uptime,
+    version: result.version,
+    environment: result.environment,
+    responseTime: result.metadata.responseTime,
+  };
+
+  const statusCode = result.overall === "healthy" ? 200 :
+                    result.overall === "degraded" ? 200 : 503;
+
+  res.status(statusCode).json(basicHealth);
+};
+
+/**
+ * Detailed health status - includes component breakdown
+ */
+const getDetailedHealth = async (req: Request, res: Response, useCache: boolean, requestId: string) => {
+  const result = await healthService.getHealthSummary(useCache);
+
+  const statusCode = result.overall === "healthy" ? 200 :
+                    result.overall === "degraded" ? 200 : 503;
+
+  res.status(statusCode).json(result);
+};
+
+/**
+ * Health status with circuit breaker information
+ */
+const getHealthWithCircuitBreakers = async (req: Request, res: Response, useCache: boolean, requestId: string) => {
+  const healthResult = await healthService.getHealthSummary(useCache);
+  const circuitBreakerStatus = circuitBreaker.getCircuitBreakerStatus();
+  const overallCircuitHealth = circuitBreaker.getOverallHealth();
+
+  const combinedResult = {
+    ...healthResult,
+    circuitBreakers: {
+      overall: overallCircuitHealth,
+      services: circuitBreakerStatus,
+    },
+  };
+
+  // Determine status based on both health and circuit breakers
+  const isCircuitBreakerHealthy = overallCircuitHealth.healthy;
+  const overallStatus = healthResult.overall === "healthy" && isCircuitBreakerHealthy ? "healthy" :
+                       healthResult.overall === "down" || overallCircuitHealth.down.length > 0 ? "down" : "degraded";
+
+  combinedResult.overall = overallStatus as "healthy" | "degraded" | "down";
+
+  const statusCode = overallStatus === "healthy" ? 200 :
+                    overallStatus === "degraded" ? 200 : 503;
+
+  res.status(statusCode).json(combinedResult);
 };
 
 /**

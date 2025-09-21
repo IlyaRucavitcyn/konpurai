@@ -13,8 +13,7 @@ export class DatabaseWrapper {
    */
   static async query<T = any>(
     sql: string,
-    options?: any,
-    correlationId?: string
+    options?: any
   ): Promise<T> {
     return await circuitBreaker.executeDatabaseQuery(
       async () => {
@@ -24,7 +23,7 @@ export class DatabaseWrapper {
           const duration = Date.now() - startTime;
 
           correlationLogger.logDatabaseQuery(
-            correlationId || "unknown",
+            "system",
             sql,
             duration,
             true
@@ -34,7 +33,7 @@ export class DatabaseWrapper {
         } catch (error) {
           const duration = Date.now() - startTime;
           correlationLogger.logDatabaseQuery(
-            correlationId || "unknown",
+            "system",
             sql,
             duration,
             false,
@@ -47,12 +46,10 @@ export class DatabaseWrapper {
         // Fallback: Return cached result or empty array
         correlationLogger.warn(
           "Database unavailable, using fallback for query",
-          { sql: sql.substring(0, 100) },
-          correlationId
+          { sql: sql.substring(0, 100) }
         );
         return [] as T;
-      },
-      correlationId
+      }
     );
   }
 
@@ -60,8 +57,7 @@ export class DatabaseWrapper {
    * Execute a database transaction with circuit breaker protection
    */
   static async transaction<T>(
-    operation: (t: any) => Promise<T>,
-    correlationId?: string
+    operation: (t: any) => Promise<T>
   ): Promise<T> {
     return await circuitBreaker.executeDatabaseQuery(
       async () => {
@@ -73,8 +69,7 @@ export class DatabaseWrapper {
 
             correlationLogger.info(
               "Database transaction completed",
-              { duration },
-              correlationId
+              { duration }
             );
 
             return result;
@@ -82,8 +77,7 @@ export class DatabaseWrapper {
             const duration = Date.now() - startTime;
             correlationLogger.error(
               "Database transaction failed",
-              error,
-              correlationId
+              error
             );
             throw error;
           }
@@ -94,19 +88,17 @@ export class DatabaseWrapper {
         const error = new Error("Database unavailable: Cannot perform transaction");
         correlationLogger.error(
           "Database transaction fallback triggered",
-          error,
-          correlationId
+          error
         );
         throw error;
-      },
-      correlationId
+      }
     );
   }
 
   /**
    * Test database connection with circuit breaker protection
    */
-  static async testConnection(correlationId?: string): Promise<boolean> {
+  static async testConnection(): Promise<boolean> {
     try {
       await circuitBreaker.executeDatabaseQuery(
         async () => {
@@ -116,15 +108,13 @@ export class DatabaseWrapper {
         },
         async () => {
           return false; // Fallback: connection failed
-        },
-        correlationId
+        }
       );
       return true;
     } catch (error) {
       correlationLogger.error(
         "Database connection test failed",
-        error,
-        correlationId
+        error
       );
       return false;
     }
@@ -162,8 +152,7 @@ export class DatabaseWrapper {
    */
   static async executeModelOperation<T>(
     modelName: string,
-    operation: () => Promise<T>,
-    correlationId?: string
+    operation: () => Promise<T>
   ): Promise<T> {
     return await circuitBreaker.executeDatabaseQuery(
       async () => {
@@ -173,7 +162,7 @@ export class DatabaseWrapper {
           const duration = Date.now() - startTime;
 
           correlationLogger.logDatabaseQuery(
-            correlationId || "unknown",
+            "system",
             `${modelName} operation`,
             duration,
             true
@@ -183,7 +172,7 @@ export class DatabaseWrapper {
         } catch (error) {
           const duration = Date.now() - startTime;
           correlationLogger.logDatabaseQuery(
-            correlationId || "unknown",
+            "system",
             `${modelName} operation`,
             duration,
             false,
@@ -196,14 +185,12 @@ export class DatabaseWrapper {
         // Fallback: Return empty result or cached data
         correlationLogger.warn(
           `Database unavailable, using fallback for ${modelName} operation`,
-          { modelName },
-          correlationId
+          { modelName }
         );
 
         // Return appropriate fallback based on operation type
         return null as T;
-      },
-      correlationId
+      }
     );
   }
 }
@@ -215,63 +202,55 @@ export class DatabaseWrapper {
 export class ModelWrapper {
   constructor(private model: any, private modelName: string) {}
 
-  async findAll(options?: any, correlationId?: string): Promise<any[]> {
+  async findAll(options?: any): Promise<any[]> {
     return await DatabaseWrapper.executeModelOperation(
       `${this.modelName}.findAll`,
-      () => this.model.findAll(options),
-      correlationId
+      () => this.model.findAll(options)
     );
   }
 
-  async findOne(options?: any, correlationId?: string): Promise<any> {
+  async findOne(options?: any): Promise<any> {
     return await DatabaseWrapper.executeModelOperation(
       `${this.modelName}.findOne`,
-      () => this.model.findOne(options),
-      correlationId
+      () => this.model.findOne(options)
     );
   }
 
-  async findByPk(id: any, options?: any, correlationId?: string): Promise<any> {
+  async findByPk(id: any, options?: any): Promise<any> {
     return await DatabaseWrapper.executeModelOperation(
       `${this.modelName}.findByPk`,
-      () => this.model.findByPk(id, options),
-      correlationId
+      () => this.model.findByPk(id, options)
     );
   }
 
-  async create(values: any, options?: any, correlationId?: string): Promise<any> {
+  async create(values: any, options?: any): Promise<any> {
     return await DatabaseWrapper.executeModelOperation(
       `${this.modelName}.create`,
-      () => this.model.create(values, options),
-      correlationId
+      () => this.model.create(values, options)
     );
   }
 
   async update(
     values: any,
-    options: any,
-    correlationId?: string
+    options: any
   ): Promise<[number, any[]]> {
     return await DatabaseWrapper.executeModelOperation(
       `${this.modelName}.update`,
-      () => this.model.update(values, options),
-      correlationId
+      () => this.model.update(values, options)
     );
   }
 
-  async destroy(options: any, correlationId?: string): Promise<number> {
+  async destroy(options: any): Promise<number> {
     return await DatabaseWrapper.executeModelOperation(
       `${this.modelName}.destroy`,
-      () => this.model.destroy(options),
-      correlationId
+      () => this.model.destroy(options)
     );
   }
 
-  async count(options?: any, correlationId?: string): Promise<number> {
+  async count(options?: any): Promise<number> {
     return await DatabaseWrapper.executeModelOperation(
       `${this.modelName}.count`,
-      () => this.model.count(options),
-      correlationId
+      () => this.model.count(options)
     );
   }
 }

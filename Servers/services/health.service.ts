@@ -40,7 +40,7 @@ class HealthService {
   private lastHealthCheck = 0;
   private readonly CACHE_TTL = 10000; // 10 seconds
 
-  async getHealthSummary(useCache: boolean = true, requestId: string = this.generateRequestId()): Promise<HealthResponse> {
+  async getHealthSummary(useCache: boolean = true): Promise<HealthResponse> {
     const startTime = Date.now();
     const now = Date.now();
 
@@ -50,7 +50,7 @@ class HealthService {
       now - this.lastHealthCheck < this.CACHE_TTL
     ) {
       // Update metadata for cached response
-      this.healthCache.metadata.requestId = requestId;
+      this.healthCache.metadata.requestId = this.generateRequestId();
       this.healthCache.metadata.responseTime = Date.now() - startTime;
       return this.healthCache;
     }
@@ -90,7 +90,7 @@ class HealthService {
       environment: process.env.NODE_ENV || "development",
       components: healthComponents,
       metadata: {
-        requestId,
+        requestId: this.generateRequestId(),
         responseTime,
         checks: {
           performed: healthComponents.length,
