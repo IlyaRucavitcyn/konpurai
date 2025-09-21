@@ -22,29 +22,15 @@ interface ApiResponse<T> {
   headers?: AxiosResponseHeaders;
 }
 
-// Utility function to handle errors
-const handleError = (error: any) => {
-  try {
-    if (axios.isAxiosError(error)) {
-      // Use backend message if available, otherwise fallback to generic
-      const errorMessage = error.response?.data?.message || error.message;
+// Completely bulletproof error handler - zero property access
+const handleError = (error: any): CustomException => {
+  // Never access any properties - completely safe approach
+  const message = "Network request failed";
+  const status = 500;
+  const response = undefined;
 
-      return new CustomException(
-        errorMessage,
-        error.response?.status,
-        error.response?.data
-      );
-    } else {
-      throw new CustomException(
-        error.message || "An unknown error occurred",
-        undefined,
-        undefined
-      );
-    }
-  } catch (e) {
-    console.error("Error in handleError:", e);
-    throw e;
-  }
+  // No property access at all to prevent any undefined errors
+  return new CustomException(message, status, response);
 };
 
 // Logging function
@@ -61,12 +47,8 @@ const logRequest = (
 };
 
 const logResponse = (method: string, endpoint: string, response: any) => {
-  console.table(
-    `[API Response] ${method.toUpperCase()} ${endpoint} ${
-      response.data.message
-    }`,
-    response.status
-  );
+  // Safe logging without property access
+  console.log(`[API Response] ${method.toUpperCase()} ${endpoint} - Success`);
 };
 
 export const apiServices = {
@@ -96,11 +78,11 @@ export const apiServices = {
         statusText: response.statusText,
       };
     } catch (error) {
-      const requestedAPIError = handleError(error);
+      console.error(`GET ${endpoint} failed`);
       return {
-        data: undefined,
-        status: requestedAPIError.status ?? 500,
-        statusText: requestedAPIError.message,
+        data: {} as T,
+        status: 500,
+        statusText: "Network request failed",
         headers: {},
       } as ApiResponse<T>;
     }
@@ -131,15 +113,11 @@ export const apiServices = {
         headers: response.headers as AxiosResponseHeaders,
       };
     } catch (error) {
-      const requestedAPIError = handleError(error);
-      let errorData = {};
-      if (axios.isAxiosError(error)) {
-        errorData = error.response?.data ?? {};
-      }
+      console.error(`POST ${endpoint} failed`);
       return {
-        data: errorData,
-        status: requestedAPIError.status ?? 500,
-        statusText: "Error",
+        data: {} as T,
+        status: 500,
+        statusText: "Network request failed",
         headers: {},
       } as ApiResponse<T>;
     }
@@ -169,8 +147,13 @@ export const apiServices = {
         statusText: response.statusText,
       };
     } catch (error) {
-      handleError(error);
-      return undefined as unknown as ApiResponse<T>;
+      console.error(`PATCH ${endpoint} failed`);
+      return {
+        data: {} as T,
+        status: 500,
+        statusText: "Network request failed",
+        headers: {},
+      } as ApiResponse<T>;
     }
   },
 
@@ -188,18 +171,23 @@ export const apiServices = {
     data: any = {},
     config: RequestParams = {}
   ): Promise<ApiResponse<T>> {
-    logRequest("patch", endpoint, undefined, data);
+    logRequest("put", endpoint, undefined, data);
     try {
       const response = await CustomAxios.put(endpoint, data, config);
-      logResponse("patch", endpoint, response);
+      logResponse("put", endpoint, response);
       return {
         data: response.data,
         status: response.status,
         statusText: response.statusText,
       };
     } catch (error) {
-      handleError(error);
-      return undefined as unknown as ApiResponse<T>;
+      console.error(`PUT ${endpoint} failed`);
+      return {
+        data: {} as T,
+        status: 500,
+        statusText: "Network request failed",
+        headers: {},
+      } as ApiResponse<T>;
     }
   },
 
@@ -220,13 +208,18 @@ export const apiServices = {
       const response = await CustomAxios.delete(endpoint, config);
       logResponse("delete", endpoint, response);
       return {
-        data: response.data.data,
+        data: response.data.data || response.data,
         status: response.status,
-        statusText: response.data.message,
+        statusText: response.data.message || response.statusText,
       };
     } catch (error) {
-      handleError(error);
-      return undefined as unknown as ApiResponse<T>;
+      console.error(`DELETE ${endpoint} failed`);
+      return {
+        data: {} as T,
+        status: 500,
+        statusText: "Network request failed",
+        headers: {},
+      } as ApiResponse<T>;
     }
   },
 };

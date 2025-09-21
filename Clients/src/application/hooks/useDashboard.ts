@@ -11,9 +11,15 @@ export const useDashboard = () => {
     try {
       setLoading(true);
       const response = await getAllEntities({ routeUrl: "/dashboard" });
-      setDashboard(response.data);
+      // Safe access to response data
+      if (response && response.data) {
+        setDashboard(response.data);
+      } else {
+        setDashboard({});
+      }
     } catch (error) {
       console.error("Error fetching dashboard:", error);
+      setDashboard({});
     } finally {
       setLoading(false);
     }

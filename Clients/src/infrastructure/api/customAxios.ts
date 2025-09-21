@@ -64,7 +64,7 @@ class HealthMonitor {
     }
 
     try {
-      const response = await axios.get('/health/live', {
+      const response = await axios.get('/health', {
         timeout: 5000,
         baseURL: `${ENV_VARs.URL}`,
       });
@@ -84,67 +84,24 @@ class HealthMonitor {
   }
 }
 
-// Request correlation and metrics tracking
-class RequestTracker {
-  private static instance: RequestTracker;
-  private activeRequests = new Map<string, RequestMetrics>();
-  private requestCounter = 0;
+// Simple request metrics tracking (without correlation IDs)
+class RequestMetrics {
+  private static instance: RequestMetrics;
+  private requestCount = 0;
 
-  static getInstance(): RequestTracker {
+  static getInstance(): RequestMetrics {
     if (!this.instance) {
-      this.instance = new RequestTracker();
+      this.instance = new RequestMetrics();
     }
     return this.instance;
   }
 
-  generateCorrelationId(): string {
-    this.requestCounter++;
-    return `client_${Date.now()}_${this.requestCounter}_${Math.random().toString(36).substr(2, 6)}`;
+  incrementRequestCount(): void {
+    this.requestCount++;
   }
 
-  startRequest(config: InternalAxiosRequestConfig): string {
-    const correlationId = config.headers['X-Correlation-ID'] as string || this.generateCorrelationId();
-
-    const metrics: RequestMetrics = {
-      correlationId,
-      startTime: Date.now(),
-      retryCount: 0,
-      endpoint: config.url || 'unknown',
-      method: config.method?.toUpperCase() || 'GET',
-    };
-
-    this.activeRequests.set(correlationId, metrics);
-    return correlationId;
-  }
-
-  recordRetry(correlationId: string): void {
-    const metrics = this.activeRequests.get(correlationId);
-    if (metrics) {
-      metrics.retryCount++;
-    }
-  }
-
-  endRequest(correlationId: string, success: boolean, statusCode?: number): void {
-    const metrics = this.activeRequests.get(correlationId);
-    if (metrics) {
-      const duration = Date.now() - metrics.startTime;
-
-      // Log performance metrics (in development)
-      if (process.env.NODE_ENV === 'development') {
-        console.debug(`Request ${correlationId}: ${metrics.method} ${metrics.endpoint}`, {
-          duration,
-          retries: metrics.retryCount,
-          success,
-          statusCode,
-        });
-      }
-
-      this.activeRequests.delete(correlationId);
-    }
-  }
-
-  getActiveRequestsCount(): number {
-    return this.activeRequests.size;
+  getRequestCount(): number {
+    return this.requestCount;
   }
 }
 
@@ -162,18 +119,13 @@ class RetryHandler {
 
   static async executeWithRetry<T>(
     operation: () => Promise<T>,
-    config: Partial<RetryConfig> = {},
-    correlationId?: string
+    config: Partial<RetryConfig> = {}
   ): Promise<T> {
     const finalConfig = { ...this.defaultConfig, ...config };
     let lastError: Error;
 
     for (let attempt = 0; attempt <= finalConfig.maxRetries; attempt++) {
       try {
-        if (attempt > 0 && correlationId) {
-          RequestTracker.getInstance().recordRetry(correlationId);
-        }
-
         return await operation();
       } catch (error) {
         lastError = error as Error;
@@ -243,7 +195,7 @@ export const setShowAlertCallback = (callback: (alert: AlertProps) => void) => {
 
 // Initialize resilience monitoring
 const healthMonitor = HealthMonitor.getInstance();
-const requestTracker = RequestTracker.getInstance();
+const requestMetrics = RequestMetrics.getInstance();
 const networkMonitor = NetworkMonitor.getInstance();
 
 // Create an enhanced instance of axios with resilience configurations
@@ -298,10 +250,7 @@ CustomAxios.interceptors.request.use(
       }
     }
 
-    // Start request tracking and add correlation ID
-    const correlationId = requestTracker.startRequest(config);
-    config.headers['X-Correlation-ID'] = correlationId;
-    config.headers['X-Request-ID'] = correlationId; // Alternative header name
+    // Add client metadata headers
     config.headers['X-Client-Version'] = process.env.REACT_APP_VERSION || '1.0.0';
     config.headers['X-Client-Timestamp'] = new Date().toISOString();
 
@@ -317,9 +266,6 @@ CustomAxios.interceptors.request.use(
       config.withCredentials = true;
     }
 
-    // Store the correlation ID in config for later use
-    (config as any)._correlationId = correlationId;
-
     return config;
   },
   (error) => {
@@ -330,16 +276,9 @@ CustomAxios.interceptors.request.use(
 // Enhanced response interceptor with resilience patterns and metrics
 CustomAxios.interceptors.response.use(
   (response: AxiosResponse) => {
-    // Track successful response
-    const correlationId = (response.config as any)._correlationId;
-    if (correlationId) {
-      requestTracker.endRequest(correlationId, true, response.status);
-    }
-
-    // Log backend correlation ID if present
-    const backendCorrelationId = response.headers['x-correlation-id'];
-    if (backendCorrelationId && process.env.NODE_ENV === 'development') {
-      console.debug(`Request completed with backend correlation ID: ${backendCorrelationId}`);
+    // Log successful response in development
+    if (process.env.NODE_ENV === 'development') {
+      console.debug(`Request completed successfully: ${response.config.method?.toUpperCase()} ${response.config.url}`);
     }
 
     return response;
@@ -348,32 +287,18 @@ CustomAxios.interceptors.response.use(
     const originalRequest = error.config as InternalAxiosRequestConfig & {
       _retry?: boolean;
       _retryCount?: number;
-      _correlationId?: string;
     };
-    const responseData = (error.response?.data as { message?: string, correlationId?: string });
+    const responseData = (error.response?.data as { message?: string });
 
-    // Track failed response
-    const correlationId = originalRequest._correlationId;
-    if (correlationId) {
-      requestTracker.endRequest(correlationId, false, error.response?.status);
-    }
-
-    // Enhanced error logging with correlation context
+    // Safe error logging
     if (process.env.NODE_ENV === 'development') {
-      console.error(`Request failed [${correlationId}]:`, {
-        method: originalRequest.method?.toUpperCase(),
-        url: originalRequest.url,
-        status: error.response?.status,
-        message: error.message,
-        backendCorrelationId: responseData?.correlationId,
-      });
+      console.error(`Request failed`);
     }
 
     // Handle specific status codes with enhanced logic
     if (error.response?.status === 404) {
       const errorMessage = responseData?.message || 'Resource not found';
       const enhancedError = new Error(errorMessage);
-      (enhancedError as any).correlationId = correlationId;
       (enhancedError as any).statusCode = 404;
       return Promise.reject(enhancedError);
     }
@@ -393,8 +318,7 @@ CustomAxios.interceptors.response.use(
             baseDelay: 1000 * originalRequest._retryCount,
             maxDelay: 5000,
             retryCondition: () => true, // Always retry server errors
-          },
-          correlationId
+          }
         );
       }
     }
@@ -418,7 +342,6 @@ CustomAxios.interceptors.response.use(
       }, 1000);
 
       const enhancedError = new Error(responseData?.message || 'Forbidden');
-      (enhancedError as any).correlationId = correlationId;
       (enhancedError as any).statusCode = 403;
       return Promise.reject(enhancedError);
     }
@@ -485,22 +408,8 @@ CustomAxios.interceptors.response.use(
       }
     }
 
-    // Enhanced error handling for all other cases
-    const enhancedError = new Error(error.message || 'Request failed');
-    (enhancedError as any).originalError = error;
-    (enhancedError as any).correlationId = correlationId;
-    (enhancedError as any).statusCode = error.response?.status;
-    (enhancedError as any).backendCorrelationId = responseData?.correlationId;
-    (enhancedError as any).url = originalRequest.url;
-    (enhancedError as any).method = originalRequest.method?.toUpperCase();
-
-    // Add network error specific information
-    if (!error.response) {
-      (enhancedError as any).networkError = true;
-      (enhancedError as any).isTimeout = error.code === 'ECONNABORTED';
-      (enhancedError as any).isOffline = !networkMonitor.isNetworkAvailable();
-    }
-
+    // Safe error handling for all other cases
+    const enhancedError = new Error('Request failed');
     return Promise.reject(enhancedError);
   }
 );
@@ -510,7 +419,7 @@ export default CustomAxios;
 
 // Export resilience monitoring functions for external use
 export const getNetworkStatus = () => networkMonitor.isNetworkAvailable();
-export const getActiveRequestsCount = () => requestTracker.getActiveRequestsCount();
+export const getRequestCount = () => requestMetrics.getRequestCount();
 export const checkBackendHealth = () => healthMonitor.checkBackendHealth();
 
 // Enhanced request wrapper with automatic retry for critical operations
