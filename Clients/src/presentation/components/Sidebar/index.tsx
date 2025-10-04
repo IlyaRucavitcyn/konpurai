@@ -943,7 +943,7 @@ const Sidebar = () => {
               </Box>
             </MenuItem>
           )}
-          <MenuItem
+          {/* <MenuItem
             onClick={() => {
               window.open(
                 "https://verifywise.ai/contact",
@@ -1002,7 +1002,7 @@ const Sidebar = () => {
           >
             <Discord />
             Ask on Discord
-          </MenuItem>
+          </MenuItem> */}
           <MenuItem
             onClick={logout}
             sx={{
