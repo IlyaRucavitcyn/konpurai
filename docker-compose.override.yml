@@ -2,8 +2,22 @@ version: '3.9'
 
 services:
   postgresdb:
+    image: postgres:16.8
+    # volumes:
+    #   - db:/var/lib/postgresql/data
     ports:
-      - $LOCAL_DB_PORT:$DB_PORT
+      - $DB_PORT:$DB_PORT
+    env_file:
+      - ./.env.dev
+    environment:
+      - POSTGRES_USER=$DB_USER
+      - POSTGRES_PASSWORD=$DB_PASSWORD
+      - POSTGRES_DB=$DB_NAME
+    healthcheck:
+      test: ["CMD", "pg_isready", "-U", "$DB_USER", "-d", "$DB_NAME"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
 
   backend:
     build:
@@ -11,6 +25,8 @@ services:
       dockerfile: Dockerfile.dev
     # volumes:
     #   - ./Servers/:/app
+    ports:
+      - $BACKEND_PORT:$BACKEND_PORT
     env_file:
       - ./.env.dev
 
