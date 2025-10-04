@@ -53,7 +53,7 @@ export const sendImmediateMessage = async (
 
 export const formatSlackMessage = (data: any) => {
   return {
-    text: `🚨 *Immediate Alert from VerifyWise*`,
+    text: `🚨 *Immediate Alert from Konpurai*`,
     blocks: [
       {
         type: "header",

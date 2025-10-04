@@ -19,7 +19,7 @@ export const tabStyle = {
   minHeight: "20px",
   minWidth: "auto",
   "&.Mui-selected": {
-    color: "#13715B",
+    color: "#1769AB",
   },
 };
 

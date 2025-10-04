@@ -305,7 +305,7 @@ The component integrates with the application's theme system through the `v1Sing
 
 ### Available Theme Colors
 
-- `primary`: Main brand color (#13715B)
+- `primary`: Main brand color (#1769AB)
 - `secondary`: Secondary brand color
 - `success`: Success state color
 - `warning`: Warning state color
@@ -321,11 +321,11 @@ const buttons = {
     contained: {
       height: 34,
       fontSize: "13px",
-      backgroundColor: "#13715B",
+      backgroundColor: "#1769AB",
       boxShadow: "none",
       textTransform: "Inherit",
       borderRadius: "4px",
-      border: "1px solid #13715B",
+      border: "1px solid #1769AB",
       "&:hover": {
         backgroundColor: "#0f604d",
         border: "1px solid #0f604d",
@@ -439,8 +439,8 @@ function Dashboard() {
         variant="contained"
         text="Create demo project"
         sx={{
-          backgroundColor: "#13715B",
-          border: "1px solid #13715B",
+          backgroundColor: "#1769AB",
+          border: "1px solid #1769AB",
           gap: 2,
         }}
         icon={<CloudDownloadIcon />}
@@ -452,8 +452,8 @@ function Dashboard() {
         variant="contained"
         text="New project"
         sx={{
-          backgroundColor: "#13715B",
-          border: "1px solid #13715B",
+          backgroundColor: "#1769AB",
+          border: "1px solid #1769AB",
           gap: 2,
         }}
         icon={<AddIcon />}

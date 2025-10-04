@@ -11,10 +11,23 @@ interface PageTourProps {
 export interface PageTourStep {
   target: string;
   content: JSX.Element;
-  placement?: "left" | "right" | "top" | "bottom" | "top-start" | "bottom-start" | "bottom-end" | "top-end";
+  placement?:
+    | "left"
+    | "right"
+    | "top"
+    | "bottom"
+    | "top-start"
+    | "bottom-start"
+    | "bottom-end"
+    | "top-end";
 }
 
-const PageTour: React.FC<PageTourProps> = ({ steps, run, onFinish, tourKey }) => {
+const PageTour: React.FC<PageTourProps> = ({
+  steps,
+  run,
+  onFinish,
+  tourKey,
+}) => {
   const [shouldRun, setShouldRun] = useState(false);
 
   useEffect(() => {
@@ -60,7 +73,7 @@ const PageTour: React.FC<PageTourProps> = ({ steps, run, onFinish, tourKey }) =>
       }}
       styles={{
         options: {
-          primaryColor: "#13715B",
+          primaryColor: "#1769AB",
           zIndex: 1200,
           beaconSize: 30,
         },

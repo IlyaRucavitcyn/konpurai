@@ -420,7 +420,7 @@ const VWISO27001ClauseDrawerDialog = ({
             elevation={0}
             sx={{
               backgroundColor: "#f8f9fa",
-              borderLeft: `3px solid #13715B`,
+              borderLeft: `3px solid #1769AB`,
               p: "10px",
               mt: "10px",
               mb: "15px",
@@ -816,8 +816,8 @@ const VWISO27001ClauseDrawerDialog = ({
             variant="contained"
             text="Save"
             sx={{
-              backgroundColor: "#13715B",
-              border: "1px solid #13715B",
+              backgroundColor: "#1769AB",
+              border: "1px solid #1769AB",
               gap: 2,
             }}
             onClick={handleSave}

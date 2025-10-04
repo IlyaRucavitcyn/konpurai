@@ -31,7 +31,7 @@ const CreateDemoData = ({
           <>
             <Typography fontSize={13} textAlign={"start"}>
               If you accept, we’ll generate demo (mock) data for you, allowing
-              you to explore and get a hands-on understanding of how VerifyWise
+              you to explore and get a hands-on understanding of how Konpurai
               works. We highly recommend this option.
             </Typography>
             <Typography fontSize={13} textAlign={"start"}>

@@ -31,7 +31,7 @@ const GenerateReport: React.FC<GenerateReportProps> = ({
         <CustomizableButton
           sx={{
             ...styles.buttonStyle,
-            border: isDisabled ? "1px solid #dddddd" : "1px solid #13715B",
+            border: isDisabled ? "1px solid #dddddd" : "1px solid #1769AB",
           }}
           variant="contained"
           text="Generate your report"
@@ -43,10 +43,10 @@ const GenerateReport: React.FC<GenerateReportProps> = ({
           <ReportStatus isDisabled={isDisabled} />
         </Suspense>
       </Stack>
-      <Dialog 
-        open={isModalOpen} 
+      <Dialog
+        open={isModalOpen}
         onClose={(_event, reason) => {
-          if (reason !== 'backdropClick') {
+          if (reason !== "backdropClick") {
             setIsModalOpen(false);
           }
         }}

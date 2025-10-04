@@ -6,13 +6,13 @@ export const textfieldStyle = {
 };
 
 export const styles = {
-  textBase : {
-    fontSize: "13px", 
+  textBase: {
+    fontSize: "13px",
     color: "#475467"
   },
-  textTitle : {
-    fontSize: 16, 
-    color: "#344054", 
+  textTitle: {
+    fontSize: 16,
+    color: "#344054",
     fontWeight: "bold"
   },
   container: {
@@ -38,18 +38,18 @@ export const styles = {
     marginBottom: "24px"
   },
   clearIconStyle: {
-    color: "#98A2B3", 
+    color: "#98A2B3",
     cursor: "pointer"
   },
   CustomizableButton: {
     width: { xs: "100%", sm: 160 },
-    backgroundColor: "#13715B",
+    backgroundColor: "#1769AB",
     color: "#fff",
-    border: "1px solid #13715B",
+    border: "1px solid #1769AB",
     gap: 2,
   },
   cancelBtn: {
-    fontSize: "13px", 
+    fontSize: "13px",
     color: "#475467",
     marginRight: "27px"
   }

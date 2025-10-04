@@ -127,11 +127,11 @@ const getMenuItems = (openTasksCount: number): MenuItem[] => [
     icon: <ReportingSvg />,
     path: "/reporting",
   },
-  {
-    name: "Bias & Fairness",
-    icon: <FairnessIcon />,
-    path: "/fairness-dashboard",
-  },
+  // {
+  //   name: "Bias & Fairness",
+  //   icon: <FairnessIcon />,
+  //   path: "/fairness-dashboard",
+  // },
   {
     name: "Training Registry",
     icon: <TrainingRegister />,
@@ -312,14 +312,14 @@ const Sidebar = () => {
               sx={{ opacity: 0.8, fontWeight: 500 }}
               className="app-title"
             >
-              Verify
-              <span
+              Konpurai
+              {/* <span
                 style={{
                   color: "#0f604d",
                 }}
               >
                 Wise
-              </span>
+              </span> */}
             </Typography>
           </MuiLink>
         </Stack>
@@ -943,7 +943,7 @@ const Sidebar = () => {
               </Box>
             </MenuItem>
           )}
-          <MenuItem
+          {/* <MenuItem
             onClick={() => {
               window.open(
                 "https://verifywise.ai/contact",
@@ -1002,7 +1002,7 @@ const Sidebar = () => {
           >
             <Discord />
             Ask on Discord
-          </MenuItem>
+          </MenuItem> */}
           <MenuItem
             onClick={logout}
             sx={{

@@ -18,9 +18,9 @@ export const subHeadingStyle = { color: "#667085", fontSize: 11, marginY: 6 };
 export const listItemStyle = {
   display: "block",
   "& .MuiListItemButton-root.Mui-selected": {
-    backgroundColor: "#13715B",
+    backgroundColor: "#1769AB",
   },
   "& .MuiListItemButton-root.Mui-selected:hover": {
-    backgroundColor: "#13715B",
+    backgroundColor: "#1769AB",
   },
 };

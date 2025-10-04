@@ -92,7 +92,7 @@ const VWProjectView = () => {
           <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
             <TabList
               onChange={handleChange}
-              TabIndicatorProps={{ style: { backgroundColor: "#13715B" } }}
+              TabIndicatorProps={{ style: { backgroundColor: "#1769AB" } }}
               sx={{
                 minHeight: "20px",
                 "& .MuiTabs-flexContainer": { columnGap: "34px" },

@@ -154,10 +154,10 @@ const AddFrameworkModal: React.FC<AddFrameworkModalProps> = ({
   });
 
   return (
-    <Modal 
-      open={open} 
+    <Modal
+      open={open}
       onClose={(_event, reason) => {
-        if (reason !== 'backdropClick') {
+        if (reason !== "backdropClick") {
           onClose();
         }
       }}
@@ -173,7 +173,7 @@ const AddFrameworkModal: React.FC<AddFrameworkModalProps> = ({
             onClick={onClose}
             sx={modalCloseButtonStyle}
           >
-            <CloseGreyIcon/>
+            <CloseGreyIcon />
           </IconButton>
         </Box>
         {/* Description */}
@@ -210,7 +210,7 @@ const AddFrameworkModal: React.FC<AddFrameworkModalProps> = ({
                           py: 0.5,
                           fontSize: 13,
                           fontWeight: 600,
-                          color: "#13715B",
+                          color: "#1769AB",
                         }}
                       >
                         <CheckGreenIcon />
@@ -242,7 +242,7 @@ const AddFrameworkModal: React.FC<AddFrameworkModalProps> = ({
                         sx={{
                           minWidth: 100,
                           fontWeight: 600,
-                          backgroundColor: "#13715B",
+                          backgroundColor: "#1769AB",
                           color: "#fff",
                           "&:hover": { backgroundColor: "#0e5c47" },
                         }}

@@ -186,7 +186,7 @@ const ISO42001Annex = ({
             completed={annexesProgress?.doneAnnexcategories ?? 0}
             total={annexesProgress?.totalAnnexcategories ?? 0}
             title="Annexes"
-            progressbarColor="#13715B"
+            progressbarColor="#1769AB"
           />
           <Typography sx={{ ...styles.title, mt: 4 }}>
             Annex A : Reference Controls (Statement of Applicability)
@@ -202,7 +202,11 @@ const ISO42001Annex = ({
                 >
                   <AccordionSummary sx={styles.accordionSummary}>
                     <RightArrowBlack
-                      style={styles.expandIcon(expanded === annex.id) as React.CSSProperties}
+                      style={
+                        styles.expandIcon(
+                          expanded === annex.id
+                        ) as React.CSSProperties
+                      }
                     />
                     {annex.title}
                   </AccordionSummary>

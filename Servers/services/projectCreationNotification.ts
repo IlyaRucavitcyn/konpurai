@@ -48,7 +48,7 @@ export const sendProjectCreatedNotification = async (
     };
 
     // Send the email using core notification service
-    const subject = `${data.projectName} is created in VerifyWise`;
+    const subject = `${data.projectName} is created in Konpurai`;
     await notificationService.sendEmailWithTemplate(
       adminUser.email,
       subject,

@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import Overview from "./Overview";
 import Resources from "./Resources";
 import Subprocessors from "./Subprocessors";
-import { Box,Stack } from "@mui/material";
+import { Box, Stack } from "@mui/material";
 import TabContext from "@mui/lab/TabContext";
 import TabList from "@mui/lab/TabList";
 import TabPanel from "@mui/lab/TabPanel";
@@ -30,29 +30,32 @@ const AITrustCentrePublic: React.FC = () => {
     setHash(hash);
   }, [params]);
 
-  const handleTabChange = (_: React.SyntheticEvent, newValue: string) => setTabValue(newValue);
+  const handleTabChange = (_: React.SyntheticEvent, newValue: string) =>
+    setTabValue(newValue);
 
   React.useEffect(() => {
     if (!hash) return;
     setLoading(true);
     setError(null);
-    axios.get(`${ENV_VARs.URL}/api/aiTrustCentre/${hash}`)
+    axios
+      .get(`${ENV_VARs.URL}/api/aiTrustCentre/${hash}`)
       .then((response) => {
         if (response?.data) {
           setData(response?.data?.data?.trustCentre);
         }
       })
       .catch((err) => {
-          setError(err?.response?.data?.error || err.message || 'Failed to fetch ai trust center data');
+        setError(
+          err?.response?.data?.error ||
+            err.message ||
+            "Failed to fetch ai trust center data"
+        );
       })
       .finally(() => {
         setLoading(false);
       });
-    return () => {
-    
-    };
+    return () => {};
   }, [hash]);
-
 
   return (
     <Stack
@@ -69,7 +72,7 @@ const AITrustCentrePublic: React.FC = () => {
         sx={{
           width: "100%",
           height: 180,
-          background: data?.info?.header_color || '#D6E4F9',
+          background: data?.info?.header_color || "#D6E4F9",
           position: "relative",
           px: 10,
         }}
@@ -79,7 +82,7 @@ const AITrustCentrePublic: React.FC = () => {
             position: "absolute",
             left: 0,
             right: 0,
-            bottom: -55, 
+            bottom: -55,
             display: "flex",
             justifyContent: "center",
             zIndex: 2,
@@ -103,7 +106,7 @@ const AITrustCentrePublic: React.FC = () => {
           >
             <TabList
               onChange={handleTabChange}
-              TabIndicatorProps={{ style: { backgroundColor: "#13715B" } }}
+              TabIndicatorProps={{ style: { backgroundColor: "#1769AB" } }}
               aria-label="AI Trust Center Public Tabs"
               sx={aiTrustCenterTabListStyle}
             >
@@ -128,10 +131,21 @@ const AITrustCentrePublic: React.FC = () => {
             </TabList>
           </Box>
           <TabPanel value="overview" sx={aiTrustCenterTabPanelStyle}>
-            <Overview data={data} loading={loading} error={error} onShowAllResources={() => setTabValue("resources")} hash={hash} />
+            <Overview
+              data={data}
+              loading={loading}
+              error={error}
+              onShowAllResources={() => setTabValue("resources")}
+              hash={hash}
+            />
           </TabPanel>
           <TabPanel value="resources" sx={aiTrustCenterTabPanelStyle}>
-            <Resources data={data} loading={loading} error={error} hash={hash} />
+            <Resources
+              data={data}
+              loading={loading}
+              error={error}
+              hash={hash}
+            />
           </TabPanel>
           <TabPanel value="subprocessors" sx={aiTrustCenterTabPanelStyle}>
             <Subprocessors data={data} loading={loading} error={error} />

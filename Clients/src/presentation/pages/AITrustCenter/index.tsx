@@ -63,50 +63,48 @@ const AITrustCenter: React.FC = () => {
           {
             label: "Customize Trust Center",
             description: "Configure your public portal content and branding",
-            primary: true
+            primary: true,
           },
           {
             label: "Preview Public View",
-            description: "See how your trust center appears to external visitors"
-          }
+            description:
+              "See how your trust center appears to external visitors",
+          },
         ]}
         useCases={[
           "**Public-facing portal** for customers to review your *AI ethics* and **governance practices**",
-          "**Compliance demonstration hub** for sharing *certifications* and **audit reports**"
+          "**Compliance demonstration hub** for sharing *certifications* and **audit reports**",
         ]}
         keyFeatures={[
           "**Customizable public portal** with your *branding* and **messaging**",
           "**Automated updates** from your *internal governance systems*",
-          "**Resource library** for sharing *whitepapers* and **compliance documentation**"
+          "**Resource library** for sharing *whitepapers* and **compliance documentation**",
         ]}
         tips={[
           "Keep your trust center updated with **latest certifications** and *policy changes*",
           "Include **clear contact information** for *stakeholder questions* and concerns",
-          "**Regularly review analytics** to understand what information *visitors seek most*"
+          "**Regularly review analytics** to understand what information *visitors seek most*",
         ]}
       />
 
-        <PageHeader
-               title="AI trust center"
-               description="AI Trust Center centralizes your AI policies, certifications, and
+      <PageHeader
+        title="AI trust center"
+        description="AI Trust Center centralizes your AI policies, certifications, and
                subprocessors to demonstrate responsible, transparent, and compliant AI practices."
-               rightContent={
-                  <HelperIcon
-                     onClick={() =>
-                     setIsHelperDrawerOpen(!isHelperDrawerOpen)
-                     }
-                     size="small"
-                    />
-                 }
-             />
-      
+        rightContent={
+          <HelperIcon
+            onClick={() => setIsHelperDrawerOpen(!isHelperDrawerOpen)}
+            size="small"
+          />
+        }
+      />
 
       <Stack>
         <TabContext value={tabValue}>
           <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
             <TabList
               onChange={handleTabChange}
-              TabIndicatorProps={{ style: { backgroundColor: "#13715B" } }}
+              TabIndicatorProps={{ style: { backgroundColor: "#1769AB" } }}
               sx={aiTrustCenterTabListStyle}
             >
               <Tab

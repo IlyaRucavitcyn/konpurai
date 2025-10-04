@@ -84,7 +84,7 @@ const ISO27001Annex = ({
       if (annex) {
         handleAccordionChange(annex.id)(new Event("click") as any, true);
         const annexControl = annex.annexControls?.find(
-          (ac: any) => ac.id === Number(activeAnnexControlId),
+          (ac: any) => ac.id === Number(activeAnnexControlId)
         );
         if (annexControl) handleControlClick(annex, annexControl);
       }
@@ -103,7 +103,7 @@ const ISO27001Annex = ({
 
   const handleControlClick = (annex: any, control: any) => {
     setAnnexTitle(
-      `${annex.arrangement}.${annex.order_no}.${control.order_no} ${control.title}`,
+      `${annex.arrangement}.${annex.order_no}.${control.order_no} ${control.title}`
     );
     setSelectedAnnex(annex);
     setSelectedControl(control);
@@ -125,7 +125,7 @@ const ISO27001Annex = ({
   const handleSaveSuccess = async (
     success: boolean,
     message?: string,
-    savedControlId?: number,
+    savedControlId?: number
   ) => {
     // Show appropriate toast message
     handleAlert({
@@ -156,7 +156,7 @@ const ISO27001Annex = ({
 
   const handleStatusChange = async (
     control: any,
-    newStatus: string,
+    newStatus: string
   ): Promise<boolean> => {
     try {
       const success = await updateISO27001AnnexStatus({
@@ -222,7 +222,7 @@ const ISO27001Annex = ({
             completed={annexesProgress?.doneAnnexControls ?? 0}
             total={annexesProgress?.totalAnnexControls ?? 0}
             title="Annexes"
-            progressbarColor="#13715B"
+            progressbarColor="#1769AB"
           />
           <Typography sx={{ ...styles.title, mt: 4 }}>
             Annex A : Reference Controls (Statement of Applicability)
@@ -238,7 +238,11 @@ const ISO27001Annex = ({
                 >
                   <AccordionSummary sx={styles.accordionSummary}>
                     <RightArrowBlack
-                      style={styles.expandIcon(expanded === annex.id) as React.CSSProperties}
+                      style={
+                        styles.expandIcon(
+                          expanded === annex.id
+                        ) as React.CSSProperties
+                      }
                     />
                     <Typography sx={{ paddingLeft: "2.5px", fontSize: 13 }}>
                       {annex.arrangement}.{annex.order_no} {annex.title}
@@ -253,7 +257,7 @@ const ISO27001Annex = ({
                         filteredControls = filteredControls.filter(
                           (control: any) =>
                             control.status?.toLowerCase() ===
-                            statusFilter.toLowerCase(),
+                            statusFilter.toLowerCase()
                         );
                       }
 
@@ -266,7 +270,7 @@ const ISO27001Annex = ({
                         const isApplicable = applicabilityFilter === "true";
                         filteredControls = filteredControls.filter(
                           (control: any) =>
-                            Boolean(control.applicable) === isApplicable,
+                            Boolean(control.applicable) === isApplicable
                         );
                       }
 
@@ -277,7 +281,7 @@ const ISO27001Annex = ({
                             onClick={() => handleControlClick(annex, control)}
                             sx={styles.controlRow(
                               filteredControls.length - 1 === index,
-                              flashingRowId === control.id,
+                              flashingRowId === control.id
                             )}
                           >
                             <Stack>

@@ -11,8 +11,8 @@ export const dropdownStyle = {
 };
 
 export const createProjectButtonStyle = {
-  backgroundColor: "#13715B",
-  border: "1px solid #13715B",
+  backgroundColor: "#1769AB",
+  border: "1px solid #1769AB",
   gap: 2,
 };
 
@@ -85,18 +85,18 @@ export const radioOptionStyle = {
   cursor: "pointer",
   transition: "all 0.2s ease-in-out",
   "&:hover": {
-    borderColor: "#13715B",
+    borderColor: "#1769AB",
     backgroundColor: "#F9F9F9",
   },
   "&.selected": {
-    borderColor: "#13715B",
+    borderColor: "#1769AB",
     backgroundColor: "#F0F9F6",
   },
 };
 
 export const continueButtonStyle = {
-  backgroundColor: "#13715B",
-  border: "1px solid #13715B",
+  backgroundColor: "#1769AB",
+  border: "1px solid #1769AB",
   gap: 2,
   marginTop: 2,
 };

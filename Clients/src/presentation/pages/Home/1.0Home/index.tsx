@@ -7,7 +7,7 @@ import {
   vwhomeHeading,
 } from "./style";
 import CustomizableButton from "../../../components/Button/CustomizableButton";
-import { ReactComponent as AddCircleOutlineIcon } from "../../../assets/icons/plus-circle-white.svg"
+import { ReactComponent as AddCircleOutlineIcon } from "../../../assets/icons/plus-circle-white.svg";
 import { VerifyWiseContext } from "../../../../application/contexts/VerifyWise.context";
 import CustomizableToast from "../../../components/Toast";
 import Alert from "../../../components/Alert";
@@ -25,7 +25,6 @@ import { useDashboard } from "../../../../application/hooks/useDashboard";
 import { Project } from "../../../../domain/types/Project";
 import ProjectList from "../../../components/ProjectsList/ProjectsList";
 import PageBreadcrumbs from "../../../components/Breadcrumbs/PageBreadcrumbs";
-
 
 const Home = () => {
   const {
@@ -83,7 +82,6 @@ const Home = () => {
     setIsProjectFormModalOpen(false);
     setRefreshProjectsFlag((prev) => !prev);
   };
-
 
   // const handleGenerateDemoDataClick = async () => {
   //   setShowToastNotification(true);
@@ -151,27 +149,28 @@ const Home = () => {
         quickActions={[
           {
             label: "Create New Project",
-            description: "Start a new AI governance project or compliance initiative",
-            primary: true
+            description:
+              "Start a new AI governance project or compliance initiative",
+            primary: true,
           },
           {
             label: "View Metrics",
-            description: "Check your compliance status and governance metrics"
-          }
+            description: "Check your compliance status and governance metrics",
+          },
         ]}
         useCases={[
           "**Daily monitoring** of *governance activities* and **compliance status**",
-          "**Executive reporting** with *real-time metrics* and **progress tracking**"
+          "**Executive reporting** with *real-time metrics* and **progress tracking**",
         ]}
         keyFeatures={[
           "**Real-time project status tracking** with *progress indicators*",
           "**Aggregated compliance metrics** across all *governance areas*",
-          "**Quick access** to *pending tasks* and **upcoming deadlines**"
+          "**Quick access** to *pending tasks* and **upcoming deadlines**",
         ]}
         tips={[
           "**Check the dashboard daily** to stay on top of *governance activities*",
           "Use **project filters** to focus on *specific initiatives* or teams",
-          "Set up **dashboard alerts** for *critical compliance thresholds*"
+          "Set up **dashboard alerts** for *critical compliance thresholds*",
         ]}
       />
       {alertState && (
@@ -201,8 +200,8 @@ const Home = () => {
                 variant="contained"
                 text="Create demo project"
                 sx={{
-                  backgroundColor: "#13715B",
-                  border: "1px solid #13715B",
+                  backgroundColor: "#1769AB",
+                  border: "1px solid #1769AB",
                   gap: 2,
                 }}
                 icon={<CloudDownloadIcon />}
@@ -217,8 +216,8 @@ const Home = () => {
                 variant="contained"
                 text="New project"
                 sx={{
-                  backgroundColor: "#13715B",
-                  border: "1px solid #13715B",
+                  backgroundColor: "#1769AB",
+                  border: "1px solid #1769AB",
                   gap: 2,
                 }}
                 icon={<AddCircleOutlineIcon />}
@@ -258,7 +257,7 @@ const Home = () => {
       <Modal
         open={isProjectFormModalOpen}
         onClose={(_event, reason) => {
-          if (reason !== 'backdropClick') {
+          if (reason !== "backdropClick") {
             handleProjectFormModalClose();
           }
         }}

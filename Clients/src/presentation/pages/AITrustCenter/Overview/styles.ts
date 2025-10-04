@@ -64,9 +64,9 @@ export const styles = {
 
   checkbox: {
     "& .MuiCheckbox-root": {
-      color: '#13715B',
+      color: '#1769AB',
       '&.Mui-checked': {
-        color: '#13715B',
+        color: '#1769AB',
       },
       '&:hover': {
         backgroundColor: 'rgba(19, 113, 91, 0.04)',
@@ -154,7 +154,7 @@ export const styles = {
       padding: "0 14px",
     },
   },
-}; 
+};
 
 export const getFormControlLabelStyles = (theme: Theme) => ({
   margin: 0,

@@ -8,9 +8,17 @@ interface CustomTextFieldProps {
   loading?: boolean;
 }
 
-const CustomTextField: React.FC<CustomTextFieldProps> = ({ label, value, loading }) => (
+const CustomTextField: React.FC<CustomTextFieldProps> = ({
+  label,
+  value,
+  loading,
+}) => (
   <Box sx={{ width: "33%", mb: 2 }}>
-    <Typography variant="subtitle2" color="#13715B" sx={{ mb: 1, fontWeight: 600 }}>
+    <Typography
+      variant="subtitle2"
+      color="#1769AB"
+      sx={{ mb: 1, fontWeight: 600 }}
+    >
       {label}
     </Typography>
     <Box
@@ -27,7 +35,7 @@ const CustomTextField: React.FC<CustomTextFieldProps> = ({ label, value, loading
         <Skeleton variant="rectangular" width="100%" height={40} />
       ) : (
         <TextField
-          value={value || ''}
+          value={value || ""}
           InputProps={{ readOnly: true, disableUnderline: true }}
           variant="standard"
           multiline
@@ -38,7 +46,7 @@ const CustomTextField: React.FC<CustomTextFieldProps> = ({ label, value, loading
             background: "#fff",
             border: "none",
             p: 0,
-            '& .MuiInputBase-input': {
+            "& .MuiInputBase-input": {
               fontSize: 13,
               lineHeight: 1.5,
             },

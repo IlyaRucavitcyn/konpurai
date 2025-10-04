@@ -94,6 +94,6 @@ export const tabListStyle: SxProps<Theme> = {
   borderBottom: "none",
   "& .MuiTabs-flexContainer": { columnGap: "34px" },
   "& .MuiTabs-indicator": {
-    backgroundColor: "#13715B",
+    backgroundColor: "#1769AB",
   },
 };

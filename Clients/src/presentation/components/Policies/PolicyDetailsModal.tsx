@@ -247,7 +247,7 @@ const PolicyDetailModal: React.FC<Props> = ({
       <Drawer
         open={true}
         onClose={(_event, reason) => {
-          if (reason !== 'backdropClick') {
+          if (reason !== "backdropClick") {
             onClose();
           }
         }}
@@ -284,9 +284,12 @@ const PolicyDetailModal: React.FC<Props> = ({
 
         <Divider sx={{ my: 2 }} />
 
-        <Stack spacing={4} sx={{
+        <Stack
+          spacing={4}
+          sx={{
             paddingBottom: 30, // leaves space so content won't hide under Save button
-          }}>
+          }}
+        >
           <PolicyForm
             formData={formData}
             setFormData={setFormData}
@@ -413,15 +416,15 @@ const PolicyDetailModal: React.FC<Props> = ({
                       boxShadow: "0px 1px 2px rgba(16, 24, 40, 0.05)",
                       border: "1px solid",
                       borderColor: toolbarState[key]
-                        ? "#13715B"
+                        ? "#1769AB"
                         : "transparent",
-                      outline: toolbarState[key] ? "1px solid #13715B" : "none",
+                      outline: toolbarState[key] ? "1px solid #1769AB" : "none",
                       mr: 1,
                       transition:
                         "border-color 0.2s ease, outline 0.2s ease, background-color 0.2s ease",
                       "&:hover": {
                         backgroundColor: theme.palette.background.main,
-                        borderColor: toolbarState[key] ? "#13715B" : "#888", // preserve selection color
+                        borderColor: toolbarState[key] ? "#1769AB" : "#888", // preserve selection color
                         outline: "1px solid rgba(0, 0, 0, 0.08)", // subtle hover outline
                       },
                     }}
@@ -462,24 +465,24 @@ const PolicyDetailModal: React.FC<Props> = ({
 
         <Box
           sx={{
-            position: "fixed",            
+            position: "fixed",
             bottom: 0,
             right: 0,
-            width: 800,                     // same width as Drawer
+            width: 800, // same width as Drawer
             p: 2,
-            backgroundColor: "#fff",        // give it a background to overlap content
-            borderTop: "1px solid #E0E0E0", 
+            backgroundColor: "#fff", // give it a background to overlap content
+            borderTop: "1px solid #E0E0E0",
             display: "flex",
             justifyContent: "flex-end",
-            zIndex: 1201,                   // above Drawer content
+            zIndex: 1201, // above Drawer content
           }}
         >
           <CustomizableButton
             variant="contained"
             text="Save"
             sx={{
-              backgroundColor: "#13715B",
-              border: "1px solid #13715B",
+              backgroundColor: "#1769AB",
+              border: "1px solid #1769AB",
               gap: 2,
               "&:hover": {
                 backgroundColor: "#0F5B4D",

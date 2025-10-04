@@ -598,7 +598,8 @@ const AddNewRisk: React.FC<AddNewRiskProps> = ({
               marginBottom={theme.spacing(2)}
               sx={{ lineHeight: 1.4 }}
             >
-              Document and assess a potential risk associated with your vendor. Provide details of the risk, its impact, and your mitigation plan.
+              Document and assess a potential risk associated with your vendor.
+              Provide details of the risk, its impact, and your mitigation plan.
             </Typography>
           )}
           <TabContext value={value}>
@@ -612,8 +613,8 @@ const AddNewRisk: React.FC<AddNewRiskProps> = ({
                 variant="contained"
                 text="Save"
                 sx={{
-                  backgroundColor: "#13715B",
-                  border: "1px solid #13715B",
+                  backgroundColor: "#1769AB",
+                  border: "1px solid #1769AB",
                   gap: 2,
                 }}
                 onClick={handleSave}

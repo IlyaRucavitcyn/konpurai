@@ -16,7 +16,7 @@ import {
   Alert,
   CircularProgress,
 } from "@mui/material";
-import { ReactComponent as AddCircleOutlineIcon } from "../../assets/icons/plus-circle-white.svg"
+import { ReactComponent as AddCircleOutlineIcon } from "../../assets/icons/plus-circle-white.svg";
 import CloseIcon from "@mui/icons-material/Close";
 import { useNavigate } from "react-router-dom";
 
@@ -76,24 +76,26 @@ export default function BiasAndFairnessModule() {
       attributeGroups: {
         sex: {
           privileged: ["Male"],
-          unprivileged: ["Female"]
+          unprivileged: ["Female"],
         },
         race: {
           privileged: ["White"],
-          unprivileged: ["Black", "Other"]
-        }
-      }
-    }
+          unprivileged: ["Black", "Other"],
+        },
+      },
+    },
   });
 
   const [dialogOpen, setDialogOpen] = useState(false);
   const [showAdvancedSettings, setShowAdvancedSettings] = useState(false);
-  const [evaluations, setEvaluations] = useState<Array<{
-    eval_id: string;
-    model_name: string;
-    dataset_name: string;
-    status: string;
-  }>>([]);
+  const [evaluations, setEvaluations] = useState<
+    Array<{
+      eval_id: string;
+      model_name: string;
+      dataset_name: string;
+      status: string;
+    }>
+  >([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [success, setSuccess] = useState<string | null>(null);
@@ -110,15 +112,18 @@ export default function BiasAndFairnessModule() {
     try {
       const data = await biasAndFairnessService.getAllBiasFairnessEvaluations();
       setEvaluations(data);
-      
+
       // Check for any pending/running evaluations and poll their status
-      const pendingEvaluations = data.filter(evaluation => 
-        !evaluation.status || evaluation.status === "pending" || evaluation.status === "running"
+      const pendingEvaluations = data.filter(
+        (evaluation) =>
+          !evaluation.status ||
+          evaluation.status === "pending" ||
+          evaluation.status === "running"
       );
-      
+
       if (pendingEvaluations.length > 0) {
         // Poll status for pending evaluations
-        pendingEvaluations.forEach(evaluation => {
+        pendingEvaluations.forEach((evaluation) => {
           if (evaluation.eval_id) {
             pollEvaluationStatus(evaluation.eval_id);
           }
@@ -131,38 +136,44 @@ export default function BiasAndFairnessModule() {
     }
   };
 
-  const handleDatasetChange = (field: keyof typeof config.dataset, value: string) => {
-    setConfig(prev => ({
+  const handleDatasetChange = (
+    field: keyof typeof config.dataset,
+    value: string
+  ) => {
+    setConfig((prev) => ({
       ...prev,
-      dataset: { ...prev.dataset, [field]: value }
+      dataset: { ...prev.dataset, [field]: value },
     }));
   };
 
-  const handleModelChange = (field: keyof typeof config.model, value: string) => {
-    setConfig(prev => ({
+  const handleModelChange = (
+    field: keyof typeof config.model,
+    value: string
+  ) => {
+    setConfig((prev) => ({
       ...prev,
-      model: { ...prev.model, [field]: value }
+      model: { ...prev.model, [field]: value },
     }));
   };
 
   const handleModelTaskChange = (newTask: string) => {
     const labelBehaviorMap: Record<string, string> = {
       binary_classification: "binary",
-      multiclass_classification: "categorical", 
+      multiclass_classification: "categorical",
       regression: "continuous",
       generation: "continuous",
-      ranking: "continuous"
+      ranking: "continuous",
     };
 
     const newLabelBehavior = labelBehaviorMap[newTask] || "binary";
 
-    setConfig(prev => ({
+    setConfig((prev) => ({
       ...prev,
-      model: { 
-        ...prev.model, 
+      model: {
+        ...prev.model,
         modelTask: newTask,
-        labelBehavior: newLabelBehavior
-      }
+        labelBehavior: newLabelBehavior,
+      },
     }));
   };
 
@@ -188,14 +199,14 @@ export default function BiasAndFairnessModule() {
         attributeGroups: {
           sex: {
             privileged: ["Male"],
-            unprivileged: ["Female"]
+            unprivileged: ["Female"],
           },
           race: {
             privileged: ["White"],
-            unprivileged: ["Black", "Other"]
-          }
-        }
-      }
+            unprivileged: ["Black", "Other"],
+          },
+        },
+      },
     });
     setShowAdvancedSettings(false);
     setError(null);
@@ -203,13 +214,20 @@ export default function BiasAndFairnessModule() {
   };
 
   const handleStartEvaluation = async () => {
-    if (!config.dataset.name || !config.dataset.source || !config.model.modelId) {
+    if (
+      !config.dataset.name ||
+      !config.dataset.source ||
+      !config.model.modelId
+    ) {
       setError("Please fill in all required fields");
       return;
     }
 
     // Check if target column is required for binary classification
-    if (config.model.modelTask === "binary_classification" && !config.targetColumn) {
+    if (
+      config.model.modelTask === "binary_classification" &&
+      !config.targetColumn
+    ) {
       setError("Target column is required for binary classification tasks");
       return;
     }
@@ -226,41 +244,43 @@ export default function BiasAndFairnessModule() {
           split: config.dataset.split,
           platform: config.dataset.platform,
           protected_attributes: ["sex", "race"],
-          target_column: config.targetColumn || "income"
+          target_column: config.targetColumn || "income",
         },
         model: {
           model_id: config.model.modelId,
           model_task: config.model.modelTask,
-          label_behavior: config.model.labelBehavior
+          label_behavior: config.model.labelBehavior,
         },
         metrics: {
           fairness: config.metrics.fairness,
-          performance: config.metrics.performance
+          performance: config.metrics.performance,
         },
         post_processing: {
           binary_mapping: {
             favorable_outcome: ">50K",
-            unfavorable_outcome: "<=50K"
+            unfavorable_outcome: "<=50K",
           },
-          attribute_groups: config.postProcessing?.attributeGroups
+          attribute_groups: config.postProcessing?.attributeGroups,
         },
         sampling: {
           enabled: true,
           n_samples: 50,
-          random_seed: 42
-        }
+          random_seed: 42,
+        },
       };
 
       // Start the evaluation with the new API
-      const response = await biasAndFairnessService.createConfigAndEvaluate(apiPayload);
-      
+      const response = await biasAndFairnessService.createConfigAndEvaluate(
+        apiPayload
+      );
+
       setSuccess("Evaluation started successfully!");
       setDialogOpen(false);
       resetForm();
-      
+
       // Reload evaluations to show the new one
       await loadEvaluations();
-      
+
       // Start polling for status updates
       if (response.eval_id) {
         pollEvaluationStatus(response.eval_id);
@@ -275,31 +295,44 @@ export default function BiasAndFairnessModule() {
   const pollEvaluationStatus = async (evalId: string) => {
     try {
       await biasAndFairnessService.pollEvaluationStatus(evalId);
-      
+
       // Reload evaluations to get updated status
       await loadEvaluations();
-    } catch (error) {
-    }
+    } catch (error) {}
   };
 
   // Transform evaluations for FairnessTable
-  const tableRows = evaluations.map(evaluation => ({
-    id: evaluation.eval_id || "Pending...",
-    model: evaluation.model_name || "Unknown Model",
-    dataset: evaluation.dataset_name || "Unknown Dataset",
-    status: evaluation.status === "completed" ? "Completed" : 
-            evaluation.status === "running" ? "In Progress" : 
-            evaluation.status === "failed" ? "Failed" : 
-            evaluation.status === "pending" ? "Pending" : "Pending"
-  } as { id: string; model: string; dataset: string; status: "In Progress" | "Completed" | "Failed" | "Pending" | "Running" }));
+  const tableRows = evaluations.map(
+    (evaluation) =>
+      ({
+        id: evaluation.eval_id || "Pending...",
+        model: evaluation.model_name || "Unknown Model",
+        dataset: evaluation.dataset_name || "Unknown Dataset",
+        status:
+          evaluation.status === "completed"
+            ? "Completed"
+            : evaluation.status === "running"
+            ? "In Progress"
+            : evaluation.status === "failed"
+            ? "Failed"
+            : evaluation.status === "pending"
+            ? "Pending"
+            : "Pending",
+      } as {
+        id: string;
+        model: string;
+        dataset: string;
+        status: "In Progress" | "Completed" | "Failed" | "Pending" | "Running";
+      })
+  );
 
   const tableColumns = [
     "EVAL ID",
-    "MODEL", 
+    "MODEL",
     "DATASET",
     "STATUS",
     "REPORT",
-    "ACTION"
+    "ACTION",
   ];
 
   const handleShowDetails = (evaluation: { id: string }) => {
@@ -309,10 +342,11 @@ export default function BiasAndFairnessModule() {
 
   const handleRemoveModel = async (id: string) => {
     try {
-      
       // Optimistically remove the item from the local state for immediate UI feedback
       setEvaluations((prevEvaluations) => {
-        const newEvaluations = prevEvaluations.filter((evaluation) => evaluation.eval_id !== id);
+        const newEvaluations = prevEvaluations.filter(
+          (evaluation) => evaluation.eval_id !== id
+        );
         return newEvaluations;
       });
 
@@ -325,10 +359,9 @@ export default function BiasAndFairnessModule() {
       setSuccess("Evaluation deleted successfully!");
       setTimeout(() => setSuccess(null), 3000);
     } catch (error) {
-      
       // If delete failed, revert the optimistic update by fetching fresh data
       await loadEvaluations();
-      
+
       setError("Failed to delete evaluation. Please try again.");
       setTimeout(() => setError(null), 5000);
     }
@@ -343,7 +376,11 @@ export default function BiasAndFairnessModule() {
       )}
 
       {success && (
-        <Alert severity="success" sx={{ mb: 2 }} onClose={() => setSuccess(null)}>
+        <Alert
+          severity="success"
+          sx={{ mb: 2 }}
+          onClose={() => setSuccess(null)}
+        >
           {success}
         </Alert>
       )}
@@ -357,13 +394,13 @@ export default function BiasAndFairnessModule() {
             setShowAdvancedSettings(false);
           }}
           sx={{
-            backgroundColor: "#13715B",
+            backgroundColor: "#1769AB",
             color: "white",
             textTransform: "none",
             fontSize: "0.875rem",
             fontWeight: 500,
             padding: "8px 20px",
-            borderRadius: "6px"
+            borderRadius: "6px",
           }}
         >
           New Evaluation
@@ -376,7 +413,7 @@ export default function BiasAndFairnessModule() {
           columns={tableColumns}
           rows={tableRows}
           removeModel={{
-            onConfirm: handleRemoveModel
+            onConfirm: handleRemoveModel,
           }}
           page={currentPage}
           setCurrentPagingation={setCurrentPage}
@@ -385,31 +422,41 @@ export default function BiasAndFairnessModule() {
       </Box>
 
       {/* Configuration Dialog */}
-      <Dialog 
-        open={dialogOpen} 
+      <Dialog
+        open={dialogOpen}
         onClose={() => {
           setDialogOpen(false);
           resetForm();
-        }} 
-        maxWidth="md" 
+        }}
+        maxWidth="md"
         fullWidth
       >
         <DialogTitle>
-          <Box display="flex" justifyContent="space-between" alignItems="flex-start">
+          <Box
+            display="flex"
+            justifyContent="space-between"
+            alignItems="flex-start"
+          >
             <Box>
               <Typography variant="h6" sx={{ fontWeight: 600, mb: 1 }}>
                 Configure Bias & Fairness Evaluation
               </Typography>
-              <Typography variant="body2" sx={{ color: "#6B7280", fontSize: "0.875rem", lineHeight: 1.5 }}>
-                Configure your evaluation parameters to perform comprehensive bias and fairness analysis. 
-                Fill in the dataset and model information, select your desired metrics, and optionally 
+              <Typography
+                variant="body2"
+                sx={{ color: "#6B7280", fontSize: "0.875rem", lineHeight: 1.5 }}
+              >
+                Configure your evaluation parameters to perform comprehensive
+                bias and fairness analysis. Fill in the dataset and model
+                information, select your desired metrics, and optionally
                 configure advanced settings for fine-tuned control.
               </Typography>
             </Box>
-            <IconButton onClick={() => {
-              setDialogOpen(false);
-              resetForm();
-            }}>
+            <IconButton
+              onClick={() => {
+                setDialogOpen(false);
+                resetForm();
+              }}
+            >
               <CloseIcon />
             </IconButton>
           </Box>
@@ -423,27 +470,47 @@ export default function BiasAndFairnessModule() {
               </Typography>
               <Box sx={S.gridAutoFit250}>
                 <Box>
-                  <Typography variant="body2" sx={{ mb: 1, color: "#374151", fontSize: "0.875rem", fontWeight: 500 }}>
+                  <Typography
+                    variant="body2"
+                    sx={{
+                      mb: 1,
+                      color: "#374151",
+                      fontSize: "0.875rem",
+                      fontWeight: 500,
+                    }}
+                  >
                     Dataset Name
                   </Typography>
                   <TextField
                     fullWidth
                     placeholder="e.g., adult-census-income"
                     value={config.dataset.name}
-                    onChange={(e) => handleDatasetChange("name", e.target.value)}
+                    onChange={(e) =>
+                      handleDatasetChange("name", e.target.value)
+                    }
                     size="small"
                     sx={S.inputSmall}
                   />
                 </Box>
                 <Box>
-                  <Typography variant="body2" sx={{ mb: 1, color: "#374151", fontSize: "0.875rem", fontWeight: 500 }}>
+                  <Typography
+                    variant="body2"
+                    sx={{
+                      mb: 1,
+                      color: "#374151",
+                      fontSize: "0.875rem",
+                      fontWeight: 500,
+                    }}
+                  >
                     Dataset Source
                   </Typography>
                   <TextField
                     fullWidth
                     placeholder="e.g., scikit-learn/adult-census-income"
                     value={config.dataset.source}
-                    onChange={(e) => handleDatasetChange("source", e.target.value)}
+                    onChange={(e) =>
+                      handleDatasetChange("source", e.target.value)
+                    }
                     size="small"
                     sx={S.inputSmall}
                   />
@@ -451,13 +518,23 @@ export default function BiasAndFairnessModule() {
               </Box>
               <Box sx={{ ...S.gridAutoFit250, mt: 2 }}>
                 <Box>
-                  <Typography variant="body2" sx={{ mb: 1, color: "#374151", fontSize: "0.875rem", fontWeight: 500 }}>
+                  <Typography
+                    variant="body2"
+                    sx={{
+                      mb: 1,
+                      color: "#374151",
+                      fontSize: "0.875rem",
+                      fontWeight: 500,
+                    }}
+                  >
                     Split
                   </Typography>
                   <FormControl fullWidth size="small">
                     <Select
                       value={config.dataset.split}
-                      onChange={(e) => handleDatasetChange("split", e.target.value)}
+                      onChange={(e) =>
+                        handleDatasetChange("split", e.target.value)
+                      }
                       sx={S.inputSmall}
                     >
                       <MenuItem value="train">Train</MenuItem>
@@ -467,13 +544,23 @@ export default function BiasAndFairnessModule() {
                   </FormControl>
                 </Box>
                 <Box>
-                  <Typography variant="body2" sx={{ mb: 1, color: "#374151", fontSize: "0.875rem", fontWeight: 500 }}>
+                  <Typography
+                    variant="body2"
+                    sx={{
+                      mb: 1,
+                      color: "#374151",
+                      fontSize: "0.875rem",
+                      fontWeight: 500,
+                    }}
+                  >
                     Platform
                   </Typography>
                   <FormControl fullWidth size="small">
                     <Select
                       value={config.dataset.platform}
-                      onChange={(e) => handleDatasetChange("platform", e.target.value)}
+                      onChange={(e) =>
+                        handleDatasetChange("platform", e.target.value)
+                      }
                       sx={S.inputSmall}
                     >
                       <MenuItem value="huggingface">HuggingFace</MenuItem>
@@ -492,20 +579,38 @@ export default function BiasAndFairnessModule() {
               </Typography>
               <Box sx={S.gridAutoFit250}>
                 <Box>
-                  <Typography variant="body2" sx={{ mb: 1, color: "#374151", fontSize: "0.875rem", fontWeight: 500 }}>
+                  <Typography
+                    variant="body2"
+                    sx={{
+                      mb: 1,
+                      color: "#374151",
+                      fontSize: "0.875rem",
+                      fontWeight: 500,
+                    }}
+                  >
                     Model ID
                   </Typography>
                   <TextField
                     fullWidth
                     placeholder="e.g., TinyLlama/TinyLlama-1.1B-Chat-v1.0"
                     value={config.model.modelId}
-                    onChange={(e) => handleModelChange("modelId", e.target.value)}
+                    onChange={(e) =>
+                      handleModelChange("modelId", e.target.value)
+                    }
                     size="small"
                     sx={S.inputSmall}
                   />
                 </Box>
                 <Box>
-                  <Typography variant="body2" sx={{ mb: 1, color: "#374151", fontSize: "0.875rem", fontWeight: 500 }}>
+                  <Typography
+                    variant="body2"
+                    sx={{
+                      mb: 1,
+                      color: "#374151",
+                      fontSize: "0.875rem",
+                      fontWeight: 500,
+                    }}
+                  >
                     Model Task Type
                   </Typography>
                   <FormControl fullWidth size="small">
@@ -514,8 +619,12 @@ export default function BiasAndFairnessModule() {
                       onChange={(e) => handleModelTaskChange(e.target.value)}
                       sx={S.inputSmall}
                     >
-                      <MenuItem value="binary_classification">Binary Classification</MenuItem>
-                      <MenuItem value="multiclass_classification">Multiclass Classification</MenuItem>
+                      <MenuItem value="binary_classification">
+                        Binary Classification
+                      </MenuItem>
+                      <MenuItem value="multiclass_classification">
+                        Multiclass Classification
+                      </MenuItem>
                       <MenuItem value="regression">Regression</MenuItem>
                       <MenuItem value="generation">Generation (LLM)</MenuItem>
                       <MenuItem value="ranking">Ranking</MenuItem>
@@ -525,13 +634,23 @@ export default function BiasAndFairnessModule() {
               </Box>
               <Box sx={{ ...S.gridAutoFit250, mt: 2 }}>
                 <Box>
-                  <Typography variant="body2" sx={{ mb: 1, color: "#374151", fontSize: "0.875rem", fontWeight: 500 }}>
+                  <Typography
+                    variant="body2"
+                    sx={{
+                      mb: 1,
+                      color: "#374151",
+                      fontSize: "0.875rem",
+                      fontWeight: 500,
+                    }}
+                  >
                     Label Behavior
                   </Typography>
                   <FormControl fullWidth size="small">
                     <Select
                       value={config.model.labelBehavior}
-                      onChange={(e) => handleModelChange("labelBehavior", e.target.value)}
+                      onChange={(e) =>
+                        handleModelChange("labelBehavior", e.target.value)
+                      }
                       sx={S.inputSmall}
                     >
                       <MenuItem value="binary">Binary</MenuItem>
@@ -543,14 +662,27 @@ export default function BiasAndFairnessModule() {
                 {/* Target Column - Only show for binary classification */}
                 {config.model.modelTask === "binary_classification" ? (
                   <Box>
-                    <Typography variant="body2" sx={{ mb: 1, color: "#374151", fontSize: "0.875rem", fontWeight: 500 }}>
+                    <Typography
+                      variant="body2"
+                      sx={{
+                        mb: 1,
+                        color: "#374151",
+                        fontSize: "0.875rem",
+                        fontWeight: 500,
+                      }}
+                    >
                       Target Column
                     </Typography>
                     <TextField
                       fullWidth
                       placeholder="e.g., income"
                       value={config.targetColumn}
-                      onChange={(e) => setConfig(prev => ({ ...prev, targetColumn: e.target.value }))}
+                      onChange={(e) =>
+                        setConfig((prev) => ({
+                          ...prev,
+                          targetColumn: e.target.value,
+                        }))
+                      }
                       size="small"
                       sx={S.inputSmall}
                     />
@@ -568,29 +700,53 @@ export default function BiasAndFairnessModule() {
               <Typography variant="body1" sx={S.sectionTitle}>
                 Metrics Configuration
               </Typography>
-              <Typography variant="body2" sx={{ mb: 1, color: "#374151", fontSize: "0.875rem", fontWeight: 500 }}>
-                Fairness Metrics for {config.model.modelTask.replace('_', ' ').replace(/\b\w/g, l => l.toUpperCase())} Task
+              <Typography
+                variant="body2"
+                sx={{
+                  mb: 1,
+                  color: "#374151",
+                  fontSize: "0.875rem",
+                  fontWeight: 500,
+                }}
+              >
+                Fairness Metrics for{" "}
+                {config.model.modelTask
+                  .replace("_", " ")
+                  .replace(/\b\w/g, (l) => l.toUpperCase())}{" "}
+                Task
               </Typography>
               <Typography variant="body2" sx={S.helperMuted}>
-                Metrics automatically filtered based on your selected model task type.
+                Metrics automatically filtered based on your selected model task
+                type.
               </Typography>
               <FormControl fullWidth size="small">
                 <Select
                   multiple
                   value={config.metrics.fairness}
-                  onChange={(e) => setConfig(prev => ({
-                    ...prev,
-                    metrics: {
-                      ...prev.metrics,
-                      fairness: typeof e.target.value === 'string' ? [e.target.value] : e.target.value
-                    }
-                  }))}
+                  onChange={(e) =>
+                    setConfig((prev) => ({
+                      ...prev,
+                      metrics: {
+                        ...prev.metrics,
+                        fairness:
+                          typeof e.target.value === "string"
+                            ? [e.target.value]
+                            : e.target.value,
+                      },
+                    }))
+                  }
                   sx={S.inputSmall}
                 >
-                  <MenuItem value="demographic_parity">Demographic Parity</MenuItem>
+                  <MenuItem value="demographic_parity">
+                    Demographic Parity
+                  </MenuItem>
                   <MenuItem value="equalized_odds">Equalized Odds</MenuItem>
-                  <MenuItem value="predictive_parity">Predictive Parity</MenuItem>
-                  <MenuItem value="equalized_opportunity">Equalized Opportunity</MenuItem>
+                  <MenuItem value="predictive_parity">
+                    Predictive Parity
+                  </MenuItem>
+                  <MenuItem value="equalized_opportunity">
+                    Equalized Opportunity
+                  </MenuItem>
                 </Select>
               </FormControl>
             </Box>
@@ -601,26 +757,44 @@ export default function BiasAndFairnessModule() {
                 Attribute Groups
               </Typography>
               <Typography variant="body2" sx={S.helperMuted}>
-                Define privileged and unprivileged groups for protected attributes to analyze fairness across different demographic groups.
+                Define privileged and unprivileged groups for protected
+                attributes to analyze fairness across different demographic
+                groups.
               </Typography>
-              
+
               {/* Sex Attribute Groups */}
               <Box sx={{ mb: 3 }}>
-                <Typography variant="body2" sx={{ mb: 2, color: "#374151", fontSize: "0.875rem", fontWeight: 500 }}>
+                <Typography
+                  variant="body2"
+                  sx={{
+                    mb: 2,
+                    color: "#374151",
+                    fontSize: "0.875rem",
+                    fontWeight: 500,
+                  }}
+                >
                   Sex Attribute Groups
                 </Typography>
                 <Box sx={{ ...S.gridAutoFit250, gap: 2 }}>
                   <Box>
-                    <Typography variant="body2" sx={{ mb: 1, color: "#6B7280", fontSize: "0.75rem" }}>
+                    <Typography
+                      variant="body2"
+                      sx={{ mb: 1, color: "#6B7280", fontSize: "0.75rem" }}
+                    >
                       Privileged Groups
                     </Typography>
                     <TextField
                       fullWidth
                       placeholder="e.g., Male"
-                      value={config.postProcessing.attributeGroups.sex.privileged.join(', ')}
+                      value={config.postProcessing.attributeGroups.sex.privileged.join(
+                        ", "
+                      )}
                       onChange={(e) => {
-                        const privileged = e.target.value.split(',').map(s => s.trim()).filter(s => s);
-                        setConfig(prev => ({
+                        const privileged = e.target.value
+                          .split(",")
+                          .map((s) => s.trim())
+                          .filter((s) => s);
+                        setConfig((prev) => ({
                           ...prev,
                           postProcessing: {
                             ...prev.postProcessing,
@@ -628,10 +802,12 @@ export default function BiasAndFairnessModule() {
                               ...prev.postProcessing.attributeGroups,
                               sex: {
                                 privileged,
-                                unprivileged: prev.postProcessing.attributeGroups.sex.unprivileged
-                              }
-                            }
-                          }
+                                unprivileged:
+                                  prev.postProcessing.attributeGroups.sex
+                                    .unprivileged,
+                              },
+                            },
+                          },
                         }));
                       }}
                       size="small"
@@ -639,27 +815,37 @@ export default function BiasAndFairnessModule() {
                     />
                   </Box>
                   <Box>
-                    <Typography variant="body2" sx={{ mb: 1, color: "#6B7280", fontSize: "0.75rem" }}>
+                    <Typography
+                      variant="body2"
+                      sx={{ mb: 1, color: "#6B7280", fontSize: "0.75rem" }}
+                    >
                       Unprivileged Groups
                     </Typography>
                     <TextField
                       fullWidth
                       placeholder="e.g., Female"
-                      value={config.postProcessing.attributeGroups.sex.unprivileged.join(', ')}
+                      value={config.postProcessing.attributeGroups.sex.unprivileged.join(
+                        ", "
+                      )}
                       onChange={(e) => {
-                        const unprivileged = e.target.value.split(',').map(s => s.trim()).filter(s => s);
-                        setConfig(prev => ({
+                        const unprivileged = e.target.value
+                          .split(",")
+                          .map((s) => s.trim())
+                          .filter((s) => s);
+                        setConfig((prev) => ({
                           ...prev,
                           postProcessing: {
                             ...prev.postProcessing,
                             attributeGroups: {
                               ...prev.postProcessing.attributeGroups,
                               sex: {
-                                privileged: prev.postProcessing.attributeGroups.sex.privileged,
-                                unprivileged
-                              }
-                            }
-                          }
+                                privileged:
+                                  prev.postProcessing.attributeGroups.sex
+                                    .privileged,
+                                unprivileged,
+                              },
+                            },
+                          },
                         }));
                       }}
                       size="small"
@@ -671,21 +857,37 @@ export default function BiasAndFairnessModule() {
 
               {/* Race Attribute Groups */}
               <Box sx={{ mb: 3 }}>
-                <Typography variant="body2" sx={{ mb: 2, color: "#374151", fontSize: "0.875rem", fontWeight: 500 }}>
+                <Typography
+                  variant="body2"
+                  sx={{
+                    mb: 2,
+                    color: "#374151",
+                    fontSize: "0.875rem",
+                    fontWeight: 500,
+                  }}
+                >
                   Race Attribute Groups
                 </Typography>
                 <Box sx={{ ...S.gridAutoFit250, gap: 2 }}>
                   <Box>
-                    <Typography variant="body2" sx={{ mb: 1, color: "#6B7280", fontSize: "0.75rem" }}>
+                    <Typography
+                      variant="body2"
+                      sx={{ mb: 1, color: "#6B7280", fontSize: "0.75rem" }}
+                    >
                       Privileged Groups
                     </Typography>
                     <TextField
                       fullWidth
                       placeholder="e.g., White"
-                      value={config.postProcessing.attributeGroups.race.privileged.join(', ')}
+                      value={config.postProcessing.attributeGroups.race.privileged.join(
+                        ", "
+                      )}
                       onChange={(e) => {
-                        const privileged = e.target.value.split(',').map(s => s.trim()).filter(s => s);
-                        setConfig(prev => ({
+                        const privileged = e.target.value
+                          .split(",")
+                          .map((s) => s.trim())
+                          .filter((s) => s);
+                        setConfig((prev) => ({
                           ...prev,
                           postProcessing: {
                             ...prev.postProcessing,
@@ -693,10 +895,12 @@ export default function BiasAndFairnessModule() {
                               ...prev.postProcessing.attributeGroups,
                               race: {
                                 privileged,
-                                unprivileged: prev.postProcessing.attributeGroups.race.unprivileged
-                              }
-                            }
-                          }
+                                unprivileged:
+                                  prev.postProcessing.attributeGroups.race
+                                    .unprivileged,
+                              },
+                            },
+                          },
                         }));
                       }}
                       size="small"
@@ -704,27 +908,37 @@ export default function BiasAndFairnessModule() {
                     />
                   </Box>
                   <Box>
-                    <Typography variant="body2" sx={{ mb: 1, color: "#6B7280", fontSize: "0.75rem" }}>
+                    <Typography
+                      variant="body2"
+                      sx={{ mb: 1, color: "#6B7280", fontSize: "0.75rem" }}
+                    >
                       Unprivileged Groups
                     </Typography>
                     <TextField
                       fullWidth
                       placeholder="e.g., Black, Other"
-                      value={config.postProcessing.attributeGroups.race.unprivileged.join(', ')}
+                      value={config.postProcessing.attributeGroups.race.unprivileged.join(
+                        ", "
+                      )}
                       onChange={(e) => {
-                        const unprivileged = e.target.value.split(',').map(s => s.trim()).filter(s => s);
-                        setConfig(prev => ({
+                        const unprivileged = e.target.value
+                          .split(",")
+                          .map((s) => s.trim())
+                          .filter((s) => s);
+                        setConfig((prev) => ({
                           ...prev,
                           postProcessing: {
                             ...prev.postProcessing,
                             attributeGroups: {
                               ...prev.postProcessing.attributeGroups,
                               race: {
-                                privileged: prev.postProcessing.attributeGroups.race.privileged,
-                                unprivileged
-                              }
-                            }
-                          }
+                                privileged:
+                                  prev.postProcessing.attributeGroups.race
+                                    .privileged,
+                                unprivileged,
+                              },
+                            },
+                          },
                         }));
                       }}
                       size="small"
@@ -736,7 +950,11 @@ export default function BiasAndFairnessModule() {
             </Box>
 
             {/* Advanced Settings Button */}
-            <Box display="flex" justifyContent="flex-start" sx={{ mt: 2, mb: 2 }}>
+            <Box
+              display="flex"
+              justifyContent="flex-start"
+              sx={{ mt: 2, mb: 2 }}
+            >
               <Button
                 variant="outlined"
                 onClick={() => setShowAdvancedSettings(!showAdvancedSettings)}
@@ -755,20 +973,33 @@ export default function BiasAndFairnessModule() {
 
                 <Box sx={{ ...S.gridAutoFit250, mt: 2 }}>
                   <Box>
-                    <Typography variant="body2" sx={{ mb: 1, color: "#374151", fontSize: "0.75rem", fontWeight: 500 }}>
+                    <Typography
+                      variant="body2"
+                      sx={{
+                        mb: 1,
+                        color: "#374151",
+                        fontSize: "0.75rem",
+                        fontWeight: 500,
+                      }}
+                    >
                       Performance Metrics
                     </Typography>
                     <FormControl fullWidth size="small">
                       <Select
                         multiple
                         value={config.metrics.performance}
-                        onChange={(e) => setConfig(prev => ({
-                          ...prev,
-                          metrics: {
-                            ...prev.metrics,
-                            performance: typeof e.target.value === 'string' ? [e.target.value] : e.target.value
-                          }
-                        }))}
+                        onChange={(e) =>
+                          setConfig((prev) => ({
+                            ...prev,
+                            metrics: {
+                              ...prev.metrics,
+                              performance:
+                                typeof e.target.value === "string"
+                                  ? [e.target.value]
+                                  : e.target.value,
+                            },
+                          }))
+                        }
                         sx={S.inputSmall}
                       >
                         <MenuItem value="accuracy">Accuracy</MenuItem>
@@ -779,7 +1010,15 @@ export default function BiasAndFairnessModule() {
                     </FormControl>
                   </Box>
                   <Box>
-                    <Typography variant="body2" sx={{ mb: 1, color: "#374151", fontSize: "0.75rem", fontWeight: 500 }}>
+                    <Typography
+                      variant="body2"
+                      sx={{
+                        mb: 1,
+                        color: "#374151",
+                        fontSize: "0.75rem",
+                        fontWeight: 500,
+                      }}
+                    >
                       Favorable Outcome
                     </Typography>
                     <TextField
@@ -792,7 +1031,15 @@ export default function BiasAndFairnessModule() {
                 </Box>
                 <Box sx={{ ...S.gridAutoFit200, mt: 2 }}>
                   <Box>
-                    <Typography variant="body2" sx={{ mb: 1, color: "#374151", fontSize: "0.75rem", fontWeight: 500 }}>
+                    <Typography
+                      variant="body2"
+                      sx={{
+                        mb: 1,
+                        color: "#374151",
+                        fontSize: "0.75rem",
+                        fontWeight: 500,
+                      }}
+                    >
                       Unfavorable Outcome
                     </Typography>
                     <TextField
@@ -803,7 +1050,15 @@ export default function BiasAndFairnessModule() {
                     />
                   </Box>
                   <Box>
-                    <Typography variant="body2" sx={{ mb: 1, color: "#374151", fontSize: "0.75rem", fontWeight: 500 }}>
+                    <Typography
+                      variant="body2"
+                      sx={{
+                        mb: 1,
+                        color: "#374151",
+                        fontSize: "0.75rem",
+                        fontWeight: 500,
+                      }}
+                    >
                       Sample Size
                     </Typography>
                     <TextField
@@ -817,7 +1072,15 @@ export default function BiasAndFairnessModule() {
                 </Box>
                 <Box sx={{ ...S.gridAutoFit250, mt: 2 }}>
                   <Box>
-                    <Typography variant="body2" sx={{ mb: 1, color: "#374151", fontSize: "0.75rem", fontWeight: 500 }}>
+                    <Typography
+                      variant="body2"
+                      sx={{
+                        mb: 1,
+                        color: "#374151",
+                        fontSize: "0.75rem",
+                        fontWeight: 500,
+                      }}
+                    >
                       Random Seed
                     </Typography>
                     <TextField
@@ -829,7 +1092,15 @@ export default function BiasAndFairnessModule() {
                     />
                   </Box>
                   <Box>
-                    <Typography variant="body2" sx={{ mb: 1, color: "#374151", fontSize: "0.75rem", fontWeight: 500 }}>
+                    <Typography
+                      variant="body2"
+                      sx={{
+                        mb: 1,
+                        color: "#374151",
+                        fontSize: "0.75rem",
+                        fontWeight: 500,
+                      }}
+                    >
                       Sampling Enabled
                     </Typography>
                     <FormControl fullWidth size="small">

@@ -8,7 +8,7 @@ export const styles = {
   buttonStyle: {
     width: { xs: "100%", sm: "180px" },
     mb: "8px",
-    backgroundColor: "#13715B",
+    backgroundColor: "#1769AB",
     color: "#fff",
     gap: 2,
   },

@@ -31,7 +31,7 @@ const light = createTheme({
   typography: { fontFamily: fontFamilyDefault, fontSize: 13 },
   spacing: 2,
   palette: {
-    primary: { main: "#13715B" },
+    primary: { main: "#1769AB" },
     secondary: { main: "#F4F4F4", dark: "#e3e3e3", contrastText: "#475467" },
     text: text,
     background: background,
@@ -194,9 +194,9 @@ const light = createTheme({
           marginBottom: 0,
           minWidth: 100,
           "&:hover, &.Mui-selected, &.Mui-selected:hover, &.Mui-selected.Mui-focusVisible":
-            {
-              backgroundColor: background.fill,
-            },
+          {
+            backgroundColor: background.fill,
+          },
         },
       },
     },

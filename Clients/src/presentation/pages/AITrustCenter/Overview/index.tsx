@@ -231,17 +231,17 @@ const AITrustCenterOverview: React.FC = () => {
               variant="standard"
               size="small"
               sx={{
-                '& .MuiInput-underline:before': {
-                  borderBottom: 'none',
+                "& .MuiInput-underline:before": {
+                  borderBottom: "none",
                 },
-                '& .MuiInput-underline:after': {
-                  borderBottom: 'none',
+                "& .MuiInput-underline:after": {
+                  borderBottom: "none",
                 },
-                '& .MuiInput-underline:hover:not(.Mui-disabled):before': {
-                  borderBottom: 'none',
+                "& .MuiInput-underline:hover:not(.Mui-disabled):before": {
+                  borderBottom: "none",
                 },
-                '& .MuiInputBase-input': {
-                  fontSize: '13px',
+                "& .MuiInputBase-input": {
+                  fontSize: "13px",
                 },
               }}
             />
@@ -273,17 +273,17 @@ const AITrustCenterOverview: React.FC = () => {
               variant="standard"
               size="small"
               sx={{
-                '& .MuiInput-underline:before': {
-                  borderBottom: 'none',
+                "& .MuiInput-underline:before": {
+                  borderBottom: "none",
                 },
-                '& .MuiInput-underline:after': {
-                  borderBottom: 'none',
+                "& .MuiInput-underline:after": {
+                  borderBottom: "none",
                 },
-                '& .MuiInput-underline:hover:not(.Mui-disabled):before': {
-                  borderBottom: 'none',
+                "& .MuiInput-underline:hover:not(.Mui-disabled):before": {
+                  borderBottom: "none",
                 },
-                '& .MuiInputBase-input': {
-                  fontSize: '13px',
+                "& .MuiInputBase-input": {
+                  fontSize: "13px",
                 },
               }}
             />
@@ -315,17 +315,17 @@ const AITrustCenterOverview: React.FC = () => {
               variant="standard"
               size="small"
               sx={{
-                '& .MuiInput-underline:before': {
-                  borderBottom: 'none',
+                "& .MuiInput-underline:before": {
+                  borderBottom: "none",
                 },
-                '& .MuiInput-underline:after': {
-                  borderBottom: 'none',
+                "& .MuiInput-underline:after": {
+                  borderBottom: "none",
                 },
-                '& .MuiInput-underline:hover:not(.Mui-disabled):before': {
-                  borderBottom: 'none',
+                "& .MuiInput-underline:hover:not(.Mui-disabled):before": {
+                  borderBottom: "none",
                 },
-                '& .MuiInputBase-input': {
-                  fontSize: '13px',
+                "& .MuiInputBase-input": {
+                  fontSize: "13px",
                 },
               }}
             />
@@ -422,17 +422,17 @@ const AITrustCenterOverview: React.FC = () => {
               variant="standard"
               size="small"
               sx={{
-                '& .MuiInput-underline:before': {
-                  borderBottom: 'none',
+                "& .MuiInput-underline:before": {
+                  borderBottom: "none",
                 },
-                '& .MuiInput-underline:after': {
-                  borderBottom: 'none',
+                "& .MuiInput-underline:after": {
+                  borderBottom: "none",
                 },
-                '& .MuiInput-underline:hover:not(.Mui-disabled):before': {
-                  borderBottom: 'none',
+                "& .MuiInput-underline:hover:not(.Mui-disabled):before": {
+                  borderBottom: "none",
                 },
-                '& .MuiInputBase-input': {
-                  fontSize: '13px',
+                "& .MuiInputBase-input": {
+                  fontSize: "13px",
                 },
               }}
             />
@@ -476,17 +476,17 @@ const AITrustCenterOverview: React.FC = () => {
               variant="standard"
               size="small"
               sx={{
-                '& .MuiInput-underline:before': {
-                  borderBottom: 'none',
+                "& .MuiInput-underline:before": {
+                  borderBottom: "none",
                 },
-                '& .MuiInput-underline:after': {
-                  borderBottom: 'none',
+                "& .MuiInput-underline:after": {
+                  borderBottom: "none",
                 },
-                '& .MuiInput-underline:hover:not(.Mui-disabled):before': {
-                  borderBottom: 'none',
+                "& .MuiInput-underline:hover:not(.Mui-disabled):before": {
+                  borderBottom: "none",
                 },
-                '& .MuiInputBase-input': {
-                  fontSize: '13px',
+                "& .MuiInputBase-input": {
+                  fontSize: "13px",
                 },
               }}
             />
@@ -530,17 +530,17 @@ const AITrustCenterOverview: React.FC = () => {
               variant="standard"
               size="small"
               sx={{
-                '& .MuiInput-underline:before': {
-                  borderBottom: 'none',
+                "& .MuiInput-underline:before": {
+                  borderBottom: "none",
                 },
-                '& .MuiInput-underline:after': {
-                  borderBottom: 'none',
+                "& .MuiInput-underline:after": {
+                  borderBottom: "none",
                 },
-                '& .MuiInput-underline:hover:not(.Mui-disabled):before': {
-                  borderBottom: 'none',
+                "& .MuiInput-underline:hover:not(.Mui-disabled):before": {
+                  borderBottom: "none",
                 },
-                '& .MuiInputBase-input': {
-                  fontSize: '13px',
+                "& .MuiInputBase-input": {
+                  fontSize: "13px",
                 },
               }}
             />
@@ -727,8 +727,8 @@ const AITrustCenterOverview: React.FC = () => {
         <CustomizableButton
           sx={{
             ...styles.saveButton,
-            backgroundColor: hasUnsavedChanges ? "#13715B" : "#ccc",
-            border: `1px solid ${hasUnsavedChanges ? "#13715B" : "#ccc"}`,
+            backgroundColor: hasUnsavedChanges ? "#1769AB" : "#ccc",
+            border: `1px solid ${hasUnsavedChanges ? "#1769AB" : "#ccc"}`,
           }}
           icon={<SaveIconSVGWhite />} // you might need a dark icon when active
           variant="contained"
@@ -736,7 +736,6 @@ const AITrustCenterOverview: React.FC = () => {
           isDisabled={!hasUnsavedChanges}
           text="Save"
         />
-
       </Stack>
 
       {alert && (

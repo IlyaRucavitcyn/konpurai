@@ -142,9 +142,9 @@ export const AuditRiskTableBody: React.FC<AuditRiskTableBodyProps> = ({
                 <TableCell>
                   <CustomizableButton
                     sx={{
-                      backgroundColor: "#13715B",
+                      backgroundColor: "#1769AB",
                       color: "#fff",
-                      border: "1px solid #13715B",
+                      border: "1px solid #1769AB",
                     }}
                     variant="contained"
                     text="View"

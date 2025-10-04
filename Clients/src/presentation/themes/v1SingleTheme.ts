@@ -7,12 +7,12 @@ import { alertStyles } from "./alerts";
 import { tableStyles } from "./tables";
 
 const backgroundColors = {
-  primary: "#13715B",
+  primary: "#1769AB",
   error: "#DB504A",
 };
 
 const borderColors = {
-  primary: "#13715B",
+  primary: "#1769AB",
   error: "#DB504A",
 };
 

@@ -24,8 +24,8 @@ export const statusFilterSelectStyle = {
 };
 
 export const addNewModelButtonStyle = {
-  backgroundColor: "#13715B",
-  border: "1px solid #13715B",
+  backgroundColor: "#1769AB",
+  border: "1px solid #1769AB",
   gap: "20px",
 };
 
@@ -221,23 +221,23 @@ export const paginationStyle = (theme: Theme) => ({
 });
 
 export const searchBoxStyle =
-    (isSearchBarVisible: boolean): SxProps<Theme> =>
+  (isSearchBarVisible: boolean): SxProps<Theme> =>
     (theme: Theme) => ({
-        display: "flex",
-        alignItems: "center",
-        border: `1px solid ${theme.palette.border.dark}`, // adjust as needed
-        borderRadius: theme.shape.borderRadius,
-        p: "1px 1px",
-        bgcolor: "#fff",
-        width: isSearchBarVisible ? "50%" : "auto",
-        transition: "all 0.3s ease",
-        mb: 9,
+      display: "flex",
+      alignItems: "center",
+      border: `1px solid ${theme.palette.border.dark}`, // adjust as needed
+      borderRadius: theme.shape.borderRadius,
+      p: "1px 1px",
+      bgcolor: "#fff",
+      width: isSearchBarVisible ? "50%" : "auto",
+      transition: "all 0.3s ease",
+      mb: 9,
     });
 
 export const inputStyle = (isSearchBarVisible: boolean): SxProps<Theme> => ({
-    flex: 1,
-    fontSize: "14px",
-    opacity: isSearchBarVisible ? 1 : 0,
-    transition: "opacity 0.3s ease",
+  flex: 1,
+  fontSize: "14px",
+  opacity: isSearchBarVisible ? 1 : 0,
+  transition: "opacity 0.3s ease",
 });
 

@@ -253,7 +253,7 @@ const ProjectFrameworks = ({
         <Box sx={{ borderBottom: 1, borderColor: "divider", mb: 1 }}>
           <TabList
             onChange={(_, v) => setTracker(v)}
-            TabIndicatorProps={{ style: { backgroundColor: "#13715B" } }}
+            TabIndicatorProps={{ style: { backgroundColor: "#1769AB" } }}
             sx={tabListStyle}
           >
             {tabs.map((tab) => (
