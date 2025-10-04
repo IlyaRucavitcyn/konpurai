@@ -143,7 +143,7 @@ const ComplianceTracker = ({
             completed={complianceData.allDonesubControls}
             total={complianceData.allsubControls}
             title="Subcontrols"
-            progressbarColor="#13715B"
+            progressbarColor="#1769AB"
           />
         </Stack>
       )}

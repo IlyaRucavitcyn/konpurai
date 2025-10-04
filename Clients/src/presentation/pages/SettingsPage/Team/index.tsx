@@ -351,8 +351,8 @@ const TeamManagement: React.FC = (): JSX.Element => {
                 variant="contained"
                 text="Invite team member"
                 sx={{
-                  backgroundColor: "#13715B",
-                  border: "1px solid #13715B",
+                  backgroundColor: "#1769AB",
+                  border: "1px solid #1769AB",
                   gap: 2,
                 }}
                 icon={<GroupsIcon size={16} />}

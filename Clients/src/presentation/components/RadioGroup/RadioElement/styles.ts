@@ -14,7 +14,7 @@ export const styles = {
     }
   },
   BpCheckedIcon: {
-    backgroundColor: '#13715B',
+    backgroundColor: '#1769AB',
     boxShadow: 'inset 0 0 0 1px #297af2, inset 0 -1px 0 #297af2',
     '&::before': {
       display: 'block',
@@ -24,7 +24,7 @@ export const styles = {
       content: '""',
     },
     'input:hover ~ &': {
-      backgroundColor: '#13715B',
+      backgroundColor: '#1769AB',
     }
   }
 }

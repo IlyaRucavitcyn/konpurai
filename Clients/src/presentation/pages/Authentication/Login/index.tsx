@@ -75,7 +75,7 @@ const LoginLoadingOverlay: React.FC = () => {
                           color: '#6b7280',
                         },
                         '50%': {
-                          color: '#13715B',
+                          color: '#1769AB',
                         },
                       },
                     }}
@@ -158,7 +158,7 @@ const Login: React.FC = () => {
             dispatch(setExpiration(null));
           }
 
-          localStorage.setItem('root_version', __APP_VERSION__);
+          localStorage.setItem("root_version", __APP_VERSION__);
 
           logEngine({
             type: "info",
@@ -286,8 +286,8 @@ const Login: React.FC = () => {
               fontSize: 40,
             }}
           >
-            Verify
-            <span style={{ color: singleTheme.textColors.theme }}>Wise</span>
+            Konpurai
+            {/* <span style={{ color: singleTheme.textColors.theme }}>Wise</span> */}
           </Typography>
           <Typography sx={{ fontSize: 16, fontWeight: "bold" }}>
             {loginText}

@@ -120,7 +120,7 @@ const StatusBreakdownCard = ({ frameworksData }: StatusBreakdownCardProps) => {
       { id: 1, value: data["draft"], label: "Draft", color: "#D1D5DB" },
       { id: 2, value: data["in progress"], label: "In Progress", color: "#F59E0B" },
       { id: 3, value: data["awaiting review"], label: "Awaiting Review", color: "#3B82F6" },
-      { id: 4, value: data["implemented"], label: "Implemented", color: "#13715B" },
+      { id: 4, value: data["implemented"], label: "Implemented", color: "#1769AB" },
       { id: 5, value: data["needs rework"], label: "Needs Rework", color: "#EA580C" },
     ];
   };
@@ -131,7 +131,7 @@ const StatusBreakdownCard = ({ frameworksData }: StatusBreakdownCardProps) => {
       { id: 1, value: data["draft"], label: "Draft", color: "#D1D5DB" },
       { id: 2, value: data["in progress"], label: "In Progress", color: "#F59E0B" },
       { id: 3, value: data["awaiting review"], label: "Awaiting Review", color: "#3B82F6" },
-      { id: 4, value: data["implemented"], label: "Implemented", color: "#13715B" },
+      { id: 4, value: data["implemented"], label: "Implemented", color: "#1769AB" },
       { id: 5, value: data["needs rework"], label: "Needs Rework", color: "#EA580C" },
     ];
   };

@@ -61,15 +61,11 @@ export const ProjectRiskMitigationTableBody: React.FC<
     if (riskId) {
       if (riskData.type === "annexcategory") {
         navigteToNewTab(
-          `/framework?framework=iso-42001&annexId=${
-            riskData.parent_id
-          }&annexCategoryId=${riskData.meta_id}`
+          `/framework?framework=iso-42001&annexId=${riskData.parent_id}&annexCategoryId=${riskData.meta_id}`
         );
       } else if (riskData.type === "subclause") {
         navigteToNewTab(
-          `/framework?framework=iso-42001&clauseId=${
-            riskData.parent_id
-          }&subClauseId=${riskData.meta_id}`
+          `/framework?framework=iso-42001&clauseId=${riskData.parent_id}&subClauseId=${riskData.meta_id}`
         );
       } else if (riskData.type === "control") {
         navigteToNewTab(
@@ -77,21 +73,15 @@ export const ProjectRiskMitigationTableBody: React.FC<
         );
       } else if (riskData.type === "assessment") {
         navigteToNewTab(
-          `/project-view?projectId=${riskData.project_id}&tab=frameworks&framework=eu-ai-act&topicId=${
-            riskData.sup_id
-          }&questionId=${riskData.meta_id}`
+          `/project-view?projectId=${riskData.project_id}&tab=frameworks&framework=eu-ai-act&topicId=${riskData.sup_id}&questionId=${riskData.meta_id}`
         );
       } else if (riskData.type === "annexcontrol_27001") {
         navigteToNewTab(
-          `/framework?framework=iso-27001&annex27001Id=${
-            riskData.parent_id
-          }&annexControl27001Id=${riskData.meta_id}`
+          `/framework?framework=iso-27001&annex27001Id=${riskData.parent_id}&annexControl27001Id=${riskData.meta_id}`
         );
       } else if (riskData.type === "annexsubclause_27001") {
         navigteToNewTab(
-          `/framework?framework=iso-27001&clause27001Id=${
-            riskData.parent_id
-          }&subClause27001Id=${riskData.meta_id}`
+          `/framework?framework=iso-27001&clause27001Id=${riskData.parent_id}&subClause27001Id=${riskData.meta_id}`
         );
       }
     }
@@ -139,9 +129,9 @@ export const ProjectRiskMitigationTableBody: React.FC<
                 <TableCell>
                   <CustomizableButton
                     sx={{
-                      backgroundColor: "#13715B",
+                      backgroundColor: "#1769AB",
                       color: "#fff",
-                      border: "1px solid #13715B",
+                      border: "1px solid #1769AB",
                     }}
                     variant="contained"
                     text="View"

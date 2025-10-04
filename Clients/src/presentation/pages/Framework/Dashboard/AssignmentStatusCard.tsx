@@ -215,8 +215,8 @@ const AssignmentStatusCard = ({ frameworksData }: AssignmentStatusCardProps) => 
     if (percentage < 30) return <CircleDashed size={14} style={{ color: "#DC2626" }} />;
     if (percentage < 60) return <CircleDot size={14} style={{ color: "#EA580C" }} />;
     if (percentage < 85) return <CircleDotDashed size={14} style={{ color: "#F59E0B" }} />;
-    if (percentage < 100) return <CircleDotDashed size={14} style={{ color: "#13715B" }} />;
-    return <CircleCheck size={14} style={{ color: "#13715B" }} />;
+    if (percentage < 100) return <CircleDotDashed size={14} style={{ color: "#1769AB" }} />;
+    return <CircleCheck size={14} style={{ color: "#1769AB" }} />;
   };
   return (
     <Box

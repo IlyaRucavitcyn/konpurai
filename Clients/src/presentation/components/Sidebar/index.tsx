@@ -460,11 +460,11 @@ const Sidebar = () => {
                       : "#F9F9F9", // hover color only if not selected
                 },
                 "&:hover svg": {
-                  color: "#13715B !important",
-                  stroke: "#13715B !important",
+                  color: "#1769AB !important",
+                  stroke: "#1769AB !important",
                 },
                 "&:hover svg path": {
-                  stroke: "#13715B !important",
+                  stroke: "#1769AB !important",
                 },
               }}
             >
@@ -482,14 +482,14 @@ const Sidebar = () => {
                         location.pathname.startsWith(p)
                       ) ||
                       customMenuHandler() === item.path
-                        ? "#13715B !important"
+                        ? "#1769AB !important"
                         : `${theme.palette.text.tertiary} !important`,
                     stroke: location.pathname === item.path ||
                       item.highlightPaths?.some((p: string) =>
                         location.pathname.startsWith(p)
                       ) ||
                       customMenuHandler() === item.path
-                        ? "#13715B !important"
+                        ? "#1769AB !important"
                         : `${theme.palette.text.tertiary} !important`,
                     transition: "color 0.2s ease, stroke 0.2s ease",
                   },
@@ -499,15 +499,15 @@ const Sidebar = () => {
                         location.pathname.startsWith(p)
                       ) ||
                       customMenuHandler() === item.path
-                        ? "#13715B !important"
+                        ? "#1769AB !important"
                         : `${theme.palette.text.tertiary} !important`,
                   },
                   "&:hover svg": {
-                    color: "#13715B !important",
-                    stroke: "#13715B !important",
+                    color: "#1769AB !important",
+                    stroke: "#1769AB !important",
                   },
                   "&:hover svg path": {
-                    stroke: "#13715B !important",
+                    stroke: "#1769AB !important",
                   },
                 }}
               >
@@ -643,11 +643,11 @@ const Sidebar = () => {
                           : "#F9F9F9", // hover color only if not selected
                     },
                     "&:hover svg": {
-                      color: "#13715B !important",
-                      stroke: "#13715B !important",
+                      color: "#1769AB !important",
+                      stroke: "#1769AB !important",
                     },
                     "&:hover svg path": {
-                      stroke: "#13715B !important",
+                      stroke: "#1769AB !important",
                     },
                   }}
                 >
@@ -665,14 +665,14 @@ const Sidebar = () => {
                             location.pathname.startsWith(p)
                           ) ||
                           customMenuHandler() === item.path
-                            ? "#13715B !important"
+                            ? "#1769AB !important"
                             : `${theme.palette.text.tertiary} !important`,
                         stroke: location.pathname === item.path ||
                           item.highlightPaths?.some((p: string) =>
                             location.pathname.startsWith(p)
                           ) ||
                           customMenuHandler() === item.path
-                            ? "#13715B !important"
+                            ? "#1769AB !important"
                             : `${theme.palette.text.tertiary} !important`,
                         transition: "color 0.2s ease, stroke 0.2s ease",
                       },
@@ -682,15 +682,15 @@ const Sidebar = () => {
                             location.pathname.startsWith(p)
                           ) ||
                           customMenuHandler() === item.path
-                            ? "#13715B !important"
+                            ? "#1769AB !important"
                             : `${theme.palette.text.tertiary} !important`,
                       },
                       "&:hover svg": {
-                        color: "#13715B !important",
-                        stroke: "#13715B !important",
+                        color: "#1769AB !important",
+                        stroke: "#1769AB !important",
                       },
                       "&:hover svg path": {
-                        stroke: "#13715B !important",
+                        stroke: "#1769AB !important",
                       },
                     }}
                   >
@@ -770,11 +770,11 @@ const Sidebar = () => {
                       : "#F9F9F9", // hover color only if not selected
                 },
                 "&:hover svg": {
-                  color: "#13715B !important",
-                  stroke: "#13715B !important",
+                  color: "#1769AB !important",
+                  stroke: "#1769AB !important",
                 },
                 "&:hover svg path": {
-                  stroke: "#13715B !important",
+                  stroke: "#1769AB !important",
                 },
               }}
             >
@@ -788,24 +788,24 @@ const Sidebar = () => {
                   mr: 0,
                   "& svg": {
                     color: location.pathname.includes(item.path)
-                        ? "#13715B !important"
+                        ? "#1769AB !important"
                         : `${theme.palette.text.tertiary} !important`,
                     stroke: location.pathname.includes(item.path)
-                        ? "#13715B !important"
+                        ? "#1769AB !important"
                         : `${theme.palette.text.tertiary} !important`,
                     transition: "color 0.2s ease, stroke 0.2s ease",
                   },
                   "& svg path": {
                     stroke: location.pathname.includes(item.path)
-                        ? "#13715B !important"
+                        ? "#1769AB !important"
                         : `${theme.palette.text.tertiary} !important`,
                   },
                   "&:hover svg": {
-                    color: "#13715B !important",
-                    stroke: "#13715B !important",
+                    color: "#1769AB !important",
+                    stroke: "#1769AB !important",
                   },
                   "&:hover svg path": {
-                    stroke: "#13715B !important",
+                    stroke: "#1769AB !important",
                   },
                 }}
               >
@@ -994,11 +994,11 @@ const Sidebar = () => {
                     stroke: theme.palette.other.icon,
                   },
                   "&:hover svg": {
-                    color: "#13715B !important",
-                    stroke: "#13715B !important",
+                    color: "#1769AB !important",
+                    stroke: "#1769AB !important",
                   },
                   "&:hover svg path": {
-                    stroke: "#13715B !important",
+                    stroke: "#1769AB !important",
                   },
                   fontSize: "13px",
                 }}
@@ -1029,11 +1029,11 @@ const Sidebar = () => {
                     stroke: theme.palette.other.icon,
                   },
                   "&:hover svg": {
-                    color: "#13715B !important",
-                    stroke: "#13715B !important",
+                    color: "#1769AB !important",
+                    stroke: "#1769AB !important",
                   },
                   "&:hover svg path": {
-                    stroke: "#13715B !important",
+                    stroke: "#1769AB !important",
                   },
                   fontSize: "13px",
                 }}
@@ -1057,11 +1057,11 @@ const Sidebar = () => {
                     stroke: theme.palette.other.icon,
                   },
                   "&:hover svg": {
-                    color: "#13715B !important",
-                    stroke: "#13715B !important",
+                    color: "#1769AB !important",
+                    stroke: "#1769AB !important",
                   },
                   "&:hover svg path": {
-                    stroke: "#13715B !important",
+                    stroke: "#1769AB !important",
                   },
                   fontSize: "13px",
                 }}

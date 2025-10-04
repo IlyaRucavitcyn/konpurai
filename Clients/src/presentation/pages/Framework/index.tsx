@@ -36,7 +36,7 @@ const tabStyle = {
   minHeight: "20px",
   minWidth: "auto",
   "&.Mui-selected": {
-    color: "#13715B",
+    color: "#1769AB",
   },
 };
 
@@ -348,7 +348,7 @@ const Framework = () => {
             <Box sx={{ borderBottom: 1, borderColor: "divider", mb: 2 }}>
               <TabList
                 onChange={handleIso27001TabChange}
-                TabIndicatorProps={{ style: { backgroundColor: "#13715B" } }}
+                TabIndicatorProps={{ style: { backgroundColor: "#1769AB" } }}
                 sx={tabListStyle}
               >
                 <Tab
@@ -415,7 +415,7 @@ const Framework = () => {
             <Box sx={{ borderBottom: 1, borderColor: "divider", mb: 2 }}>
               <TabList
                 onChange={handleIso42001TabChange}
-                TabIndicatorProps={{ style: { backgroundColor: "#13715B" } }}
+                TabIndicatorProps={{ style: { backgroundColor: "#1769AB" } }}
                 sx={tabListStyle}
               >
                 <Tab
@@ -558,7 +558,7 @@ const Framework = () => {
           <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
             <TabList
               onChange={handleMainTabChange}
-              TabIndicatorProps={{ style: { backgroundColor: "#13715B" } }}
+              TabIndicatorProps={{ style: { backgroundColor: "#1769AB" } }}
               sx={tabListStyle}
             >
               <Tab

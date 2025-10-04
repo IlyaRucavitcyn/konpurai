@@ -112,13 +112,13 @@ const EvaluationTableBody: React.FC<IEvaluationTableBodyProps> = ({
                   sx={{
                     ml: -2,
                     fontSize: "18 !important",
-                    backgroundColor: "#13715B", // keep your styling
+                    backgroundColor: "#1769AB", // keep your styling
                     color: "white",
                     textTransform: "none",
                     opacity: row.status !== "Completed" ? 0.5 : 1,
                     pointerEvents: row.status !== "Completed" ? "none" : "auto",
                     "&:hover": {
-                      backgroundColor: "#13715B",
+                      backgroundColor: "#1769AB",
                     },
                   }}
                 >

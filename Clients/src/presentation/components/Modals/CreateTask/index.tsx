@@ -353,9 +353,12 @@ const CreateTask: FC<CreateTaskProps> = ({
 
         {/* Form Content */}
         <form onSubmit={handleSubmit}>
-          <Stack direction="row" sx={{ gap: 8 }}>
-            {/* Left Column */}
-            <Stack sx={{ gap: 8 }}>
+          <Stack
+            className="vwtask-form-body"
+            sx={{ display: "flex", flexDirection: "column", gap: 8 }}
+          >
+            {/* Row 1: Task Title and Assignees */}
+            <Stack direction="row" sx={{ gap: 8 }}>
               <Suspense fallback={<div>Loading...</div>}>
                 <Field
                   id="title"
@@ -365,7 +368,12 @@ const CreateTask: FC<CreateTaskProps> = ({
                   onChange={handleOnTextFieldChange("title")}
                   error={errors.title}
                   isRequired
-                  sx={fieldStyle}
+                  sx={{
+                    backgroundColor: theme.palette.background.main,
+                    "& input": {
+                      padding: "0 14px",
+                    },
+                  }}
                   placeholder="Enter task title"
                 />
               </Suspense>
@@ -537,6 +545,23 @@ const CreateTask: FC<CreateTaskProps> = ({
                 </Stack>
               </Suspense>
 
+            {/* Row 2: Due Date and Categories */}
+            <Stack direction="row" sx={{ gap: 8, alignItems: "flex-start" }}>
+              <Suspense fallback={<div>Loading...</div>}>
+                <DatePicker
+                  label="Due date"
+                  date={values.due_date ? dayjs(values.due_date) : null}
+                  handleDateChange={handleDateChange}
+                  sx={{
+                    ...datePickerStyle,
+                    width: "350px",
+                    backgroundColor: theme.palette.background.main,
+                  }}
+                  isRequired
+                  error={errors.due_date}
+                />
+              </Suspense>
+
               <Suspense fallback={<div>Loading...</div>}>
                 <Stack gap={theme.spacing(2)}>
                   <Typography
@@ -565,7 +590,7 @@ const CreateTask: FC<CreateTaskProps> = ({
                     }}
                     getOptionLabel={(option: string) => option}
                     filterSelectedOptions
-                    popupIcon={<GreyDownArrowIcon size={16} />}
+                    popupIcon={<GreyDownArrowIcon />}
                     renderInput={(params) => (
                       <TextField
                         {...params}
@@ -657,6 +682,24 @@ const CreateTask: FC<CreateTaskProps> = ({
                   )}
                 </Stack>
               </Suspense>
+            </Stack>
+
+            {/* Row 3: Priority and Description */}
+            <Stack direction="row" sx={{ gap: 8 }}>
+              <SelectComponent
+                items={priorityOptions}
+                value={values.priority}
+                error={errors.priority}
+                sx={{
+                  width: "350px",
+                  backgroundColor: theme.palette.background.main,
+                }}
+                id="priority"
+                label="Priority"
+                isRequired
+                onChange={handleOnSelectChange("priority")}
+                placeholder="Select priority"
+              />
 
               <Suspense fallback={<div>Loading...</div>}>
                 <Field
@@ -686,8 +729,8 @@ const CreateTask: FC<CreateTaskProps> = ({
               text={mode === "edit" ? "Update Task" : "Create Task"}
               isDisabled={isSubmitting}
               sx={{
-                backgroundColor: "#13715B",
-                border: "1px solid #13715B",
+                backgroundColor: "#1769AB",
+                border: "1px solid #1769AB",
                 gap: 2,
                 marginTop: 2,
               }}

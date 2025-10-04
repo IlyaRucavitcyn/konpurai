@@ -619,8 +619,8 @@ const AddNewRisk: React.FC<AddNewRiskProps> = ({
                 variant="contained"
                 text="Save"
                 sx={{
-                  backgroundColor: "#13715B",
-                  border: "1px solid #13715B",
+                  backgroundColor: "#1769AB",
+                  border: "1px solid #1769AB",
                   gap: 2,
                 }}
                 onClick={handleSave}

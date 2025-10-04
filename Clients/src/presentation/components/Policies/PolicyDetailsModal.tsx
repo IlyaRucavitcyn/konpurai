@@ -494,7 +494,7 @@ const PolicyDetailModal: React.FC<Props> = ({
                       borderRadius: "3px",
                       backgroundColor: toolbarState[key] ? "#E0F7FA" : "#FFFFFF",
                       border: "1px solid",
-                      borderColor: toolbarState[key] ? "#13715B" : "transparent",
+                      borderColor: toolbarState[key] ? "#1769AB" : "transparent",
                       "&:hover": {
                         backgroundColor: "#F5F5F5",
                       },
@@ -567,8 +567,8 @@ const PolicyDetailModal: React.FC<Props> = ({
             variant="contained"
             text="Save"
             sx={{
-              backgroundColor: "#13715B",
-              border: "1px solid #13715B",
+              backgroundColor: "#1769AB",
+              border: "1px solid #1769AB",
               gap: 2,
               "&:hover": {
                 backgroundColor: "#0F5B4D",

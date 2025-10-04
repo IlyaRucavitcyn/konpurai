@@ -106,7 +106,7 @@ const AITrustCenter: React.FC = () => {
           <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
             <TabList
               onChange={handleTabChange}
-              TabIndicatorProps={{ style: { backgroundColor: "#13715B" } }}
+              TabIndicatorProps={{ style: { backgroundColor: "#1769AB" } }}
               sx={aiTrustCenterTabListStyle}
             >
               <Tab

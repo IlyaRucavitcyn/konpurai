@@ -329,7 +329,7 @@ export default function FairnessDashboard() {
           <TabList
             onChange={(_, newVal) => setTab(newVal)}
             TabIndicatorProps={{
-              style: { backgroundColor: "#13715B", height: "2px" },
+              style: { backgroundColor: "#1769AB", height: "2px" },
             }}
             sx={styles.tabList}
           >
@@ -362,7 +362,7 @@ export default function FairnessDashboard() {
               disableRipple
               onClick={() => setDialogOpen(true)}
               sx={{
-                backgroundColor: "#13715B",
+                backgroundColor: "#1769AB",
                 color: "white",
                 textTransform: "none",
                 fontSize: "0.875rem",
@@ -472,8 +472,8 @@ export default function FairnessDashboard() {
                         variant="outlined"
                         component="label"
                         sx={{
-                          borderColor: errors[errorKey] ? "#F04438" : "#13715B",
-                          color: "#13715B",
+                          borderColor: errors[errorKey] ? "#F04438" : "#1769AB",
+                          color: "#1769AB",
                           textTransform: "none",
                           fontWeight: 500,
                           mb: 5,
@@ -599,7 +599,7 @@ export default function FairnessDashboard() {
                   <Button
                     variant="contained"
                     sx={{
-                      backgroundColor: "#13715B",
+                      backgroundColor: "#1769AB",
                       color: "white",
                       textTransform: "none",
                       mt: 8,

@@ -902,7 +902,7 @@ const NewModelInventory: FC<NewModelInventoryProps> = ({
                       color="success"
                       sx={{
                         "&.Mui-checked": {
-                          color: "#13715B",
+                          color: "#1769AB",
                         },
                       }}
                       disableRipple
@@ -933,8 +933,8 @@ const NewModelInventory: FC<NewModelInventoryProps> = ({
               variant="contained"
               text={isEdit ? "Update Model" : "Save"}
               sx={{
-                backgroundColor: "#13715B",
-                border: "1px solid #13715B",
+                backgroundColor: "#1769AB",
+                border: "1px solid #1769AB",
                 gap: 2,
               }}
               onClick={handleSubmit}

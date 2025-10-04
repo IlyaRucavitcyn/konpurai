@@ -225,7 +225,7 @@ const ApiKeys = () => {
                 onClick={() => setIsCreateModalOpen(true)}
                 isDisabled={isDisabled}
                 sx={{
-                  backgroundColor: "#13715B",
+                  backgroundColor: "#1769AB",
                   color: "#fff",
                   "&:hover": { backgroundColor: "#0e5c47" },
                 }}
@@ -260,7 +260,7 @@ const ApiKeys = () => {
                 mb: 2,
               }}
             >
-              <PlusIcon size={24} color="#13715B" />
+              <PlusIcon size={24} color="#1769AB" />
             </Box>
             <Typography sx={{ fontSize: 15, fontWeight: 600, color: "#000000", mb: 1 }}>
               No API keys yet
@@ -275,7 +275,7 @@ const ApiKeys = () => {
               onClick={() => setIsCreateModalOpen(true)}
               isDisabled={isDisabled}
               sx={{
-                backgroundColor: "#13715B",
+                backgroundColor: "#1769AB",
                 color: "#fff",
                 "&:hover": { backgroundColor: "#0e5c47" },
               }}
@@ -400,7 +400,7 @@ const ApiKeys = () => {
           proceedButtonVariant="contained"
           TitleFontSize={0}
           confirmBtnSx={{
-            backgroundColor: isCreateButtonDisabled ? "#ccc" : "#13715B",
+            backgroundColor: isCreateButtonDisabled ? "#ccc" : "#1769AB",
             color: isCreateButtonDisabled ? "#666" : "#fff",
             cursor: isCreateButtonDisabled ? "not-allowed" : "pointer",
             opacity: isCreateButtonDisabled ? 0.6 : 1,
@@ -452,7 +452,7 @@ const ApiKeys = () => {
                 <Box
                   sx={{
                     backgroundColor: "#ecfdf3",
-                    border: "1.5px solid #13715B",
+                    border: "1.5px solid #1769AB",
                     borderRadius: "4px",
                     p: 2.5,
                     display: "flex",
@@ -477,12 +477,12 @@ const ApiKeys = () => {
                     onClick={() => handleCopyToken(newlyCreatedToken, -1)}
                     disableRipple
                     sx={{
-                      color: copiedTokenId === -1 ? "#13715B" : "#666666",
+                      color: copiedTokenId === -1 ? "#1769AB" : "#666666",
                       backgroundColor: copiedTokenId === -1 ? "#f0fdf4" : "transparent",
                       transition: "all 0.2s ease-in-out",
                       "&:hover": {
                         backgroundColor: "#f0fdf4",
-                        color: "#13715B",
+                        color: "#1769AB",
                       },
                     }}
                   >
@@ -492,7 +492,7 @@ const ApiKeys = () => {
                 <Box sx={{ height: 28, display: "flex", alignItems: "center", justifyContent: "center" }}>
                   <Typography sx={{
                     fontSize: 12,
-                    color: "#13715B",
+                    color: "#1769AB",
                     fontWeight: 500,
                     opacity: copiedTokenId === -1 ? 1 : 0,
                     transition: "opacity 0.2s ease-in-out",
@@ -507,7 +507,7 @@ const ApiKeys = () => {
                 text="I copied the key"
                 variant="contained"
                 sx={{
-                  backgroundColor: "#13715B",
+                  backgroundColor: "#1769AB",
                   color: "#fff",
                   px: "32px",
                   "&:hover": { backgroundColor: "#0e5c47" }

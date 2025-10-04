@@ -277,8 +277,8 @@ const RegisterAdmin: React.FC<{ multiTenant: boolean }> = ({
                 fontSize: 40,
               }}
             >
-              Verify
-              <span style={{ color: singleTheme.textColors.theme }}>Wise</span>
+              Konpurai
+              {/* <span style={{ color: singleTheme.textColors.theme }}>Wise</span> */}
             </Typography>
             <Typography sx={{ fontSize: 16, fontWeight: "bold" }}>
               Create your organization
@@ -327,13 +327,13 @@ const RegisterAdmin: React.FC<{ multiTenant: boolean }> = ({
                 fontSize: 40,
               }}
             >
-              Verify
-              <span style={{ color: singleTheme.textColors.theme }}>Wise</span>
+              Konpurai
+              {/* <span style={{ color: singleTheme.textColors.theme }}>Wise</span> */}
             </Typography>
             <Typography sx={{ fontSize: 16, fontWeight: "bold" }}>
               {multiTenant
                 ? "Create admin account"
-                : "Create VerifyWise admin account"}
+                : "Create Konpurai admin account"}
             </Typography>
             <Stack sx={{ gap: theme.spacing(7.5) }}>
               <Field

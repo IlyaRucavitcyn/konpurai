@@ -33,7 +33,7 @@ const FrameworkProgressCard = ({ frameworksData }: FrameworkProgressCardProps) =
     if (percentage < 30) return "#DC2626"; // Red
     if (percentage < 60) return "#EA580C"; // Orange
     if (percentage < 85) return "#F59E0B"; // Yellow
-    return "#13715B"; // Green
+    return "#1769AB"; // Green
   };
 
   const getProgressIcon = (percentage: number) => {
@@ -41,8 +41,8 @@ const FrameworkProgressCard = ({ frameworksData }: FrameworkProgressCardProps) =
     if (percentage < 30) return <CircleDashed size={14} style={{ color: "#DC2626" }} />;
     if (percentage < 60) return <CircleDot size={14} style={{ color: "#EA580C" }} />;
     if (percentage < 85) return <CircleDotDashed size={14} style={{ color: "#F59E0B" }} />;
-    if (percentage < 100) return <CircleDotDashed size={14} style={{ color: "#13715B" }} />;
-    return <CircleCheck size={14} style={{ color: "#13715B" }} />;
+    if (percentage < 100) return <CircleDotDashed size={14} style={{ color: "#1769AB" }} />;
+    return <CircleCheck size={14} style={{ color: "#1769AB" }} />;
   };
 
   return (
@@ -152,7 +152,7 @@ const FrameworkProgressCard = ({ frameworksData }: FrameworkProgressCardProps) =
                     <Typography
                       sx={{
                         fontSize: 12,
-                        color: clausePercent === 100 ? "#13715B" : "#666666",
+                        color: clausePercent === 100 ? "#1769AB" : "#666666",
                         fontWeight: 500,
                       }}
                     >
@@ -204,7 +204,7 @@ const FrameworkProgressCard = ({ frameworksData }: FrameworkProgressCardProps) =
                     <Typography
                       sx={{
                         fontSize: 12,
-                        color: annexPercent === 100 ? "#13715B" : "#666666",
+                        color: annexPercent === 100 ? "#1769AB" : "#666666",
                         fontWeight: 500,
                       }}
                     >

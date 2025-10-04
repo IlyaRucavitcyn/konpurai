@@ -21,7 +21,7 @@ const tabStyle = {
   minHeight: "20px",
   minWidth: "auto",
   "&.Mui-selected": {
-    color: "#13715B",
+    color: "#1769AB",
   },
 };
 
@@ -85,7 +85,7 @@ const WatchTower = () => {
                 minHeight: "20px",
                 "& .MuiTabs-flexContainer": { columnGap: "34px" },
                 "& .MuiTabs-indicator": {
-                  backgroundColor: "#13715B",
+                  backgroundColor: "#1769AB",
                   height: "1.5px",
                 },
               }}

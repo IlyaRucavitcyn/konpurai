@@ -293,7 +293,7 @@ const VWProjectOverview = ({ project }: { project?: Project }) => {
                   completed={completedEuActNumbers}
                   total={totalEuActNumbers}
                   title={titleEuAct}
-                  progressbarColor="#13715B"
+                  progressbarColor="#1769AB"
                 />
               </Stack>
             )}
@@ -306,7 +306,7 @@ const VWProjectOverview = ({ project }: { project?: Project }) => {
                   completed={completedIso42001Numbers}
                   total={totalIso42001Numbers}
                   title={titleIso42001}
-                  progressbarColor="#13715B"
+                  progressbarColor="#1769AB"
                 />
               </Stack>
             )}

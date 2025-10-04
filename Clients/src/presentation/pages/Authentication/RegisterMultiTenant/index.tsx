@@ -137,7 +137,10 @@ const RegisterMultiTenant: React.FC = () => {
       userRoleId: values.roleId,
     };
 
-    const response = await apiServices.post("organizations", requestBody) as any;
+    const response = (await apiServices.post(
+      "organizations",
+      requestBody
+    )) as any;
     setValues(initialState);
     setErrors({});
     setOrganizationValues(initialOrganizationState);
@@ -156,7 +159,7 @@ const RegisterMultiTenant: React.FC = () => {
       setTimeout(() => {
         setIsSubmitting(false);
         dispatch(setUserExists(true));
-        localStorage.setItem('root_version', __APP_VERSION__);
+        localStorage.setItem("root_version", __APP_VERSION__);
         navigate("/");
       }, 3000);
     } else if (response.status === 400) {
@@ -293,8 +296,8 @@ const RegisterMultiTenant: React.FC = () => {
                 fontSize: 40,
               }}
             >
-              Verify
-              <span style={{ color: singleTheme.textColors.theme }}>Wise</span>
+              Konpurai
+              {/* <span style={{ color: singleTheme.textColors.theme }}>Wise</span> */}
             </Typography>
             <Typography sx={{ fontSize: 16, fontWeight: "bold" }}>
               Create your organization
@@ -358,8 +361,8 @@ const RegisterMultiTenant: React.FC = () => {
                 fontSize: 40,
               }}
             >
-              Verify
-              <span style={{ color: singleTheme.textColors.theme }}>Wise</span>
+              Konpurai
+              {/* <span style={{ color: singleTheme.textColors.theme }}>Wise</span> */}
             </Typography>
             <Typography sx={{ fontSize: 16, fontWeight: "bold" }}>
               Create admin account

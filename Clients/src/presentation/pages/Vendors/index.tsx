@@ -444,7 +444,7 @@ const Vendors = () => {
           <Box sx={{ borderBottom: 1, borderColor: "divider", mt: 2 }}>
             <TabList
               onChange={handleChange}
-              TabIndicatorProps={{ style: { backgroundColor: "#13715B" } }}
+              TabIndicatorProps={{ style: { backgroundColor: "#1769AB" } }}
               sx={{
                 minHeight: "20px",
                 "& .MuiTabs-flexContainer": { columnGap: "34px" },
@@ -500,8 +500,8 @@ const Vendors = () => {
                     variant="contained"
                     text="Add new vendor"
                     sx={{
-                      backgroundColor: "#13715B",
-                      border: "1px solid #13715B",
+                      backgroundColor: "#1769AB",
+                      border: "1px solid #1769AB",
                       gap: 2,
                     }}
                     icon={<AddCircleOutlineIcon size={16} />}
@@ -570,8 +570,8 @@ const Vendors = () => {
                   variant="contained"
                   text="Add new Risk"
                   sx={{
-                    backgroundColor: "#13715B",
-                    border: "1px solid #13715B",
+                    backgroundColor: "#1769AB",
+                    border: "1px solid #1769AB",
                     gap: 2,
                   }}
                   icon={<AddCircleOutlineIcon size={16} />}

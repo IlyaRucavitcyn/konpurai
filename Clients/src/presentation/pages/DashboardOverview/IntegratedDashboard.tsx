@@ -1489,7 +1489,7 @@ const IntegratedDashboard: React.FC = () => {
               fontSize: "1.5rem",
             }}
           >
-            <Box component="span" sx={{ color: "#13715B" }}>
+            <Box component="span" sx={{ color: "#1769AB" }}>
               {greeting.greetingText}
             </Box>
             <Box component="span" sx={{ color: (theme) => theme.palette.text.primary }}>

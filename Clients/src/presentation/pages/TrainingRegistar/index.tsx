@@ -354,8 +354,8 @@ const Training: React.FC = () => {
             <CustomizableButton
                       variant="contained"
                       sx={{
-                        backgroundColor: "#13715B",
-                        border: "1px solid #13715B",
+                        backgroundColor: "#1769AB",
+                        border: "1px solid #1769AB",
                         gap: 2,
                       }}
                       text="New training"

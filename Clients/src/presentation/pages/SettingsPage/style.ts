@@ -1,4 +1,4 @@
-export const tabIndicatorStyle = { style: { backgroundColor: "#13715B" } };
+export const tabIndicatorStyle = { style: { backgroundColor: "#1769AB" } };
 
 export const tabContainerStyle = {
   minHeight: "20px",
@@ -14,6 +14,6 @@ export const settingTabStyle = {
   minWidth: "auto",
   minHeight: "20px",
   "&.Mui-selected": {
-    color: "#13715B",
+    color: "#1769AB",
   },
 };

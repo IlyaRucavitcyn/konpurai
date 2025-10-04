@@ -701,7 +701,7 @@ const ModelInventory: React.FC = () => {
           >
             <TabList
               onChange={handleTabChange}
-              TabIndicatorProps={{ style: { backgroundColor: "#13715B" } }}
+              TabIndicatorProps={{ style: { backgroundColor: "#1769AB" } }}
               sx={aiTrustCenterTabListStyle}
             >
               <Tab

@@ -254,7 +254,7 @@ const ISO42001Clauses = ({
         completed={clauseProgress?.doneSubclauses ?? 0}
         total={clauseProgress?.totalSubclauses ?? 0}
         title="Clauses"
-        progressbarColor="#13715B"
+        progressbarColor="#1769AB"
       />
       <Typography sx={{ ...styles.title, mt: 4 }}>
         {"Management System Clauses"}

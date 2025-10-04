@@ -36,7 +36,7 @@ const GenerateReport: React.FC<GenerateReportProps> = ({
           sx={{
             ...styles.buttonStyle,
             width: "fit-content",
-            border: isDisabled ? "1px solid #dddddd" : "1px solid #13715B",
+            border: isDisabled ? "1px solid #dddddd" : "1px solid #1769AB",
           }}
           variant="contained"
           text="Generate project report"
@@ -51,7 +51,7 @@ const GenerateReport: React.FC<GenerateReportProps> = ({
           sx={{
             ...styles.buttonStyle,
             width: "fit-content",
-            border: isDisabled ? "1px solid #dddddd" : "1px solid #13715B",
+            border: isDisabled ? "1px solid #dddddd" : "1px solid #1769AB",
           }}
           variant="contained"
           text="Generate organization report"

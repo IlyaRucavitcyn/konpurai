@@ -3,7 +3,7 @@
 
 export const styles = {
   // Typography
-  sectionTitle: { fontWeight: 600, mb: 4, color: "#13715B", fontSize: "1rem" },
+  sectionTitle: { fontWeight: 600, mb: 4, color: "#1769AB", fontSize: "1rem" },
   dialogDescription: { color: "#6B7280", fontSize: "0.875rem", lineHeight: 1.5 },
   subLabel: { mb: 1, color: "#374151", fontSize: "0.875rem", fontWeight: 500 },
   smallLabel: { mb: 1, color: "#6B7280", fontSize: "0.75rem" },
@@ -19,9 +19,9 @@ export const styles = {
   gridAutoFit200: { display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: 3 },
 
   // Buttons
-  createButton: { backgroundColor: "#13715B", color: "white", textTransform: "none", fontSize: "0.875rem", fontWeight: 500, padding: "8px 20px", borderRadius: "6px" },
-  primaryButton: { backgroundColor: "#13715B", color: "white", textTransform: "none", fontSize: "0.875rem", fontWeight: 500, padding: "8px 24px" },
-  outlinedButton: { borderColor: "#13715B", color: "#13715B", textTransform: "none", fontSize: "0.875rem" },
+  createButton: { backgroundColor: "#1769AB", color: "white", textTransform: "none", fontSize: "0.875rem", fontWeight: 500, padding: "8px 20px", borderRadius: "6px" },
+  primaryButton: { backgroundColor: "#1769AB", color: "white", textTransform: "none", fontSize: "0.875rem", fontWeight: 500, padding: "8px 24px" },
+  outlinedButton: { borderColor: "#1769AB", color: "#1769AB", textTransform: "none", fontSize: "0.875rem" },
 
   // Surfaces
   card: { border: "1px solid #E5E7EB", boxShadow: "0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06)" },

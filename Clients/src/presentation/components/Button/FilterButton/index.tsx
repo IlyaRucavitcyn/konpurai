@@ -61,7 +61,7 @@ const FilterButton: React.FC<IFilterButtonProps> = ({
       {hasActiveFilters && (
         <Box
           sx={{
-            backgroundColor: "#13715B",
+            backgroundColor: "#1769AB",
             color: "white",
             px: 1,
             py: 0.2,

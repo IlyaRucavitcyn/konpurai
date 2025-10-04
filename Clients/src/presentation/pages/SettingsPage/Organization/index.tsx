@@ -418,7 +418,7 @@ const Organization = () => {
               text="Save"
               sx={{
                 width: 90,
-                backgroundColor: "#13715B",
+                backgroundColor: "#1769AB",
                 border: "1px solid",
                 gap: 2,
                 mt: 3,
@@ -550,7 +550,7 @@ const Organization = () => {
                 sx={{
                   fontSize: 12,
                   textTransform: "none",
-                  color: "#13715B",
+                  color: "#1769AB",
                   "&:hover": {
                     backgroundColor: "transparent !important",
                   },
@@ -592,7 +592,8 @@ const Organization = () => {
                 lineHeight: 1.4,
               }}
             >
-              Recommended: 200×200px • Max size: 5MB • Formats: PNG, JPG, GIF, SVG
+              Recommended: 200×200px • Max size: 5MB • Formats: PNG, JPG, GIF,
+              SVG
             </Typography>
           </Stack>
         </Box>

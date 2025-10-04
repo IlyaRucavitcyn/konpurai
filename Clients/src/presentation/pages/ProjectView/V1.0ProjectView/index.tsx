@@ -112,7 +112,7 @@ const VWProjectView = () => {
             </Typography>
             <Typography sx={projectViewHeaderDesc}>
               This use case includes all the governance process status of{" "}
-              <Typography component="span" sx={{ color: "#13715B", fontSize: "inherit" }}>
+              <Typography component="span" sx={{ color: "#1769AB", fontSize: "inherit" }}>
                 {project.project_title}
               </Typography>
             </Typography>
@@ -129,7 +129,7 @@ const VWProjectView = () => {
           <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
             <TabList
               onChange={handleChange}
-              TabIndicatorProps={{ style: { backgroundColor: "#13715B" } }}
+              TabIndicatorProps={{ style: { backgroundColor: "#1769AB" } }}
               sx={{
                 minHeight: "20px",
                 "& .MuiTabs-flexContainer": { columnGap: "34px" },

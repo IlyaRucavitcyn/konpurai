@@ -374,8 +374,8 @@ const RiskManagement = () => {
               variant="contained"
               text="Insert from AI risks database"
               sx={{
-                backgroundColor: "#13715B",
-                border: "1px solid #13715B",
+                backgroundColor: "#1769AB",
+                border: "1px solid #1769AB",
                 gap: 2,
               }}
               onClick={handleAIModalOpen}
@@ -388,8 +388,8 @@ const RiskManagement = () => {
               variant="contained"
               text="Add new risk"
               sx={{
-                backgroundColor: "#13715B",
-                border: "1px solid #13715B",
+                backgroundColor: "#1769AB",
+                border: "1px solid #1769AB",
                 gap: 2,
               }}
               onClick={handleOpenOrClose}

@@ -384,8 +384,8 @@ export default function BiasAndFairnessModule() {
           text="Demo"
           sx={{
             backgroundColor: "transparent",
-            border: "1px solid #13715B",
-            color: "#13715B",
+            border: "1px solid #1769AB",
+            color: "#1769AB",
             gap: 2
           }}
           onClick={() => {
@@ -396,8 +396,8 @@ export default function BiasAndFairnessModule() {
           variant="contained"
           text="New Evaluation"
           sx={{
-            backgroundColor: "#13715B",
-            border: "1px solid #13715B",
+            backgroundColor: "#1769AB",
+            border: "1px solid #1769AB",
             gap: 2,
           }}
           icon={<AddCircleOutlineIcon size={16} />}

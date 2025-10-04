@@ -24,8 +24,8 @@ export const statusFilterSelectStyle = {
 };
 
 export const addNewModelButtonStyle = {
-  backgroundColor: "#13715B",
-  border: "1px solid #13715B",
+  backgroundColor: "#1769AB",
+  border: "1px solid #1769AB",
   gap: "20px",
 };
 

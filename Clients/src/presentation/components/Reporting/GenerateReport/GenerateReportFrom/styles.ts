@@ -7,9 +7,9 @@ export const styles = {
   },
   CustomizableButton: {
     width: { xs: "100%", sm: 160 },
-    backgroundColor: "#13715B",
+    backgroundColor: "#1769AB",
     color: "#fff",
-    border: "1px solid #13715B",
+    border: "1px solid #1769AB",
     gap: 2,
   },
   titleText: {
@@ -31,7 +31,7 @@ export const fieldStyle = (theme: any) => ({
   },
 });
 
-export const selectReportStyle = (theme:any) => ({
+export const selectReportStyle = (theme: any) => ({
   width: "100%",
   backgroundColor: theme.palette.background.main,
 });

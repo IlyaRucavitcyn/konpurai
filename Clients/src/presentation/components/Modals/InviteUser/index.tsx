@@ -268,8 +268,8 @@ const InviteUserModal: React.FC<InviteUserModalProps> = ({
             variant="contained"
             text="Send Invite"
             sx={{
-              backgroundColor: "#13715B",
-              border: "1px solid #13715B",
+              backgroundColor: "#1769AB",
+              border: "1px solid #1769AB",
               gap: 2,
             }}
             icon={<ForwardToInboxIcon size={16} />}

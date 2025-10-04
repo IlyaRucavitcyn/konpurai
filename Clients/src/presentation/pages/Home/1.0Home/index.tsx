@@ -211,8 +211,8 @@ const Home = () => {
                 variant="contained"
                 text="New project"
                 sx={{
-                  backgroundColor: "#13715B",
-                  border: "1px solid #13715B",
+                  backgroundColor: "#1769AB",
+                  border: "1px solid #1769AB",
                   gap: 2,
                 }}
                 icon={<AddCircleOutlineIcon size={16} />}
@@ -227,11 +227,11 @@ const Home = () => {
                 variant="outlined"
                 text="Generate Demo Data"
                 sx={{
-                  borderColor: "#13715B",
-                  color: "#13715B",
+                  borderColor: "#1769AB",
+                  color: "#1769AB",
                   gap: 2,
                   "&:hover": {
-                    borderColor: "#13715B",
+                    borderColor: "#1769AB",
                     backgroundColor: "rgba(19, 113, 91, 0.04)",
                   },
                 }}

@@ -324,7 +324,7 @@ const FrameworkSettings: React.FC<FrameworkSettingsProps> = ({
                         py: 0.5,
                         fontSize: 13,
                         fontWeight: 600,
-                        color: "#13715B",
+                        color: "#1769AB",
                       }}
                     >
                       <CheckGreenIcon size={16} />
@@ -372,7 +372,7 @@ const FrameworkSettings: React.FC<FrameworkSettingsProps> = ({
                       onClick={() => handleAddFramework(fw)}
                       sx={{
                         minWidth: 100,
-                        backgroundColor: "#13715B",
+                        backgroundColor: "#1769AB",
                         color: "#fff",
                         "&:hover": { backgroundColor: "#0e5c47" },
                       }}

@@ -28,7 +28,7 @@ const Resources = ({ data, loading, error, hash }: { data: any; loading: boolean
 
   return (
     <Box width="100%">
-      <Typography variant="subtitle2" color="#13715B" sx={{ fontWeight: 600, mb: 2 }}>
+      <Typography variant="subtitle2" color="#1769AB" sx={{ fontWeight: 600, mb: 2 }}>
         Resources
       </Typography>
       <TableContainer component={Paper} sx={{ border: '1px solid #EEEEEE', borderRadius: 1, boxShadow: 'none'}}>

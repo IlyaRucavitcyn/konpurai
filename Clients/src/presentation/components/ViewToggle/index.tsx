@@ -54,10 +54,10 @@ const ViewToggle: React.FC<IViewToggleProps> = ({
             color: theme.palette.text.tertiary,
             padding: "6px 12px",
             "&.Mui-selected": {
-              backgroundColor: "#13715B",
+              backgroundColor: "#1769AB",
               color: theme.palette.background.main,
               "&:hover": {
-                backgroundColor: "#13715B",
+                backgroundColor: "#1769AB",
               },
             },
             "&:hover": {

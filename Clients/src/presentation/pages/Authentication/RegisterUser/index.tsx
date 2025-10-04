@@ -141,8 +141,8 @@ const RegisterUser: React.FC = () => {
   };
 
   const checkValidInvitation = (expDate: any) => {
-    let todayDate = new Date();
-    let currentTime = todayDate.getTime();
+    const todayDate = new Date();
+    const currentTime = todayDate.getTime();
 
     if (currentTime < expDate) {
       setIsInvitationValid(true);
@@ -227,12 +227,12 @@ const RegisterUser: React.FC = () => {
               fontSize: 40,
             }}
           >
-            Verify
-            <span style={{ color: singleTheme.textColors.theme }}>Wise</span>
+            Konpurai
+            {/* <span style={{ color: singleTheme.textColors.theme }}>Wise</span> */}
           </Typography>
           {isInvitationValid === true ? (
             <Typography sx={{ fontSize: 16, fontWeight: "bold" }}>
-              Create VerifyWise user account
+              Create Konpurai user account
             </Typography>
           ) : (
             <Typography
