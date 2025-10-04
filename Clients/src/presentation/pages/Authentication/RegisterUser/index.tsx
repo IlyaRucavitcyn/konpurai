@@ -216,7 +216,7 @@ const RegisterUser: React.FC = () => {
           </Typography>
           {isInvitationValid === true ? (
             <Typography sx={{ fontSize: 16, fontWeight: "bold" }}>
-              Create VerifyWise user account
+              Create Konpurai user account
             </Typography>
           ) : (
             <Typography

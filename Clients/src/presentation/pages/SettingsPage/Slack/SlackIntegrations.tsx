@@ -27,7 +27,7 @@ interface SlackIntegrationsProps {
   showAlert: (
     variant: "success" | "info" | "warning" | "error",
     title: string,
-    body: string,
+    body: string
   ) => void;
 }
 
@@ -44,7 +44,7 @@ const SlackIntegrations = ({
   };
 
   const handleChangeRowsPerPage = (
-    event: React.ChangeEvent<HTMLInputElement>,
+    event: React.ChangeEvent<HTMLInputElement>
   ) => {
     setRowsPerPage(parseInt(event.target.value, 10));
     setPage(0);
@@ -65,21 +65,21 @@ const SlackIntegrations = ({
         id,
         body: {
           title: "Welcome to Verifywise",
-          message: "This is a test message from VerifyWise.",
+          message: "This is a test message from Konpurai.",
         },
       });
       if (msg.data.success) {
         showAlert(
           "success",
           "Success",
-          "Test message sent successfully to the Slack channel.",
+          "Test message sent successfully to the Slack channel."
         );
       }
     } catch (error) {
       showAlert(
         "error",
         "Error",
-        "Error sending test message to the Slack channel.",
+        "Error sending test message to the Slack channel."
       );
     }
   };
@@ -199,7 +199,7 @@ const SlackIntegrations = ({
                 labelDisplayedRows={({ page, count }) =>
                   `Page ${page + 1} of ${Math.max(
                     0,
-                    Math.ceil(count / rowsPerPage),
+                    Math.ceil(count / rowsPerPage)
                   )}`
                 }
                 slotProps={{

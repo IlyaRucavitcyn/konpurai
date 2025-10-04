@@ -312,14 +312,14 @@ const Sidebar = () => {
               sx={{ opacity: 0.8, fontWeight: 500 }}
               className="app-title"
             >
-              Verify
-              <span
+              Konpurai
+              {/* <span
                 style={{
                   color: "#0f604d",
                 }}
               >
                 Wise
-              </span>
+              </span> */}
             </Typography>
           </MuiLink>
         </Stack>

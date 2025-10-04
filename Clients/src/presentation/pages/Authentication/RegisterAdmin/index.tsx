@@ -333,7 +333,7 @@ const RegisterAdmin: React.FC<{ multiTenant: boolean }> = ({
             <Typography sx={{ fontSize: 16, fontWeight: "bold" }}>
               {multiTenant
                 ? "Create admin account"
-                : "Create VerifyWise admin account"}
+                : "Create Konpurai admin account"}
             </Typography>
             <Stack sx={{ gap: theme.spacing(7.5) }}>
               <Field
