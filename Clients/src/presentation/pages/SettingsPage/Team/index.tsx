@@ -1,10 +1,4 @@
-import React, {
-  useState,
-  useCallback,
-  useMemo,
-  lazy,
-  Suspense,
-} from "react";
+import React, { useState, useCallback, useMemo, lazy, Suspense } from "react";
 import {
   Box,
   Button,
@@ -29,7 +23,7 @@ import { ReactComponent as SelectorVertical } from "../../../assets/icons/select
 import TablePaginationActions from "../../../components/TablePagination";
 import InviteUserModal from "../../../components/Modals/InviteUser";
 import DualButtonModal from "../../../components/Dialogs/DualButtonModal";
-import {ReactComponent as DeleteIconGrey} from "../../../assets/icons/trash-grey.svg"
+import { ReactComponent as DeleteIconGrey } from "../../../assets/icons/trash-grey.svg";
 import { handleAlert } from "../../../../application/tools/alertUtils";
 import CustomizableButton from "../../../components/Button/CustomizableButton";
 import singleTheme from "../../../themes/v1SingleTheme";
@@ -353,8 +347,8 @@ const TeamManagement: React.FC = (): JSX.Element => {
                 variant="contained"
                 text="Invite team member"
                 sx={{
-                  backgroundColor: "#13715B",
-                  border: "1px solid #13715B",
+                  backgroundColor: "#1769AB",
+                  border: "1px solid #1769AB",
                   gap: 2,
                 }}
                 icon={<GroupsIcon />}

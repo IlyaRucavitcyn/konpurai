@@ -16,7 +16,7 @@ import { useContext, useEffect, useState, useMemo } from "react";
 import { ReactComponent as AddCircleOutlineIcon } from "../../assets/icons/plus-circle-white.svg";
 import { ReactComponent as SettingsIcon } from "../../assets/icons/setting-small.svg";
 import { ReactComponent as DeleteIconRed } from "../../assets/icons/trash-filled-red.svg";
-import {ReactComponent as EditIconGrey} from "../../assets/icons/edit.svg";
+import { ReactComponent as EditIconGrey } from "../../assets/icons/edit.svg";
 import { ReactComponent as WhiteDownArrowIcon } from "../../assets/icons/chevron-down-white.svg";
 import { VerifyWiseContext } from "../../../application/contexts/VerifyWise.context";
 import useMultipleOnScreen from "../../../application/hooks/useMultipleOnScreen";
@@ -52,7 +52,7 @@ const tabStyle = {
   minHeight: "20px",
   minWidth: "auto",
   "&.Mui-selected": {
-    color: "#13715B",
+    color: "#1769AB",
   },
 };
 
@@ -303,8 +303,10 @@ const Framework = () => {
   useEffect(() => {
     if (framework === "iso-42001" || frameworkName === "iso-42001") {
       // Find ISO 42001 framework in filtered frameworks
-      const iso42001Index = filteredFrameworks.findIndex(fw =>
-        fw.name.toLowerCase().includes("iso") && fw.name.toLowerCase().includes("42001")
+      const iso42001Index = filteredFrameworks.findIndex(
+        (fw) =>
+          fw.name.toLowerCase().includes("iso") &&
+          fw.name.toLowerCase().includes("42001")
       );
       if (iso42001Index !== -1) {
         setSelectedFramework(iso42001Index);
@@ -318,8 +320,10 @@ const Framework = () => {
       }
     } else if (framework === "iso-27001" || frameworkName === "iso-27001") {
       // Find ISO 27001 framework in filtered frameworks
-      const iso27001Index = filteredFrameworks.findIndex(fw =>
-        fw.name.toLowerCase().includes("iso") && fw.name.toLowerCase().includes("27001")
+      const iso27001Index = filteredFrameworks.findIndex(
+        (fw) =>
+          fw.name.toLowerCase().includes("iso") &&
+          fw.name.toLowerCase().includes("27001")
       );
       if (iso27001Index !== -1) {
         setSelectedFramework(iso27001Index);
@@ -343,7 +347,7 @@ const Framework = () => {
     clause27001Id,
     subClause27001Id,
     annex27001Id,
-    annexControl27001Id
+    annexControl27001Id,
   ]);
 
   // Reset filters when tab changes (following ProjectFrameworks pattern)
@@ -436,7 +440,7 @@ const Framework = () => {
             <Box sx={{ borderBottom: 1, borderColor: "divider", mb: 1 }}>
               <TabList
                 onChange={handleIso27001TabChange}
-                TabIndicatorProps={{ style: { backgroundColor: "#13715B" } }}
+                TabIndicatorProps={{ style: { backgroundColor: "#1769AB" } }}
                 sx={tabListStyle}
               >
                 <Tab
@@ -503,7 +507,7 @@ const Framework = () => {
             <Box sx={{ borderBottom: 1, borderColor: "divider", mb: 1 }}>
               <TabList
                 onChange={handleIso42001TabChange}
-                TabIndicatorProps={{ style: { backgroundColor: "#13715B" } }}
+                TabIndicatorProps={{ style: { backgroundColor: "#1769AB" } }}
                 sx={tabListStyle}
               >
                 <Tab
@@ -604,45 +608,45 @@ const Framework = () => {
         quickActions={[
           {
             label: "Explore Framework Requirements",
-            description: "Browse detailed clauses and implementation guidelines for each framework",
-            primary: true
+            description:
+              "Browse detailed clauses and implementation guidelines for each framework",
+            primary: true,
           },
           {
             label: "Check Compliance Status",
-            description: "Review your organization's current compliance progress and gaps"
-          }
+            description:
+              "Review your organization's current compliance progress and gaps",
+          },
         ]}
         useCases={[
           "**ISO 27001 implementation** for *information security management systems*",
-          "**ISO 42001 compliance** for *artificial intelligence management systems* and **governance**"
+          "**ISO 42001 compliance** for *artificial intelligence management systems* and **governance**",
         ]}
         keyFeatures={[
           "**Comprehensive framework navigation** with *hierarchical clause structure*",
           "**Cross-referencing** between different *standards* and requirements",
-          "**Progress tracking** and *compliance gap analysis* tools for implementation planning"
+          "**Progress tracking** and *compliance gap analysis* tools for implementation planning",
         ]}
         tips={[
           "Start with **gap analysis** to understand your *current compliance position*",
           "Focus on *foundational clauses* before moving to **specific technical requirements**",
-          "Document your **implementation decisions** and evidence for *audit readiness*"
+          "Document your **implementation decisions** and evidence for *audit readiness*",
         ]}
       />
       <PageBreadcrumbs />
       <Stack>
-      <PageHeader
-               title="Framework"
-               description="This page provides an overview of available AI compliance frameworks.
+        <PageHeader
+          title="Framework"
+          description="This page provides an overview of available AI compliance frameworks.
               Explore different frameworks to understand their requirements and
               implementation guidelines."
-               rightContent={
-                  <HelperIcon
-                     onClick={() =>
-                     setIsHelperDrawerOpen(!isHelperDrawerOpen)
-                     }
-                     size="small"
-                    />
-                 }
-       />
+          rightContent={
+            <HelperIcon
+              onClick={() => setIsHelperDrawerOpen(!isHelperDrawerOpen)}
+              size="small"
+            />
+          }
+        />
         {/* Framework Controls Section - ISO selectors and Manage Project button on same line */}
         <Box
           sx={{
@@ -689,8 +693,8 @@ const Framework = () => {
                   !allowedRoles.projects.delete.includes(userRoleName)
                 }
                 sx={{
-                  backgroundColor: "#13715B",
-                  border: "1px solid #13715B",
+                  backgroundColor: "#1769AB",
+                  border: "1px solid #1769AB",
                   textTransform: "none",
                   "&:hover": {
                     backgroundColor: "#0e5c47",
@@ -811,8 +815,8 @@ const Framework = () => {
               onClick={() => setIsProjectFormModalOpen(true)}
               disabled={!allowedRoles.projects.create.includes(userRoleName)}
               sx={{
-                backgroundColor: "#13715B",
-                border: "1px solid #13715B",
+                backgroundColor: "#1769AB",
+                border: "1px solid #1769AB",
                 textTransform: "none",
                 "&:hover": {
                   backgroundColor: "#0e5c47",

@@ -78,12 +78,18 @@ const ISO42001Annex = ({
       if (annex) {
         handleAccordionChange(annex.id)(new Event("click") as any, true);
         const annexCategory = annex.annexCategories?.find(
-          (ac: any) => ac.id === Number(annexControlId),
+          (ac: any) => ac.id === Number(annexControlId)
         );
         if (annexCategory) handleControlClick(annex, annexCategory);
       }
     }
-  }, [annexId, annexes, annexControlId, initialAnnexId, initialAnnexCategoryId]);
+  }, [
+    annexId,
+    annexes,
+    annexControlId,
+    initialAnnexId,
+    initialAnnexCategoryId,
+  ]);
 
   const handleAccordionChange =
     (panel: number) => (_: React.SyntheticEvent, isExpanded: boolean) => {
@@ -111,7 +117,7 @@ const ISO42001Annex = ({
   const handleSaveSuccess = async (
     success: boolean,
     message?: string,
-    savedControlId?: number,
+    savedControlId?: number
   ) => {
     handleAlert({
       variant: success ? "success" : "error",
@@ -131,7 +137,7 @@ const ISO42001Annex = ({
 
   const handleStatusChange = async (
     control: any,
-    newStatus: string,
+    newStatus: string
   ): Promise<boolean> => {
     try {
       const success = await updateISO42001AnnexStatus({
@@ -182,7 +188,7 @@ const ISO42001Annex = ({
     if (statusFilter && statusFilter !== "") {
       filteredControls = filteredControls.filter(
         (control: any) =>
-          control.status?.toLowerCase() === statusFilter.toLowerCase(),
+          control.status?.toLowerCase() === statusFilter.toLowerCase()
       );
     }
 
@@ -194,7 +200,7 @@ const ISO42001Annex = ({
     ) {
       const isApplicable = applicabilityFilter === "true";
       filteredControls = filteredControls.filter(
-        (control: any) => Boolean(control.is_applicable) === isApplicable,
+        (control: any) => Boolean(control.is_applicable) === isApplicable
       );
     }
 
@@ -209,7 +215,7 @@ const ISO42001Annex = ({
               }}
               sx={styles.controlRow(
                 filteredControls.length - 1 === index,
-                flashingRowId === control.id,
+                flashingRowId === control.id
               )}
             >
               <Stack>
@@ -247,7 +253,7 @@ const ISO42001Annex = ({
         completed={annexesProgress?.doneAnnexcategories ?? 0}
         total={annexesProgress?.totalAnnexcategories ?? 0}
         title="Annexes"
-        progressbarColor="#13715B"
+        progressbarColor="#1769AB"
       />
       <Typography sx={{ ...styles.title, mt: 4 }}>
         {"Information Security Controls"}
@@ -263,8 +269,12 @@ const ISO42001Annex = ({
             >
               <AccordionSummary sx={styles.accordionSummary}>
                 <RightArrowBlack
-                  style={styles.expandIcon(expanded === annex.id) as React.CSSProperties}
-                   />
+                  style={
+                    styles.expandIcon(
+                      expanded === annex.id
+                    ) as React.CSSProperties
+                  }
+                />
                 <Typography sx={{ paddingLeft: "2.5px", fontSize: 13 }}>
                   {annex.arrangement} {annex.title}
                 </Typography>

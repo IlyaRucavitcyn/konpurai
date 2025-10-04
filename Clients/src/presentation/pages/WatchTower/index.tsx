@@ -21,7 +21,7 @@ const tabStyle = {
   minHeight: "20px",
   minWidth: "auto",
   "&.Mui-selected": {
-    color: "#13715B",
+    color: "#1769AB",
   },
 };
 
@@ -51,45 +51,44 @@ const WatchTower = () => {
           {
             label: "View Recent Events",
             description: "Monitor latest system activities and user actions",
-            primary: true
+            primary: true,
           },
           {
             label: "Export Audit Logs",
-            description: "Generate compliance reports for specific time periods"
-          }
+            description:
+              "Generate compliance reports for specific time periods",
+          },
         ]}
         useCases={[
           "**Compliance auditing** to demonstrate *control effectiveness* and **user activities**",
-          "**Security investigations** when analyzing potential incidents or *unauthorized access*"
+          "**Security investigations** when analyzing potential incidents or *unauthorized access*",
         ]}
         keyFeatures={[
           "**Real-time event monitoring** with *filtering* and **search capabilities**",
           "**Immutable audit logs** with *timestamps* and **user attribution**",
-          "**Export functionality** for *compliance reporting* and **external analysis**"
+          "**Export functionality** for *compliance reporting* and **external analysis**",
         ]}
         tips={[
           "Set up **alerts** for *critical events* like **permission changes** or data exports",
           "**Regular log reviews** can help identify *unusual patterns* before they become issues",
-          "Archive older logs according to your **retention policy** while maintaining *accessibility*"
+          "Archive older logs according to your **retention policy** while maintaining *accessibility*",
         ]}
       />
-    
+
       <Stack gap={"24px"} maxWidth={1400}>
-      <PageHeader
-               title="Event Tracker"
-               description="Event Tracker gives you a live window into VerifyWise. It records
+        <PageHeader
+          title="Event Tracker"
+          description="Event Tracker gives you a live window into VerifyWise. It records
                 every user action and system event, then lets you dive into the raw
                 logs for deeper troubleshooting. Use it to see who did what, spot
                 patterns, and keep your application healthy"
-               rightContent={
-                  <HelperIcon
-                     onClick={() =>
-                     setIsHelperDrawerOpen(!isHelperDrawerOpen)
-                     }
-                     size="small"
-                    />
-                 }
-             />
+          rightContent={
+            <HelperIcon
+              onClick={() => setIsHelperDrawerOpen(!isHelperDrawerOpen)}
+              size="small"
+            />
+          }
+        />
 
         <TabContext value={value}>
           <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
@@ -99,7 +98,7 @@ const WatchTower = () => {
                 minHeight: "20px",
                 "& .MuiTabs-flexContainer": { columnGap: "34px" },
                 "& .MuiTabs-indicator": {
-                  backgroundColor: "#13715B",
+                  backgroundColor: "#1769AB",
                   height: "1.5px",
                 },
               }}

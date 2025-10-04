@@ -8,7 +8,7 @@ const Overview = ({
   loading,
   error,
   onShowAllResources,
-  hash
+  hash,
 }: {
   data: any;
   loading: boolean;
@@ -16,7 +16,6 @@ const Overview = ({
   onShowAllResources: () => void;
   hash: string | null;
 }) => {
-
   const handleDownload = async (id: string) => {
     if (hash) {
       await downloadResource(id, hash);
@@ -63,7 +62,7 @@ const Overview = ({
                 value={data.intro.statement}
               />
             )}
-             {data.intro.mission && (
+            {data.intro.mission && (
               <CustomTextField label="Our mission" value={data.intro.mission} />
             )}
           </Stack>
@@ -75,7 +74,7 @@ const Overview = ({
         <Paper elevation={0} sx={{ background: "none", boxShadow: "none" }}>
           <Typography
             variant="subtitle2"
-            color="#13715B"
+            color="#1769AB"
             gutterBottom
             sx={{ fontWeight: 600, mb: 2 }}
           >
@@ -128,7 +127,7 @@ const Overview = ({
         <Box sx={{ width: "100%", maxWidth: 500, mb: 2 }}>
           <Typography
             variant="subtitle2"
-            color="#13715B"
+            color="#1769AB"
             sx={{ fontWeight: 600, mb: 1 }}
           >
             Resources

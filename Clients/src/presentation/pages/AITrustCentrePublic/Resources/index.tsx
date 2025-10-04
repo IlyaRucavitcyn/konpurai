@@ -8,17 +8,27 @@ import {
   Paper,
   Button,
   Typography,
-  Box
-} from '@mui/material';
-import CheckCircleOutlineIcon from '@mui/icons-material/CheckCircleOutline';
-import { downloadResource } from '../../../../application/tools/downloadResource';
-import { aiTrustCenterTableCell } from '../style';
+  Box,
+} from "@mui/material";
+import CheckCircleOutlineIcon from "@mui/icons-material/CheckCircleOutline";
+import { downloadResource } from "../../../../application/tools/downloadResource";
+import { aiTrustCenterTableCell } from "../style";
 
-const Resources = ({ data, loading, error, hash }: { data: any; loading: boolean; error: string | null; hash: string | null }) => {
-
+const Resources = ({
+  data,
+  loading,
+  error,
+  hash,
+}: {
+  data: any;
+  loading: boolean;
+  error: string | null;
+  hash: string | null;
+}) => {
   if (loading) return <Typography>Loading...</Typography>;
   if (error) return <Typography color="error">{error}</Typography>;
-  if (!data || !data.resources || data.resources.length === 0) return <Typography>No resources available.</Typography>;
+  if (!data || !data.resources || data.resources.length === 0)
+    return <Typography>No resources available.</Typography>;
 
   const handleDownload = async (id: string) => {
     if (hash) {
@@ -28,15 +38,43 @@ const Resources = ({ data, loading, error, hash }: { data: any; loading: boolean
 
   return (
     <Box width="100%">
-      <Typography variant="subtitle2" color="#13715B" sx={{ fontWeight: 600, mb: 2 }}>
+      <Typography
+        variant="subtitle2"
+        color="#1769AB"
+        sx={{ fontWeight: 600, mb: 2 }}
+      >
         Resources
       </Typography>
-      <TableContainer component={Paper} sx={{ border: '1px solid #EEEEEE', borderRadius: 1, boxShadow: 'none'}}>
+      <TableContainer
+        component={Paper}
+        sx={{ border: "1px solid #EEEEEE", borderRadius: 1, boxShadow: "none" }}
+      >
         <Table>
           <TableHead>
-            <TableRow sx={{ background: '#FAFAFA' }}>
-              <TableCell sx={{ fontWeight: 400, color: '#667085', fontSize: 12, textTransform: 'uppercase', paddingLeft: 4 }}>document name</TableCell>
-              <TableCell sx={{ fontWeight: 400, color: '#667085', fontSize: 12, textTransform: 'uppercase', paddingRight: 11 }} align="right">action</TableCell>
+            <TableRow sx={{ background: "#FAFAFA" }}>
+              <TableCell
+                sx={{
+                  fontWeight: 400,
+                  color: "#667085",
+                  fontSize: 12,
+                  textTransform: "uppercase",
+                  paddingLeft: 4,
+                }}
+              >
+                document name
+              </TableCell>
+              <TableCell
+                sx={{
+                  fontWeight: 400,
+                  color: "#667085",
+                  fontSize: 12,
+                  textTransform: "uppercase",
+                  paddingRight: 11,
+                }}
+                align="right"
+              >
+                action
+              </TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
@@ -44,8 +82,12 @@ const Resources = ({ data, loading, error, hash }: { data: any; loading: boolean
               <TableRow key={idx}>
                 <TableCell sx={aiTrustCenterTableCell}>
                   <Box display="flex" alignItems="center" gap={1}>
-                    <CheckCircleOutlineIcon sx={{ color: '#28A745', fontSize: 24 }} />
-                    <Typography  color="#344054" sx={{ fontSize: 13 }}>{resource.name}</Typography>
+                    <CheckCircleOutlineIcon
+                      sx={{ color: "#28A745", fontSize: 24 }}
+                    />
+                    <Typography color="#344054" sx={{ fontSize: 13 }}>
+                      {resource.name}
+                    </Typography>
                   </Box>
                 </TableCell>
                 <TableCell align="right" sx={aiTrustCenterTableCell}>
@@ -55,9 +97,9 @@ const Resources = ({ data, loading, error, hash }: { data: any; loading: boolean
                     sx={{
                       fontSize: 13,
                       minWidth: 100,
-                      backgroundColor: '#fff',
-                      color: '#344054',
-                      border: '1px solid #D0D5DD',
+                      backgroundColor: "#fff",
+                      color: "#344054",
+                      border: "1px solid #D0D5DD",
                       borderRadius: 1,
                     }}
                   >

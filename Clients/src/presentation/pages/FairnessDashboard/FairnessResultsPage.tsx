@@ -119,7 +119,7 @@ export default function FairnessResultsPage() {
                 sx={{
                   ...singleTheme.textStyles.pageTitle,
                   variant: "h6",
-                  color: "#13715B",
+                  color: "#1769AB",
                   mb: 0.35,
                 }}
               >
@@ -168,7 +168,7 @@ export default function FairnessResultsPage() {
                 sx={{
                   ...singleTheme.textStyles.pageTitle,
                   variant: "h6",
-                  color: "#13715B",
+                  color: "#1769AB",
                   mb: 0.35,
                 }}
               >
@@ -213,7 +213,7 @@ export default function FairnessResultsPage() {
                   sx={{
                     ...singleTheme.textStyles.pageTitle,
                     variant: "h6",
-                    color: "#13715B",
+                    color: "#1769AB",
                     mb: 0.35,
                   }}
                 >

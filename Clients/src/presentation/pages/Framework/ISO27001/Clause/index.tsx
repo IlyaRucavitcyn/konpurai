@@ -50,7 +50,7 @@ const ISO27001Clause = ({
   const [refreshTrigger, setRefreshTrigger] = useState(0);
   const [flashingRowId, setFlashingRowId] = useState<number | null>(null);
   const [subClausesMap, setSubClausesMap] = useState<{ [key: number]: any[] }>(
-    {},
+    {}
   );
   const [loadingSubClauses, setLoadingSubClauses] = useState<{
     [key: number]: boolean;
@@ -96,7 +96,7 @@ const ISO27001Clause = ({
 
         const mergedSubClauses = detailedSubClauses.map((detailed: any) => {
           const match = clauseSubClausesWithStatus.find(
-            (s) => s.id === detailed.id,
+            (s) => s.id === detailed.id
           );
           return {
             ...detailed,
@@ -111,7 +111,7 @@ const ISO27001Clause = ({
         setLoadingSubClauses((prev) => ({ ...prev, [clauseId]: false }));
       }
     },
-    [],
+    []
   );
 
   useEffect(() => {
@@ -135,7 +135,7 @@ const ISO27001Clause = ({
       setSelectedIndex(index);
       setDrawerOpen(true);
     },
-    [],
+    []
   );
 
   const handleDrawerClose = () => {
@@ -159,7 +159,7 @@ const ISO27001Clause = ({
   const handleSaveSuccess = async (
     success: boolean,
     message?: string,
-    savedSubClauseId?: number,
+    savedSubClauseId?: number
   ) => {
     handleAlert({
       variant: success ? "success" : "error",
@@ -179,7 +179,7 @@ const ISO27001Clause = ({
 
   const handleStatusChange = async (
     subClause: any,
-    newStatus: string,
+    newStatus: string
   ): Promise<boolean> => {
     try {
       const success = await updateISO27001ClauseStatus({
@@ -228,7 +228,7 @@ const ISO27001Clause = ({
     const filteredSubClauses =
       statusFilter && statusFilter !== ""
         ? subClauses.filter(
-            (sc) => sc.status?.toLowerCase() === statusFilter.toLowerCase(),
+            (sc) => sc.status?.toLowerCase() === statusFilter.toLowerCase()
           )
         : subClauses;
 
@@ -247,7 +247,7 @@ const ISO27001Clause = ({
               }}
               sx={styles.subClauseRow(
                 filteredSubClauses.length - 1 === index,
-                flashingRowId === subClause.id,
+                flashingRowId === subClause.id
               )}
             >
               <Typography fontSize={13}>
@@ -278,11 +278,19 @@ const ISO27001Clause = ({
     if (clauseId && subClauseId && clauses.length > 0) {
       const clause = clauses.find((c) => c.id === parseInt(clauseId));
       const idx = clause?.subClauses.findIndex(
-        (sc: any) => sc.id === parseInt(subClauseId),
+        (sc: any) => sc.id === parseInt(subClauseId)
       );
-      handleSubClauseClick(clause, {id: parseInt(subClauseId)}, idx ?? 0);
+      handleSubClauseClick(clause, { id: parseInt(subClauseId) }, idx ?? 0);
     }
-  }, [clauseId, subClauseId, initialClauseId, initialSubClauseId, clauses, projectFrameworkId, handleSubClauseClick]);
+  }, [
+    clauseId,
+    subClauseId,
+    initialClauseId,
+    initialSubClauseId,
+    clauses,
+    projectFrameworkId,
+    handleSubClauseClick,
+  ]);
 
   return (
     <Stack className="iso-27001-clauses">
@@ -293,7 +301,7 @@ const ISO27001Clause = ({
         completed={clauseProgress?.doneSubclauses ?? 0}
         total={clauseProgress?.totalSubclauses ?? 0}
         title="Clauses"
-        progressbarColor="#13715B"
+        progressbarColor="#1769AB"
       />
       <Typography sx={{ ...styles.title, mt: 4 }}>
         {"Management System Clauses"}
@@ -309,7 +317,11 @@ const ISO27001Clause = ({
             >
               <AccordionSummary sx={styles.accordionSummary}>
                 <RightArrowBlack
-                  style={styles.expandIcon(expanded === clause.id) as React.CSSProperties}
+                  style={
+                    styles.expandIcon(
+                      expanded === clause.id
+                    ) as React.CSSProperties
+                  }
                 />
                 <Typography sx={{ paddingLeft: "2.5px", fontSize: 13 }}>
                   {clause.arrangement} {clause.title}

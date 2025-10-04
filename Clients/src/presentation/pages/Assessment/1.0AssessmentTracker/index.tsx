@@ -124,7 +124,7 @@ const AssessmentTracker = ({
             padding: 1,
             paddingLeft: 4,
             borderRadius: 2,
-            backgroundColor: index === activeTab ? "#13715B" : "transparent",
+            backgroundColor: index === activeTab ? "#1769AB" : "transparent",
             width: "100%",
             textWrap: "wrap",
           }}
@@ -193,7 +193,7 @@ const AssessmentTracker = ({
               total={assessmentProgress.totalQuestions}
               completed={assessmentProgress.answeredQuestions}
               title="Questions"
-              progressbarColor="#13715B"
+              progressbarColor="#1769AB"
             />
           ) : (
             <Typography>

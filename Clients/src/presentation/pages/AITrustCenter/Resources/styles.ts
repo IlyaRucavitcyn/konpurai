@@ -85,7 +85,7 @@ export const useStyles = (theme: Theme): StylesType => ({
     fontSize: theme.typography.body2.fontSize,
     color: theme.palette.text.primary,
     fontWeight: 600,
-    ml:5,
+    ml: 5,
   },
 
   tableWrapper: {
@@ -164,8 +164,8 @@ export const useStyles = (theme: Theme): StylesType => ({
     alignSelf: "flex-end",
     width: "fit-content",
     gap: 2,
-    backgroundColor: '#13715B',
-    border: `1px solid #13715B`,
+    backgroundColor: '#1769AB',
+    border: `1px solid #1769AB`,
   },
 
   // Modal styles
@@ -214,8 +214,8 @@ export const useStyles = (theme: Theme): StylesType => ({
 
   fileUploadButton: {
     mt: 10,
-    backgroundColor: '#13715B',
-    border: `1px solid #13715B`,
+    backgroundColor: '#1769AB',
+    border: `1px solid #1769AB`,
     color: '#fff',
   },
 
@@ -237,11 +237,11 @@ export const useStyles = (theme: Theme): StylesType => ({
   },
 
   modalActionButton: {
-    backgroundColor: '#13715B',
-    border: `1px solid #13715B`,
+    backgroundColor: '#1769AB',
+    border: `1px solid #1769AB`,
     gap: 1,
     '&:hover': {
-      backgroundColor: '#13715B',
+      backgroundColor: '#1769AB',
     },
     '&:disabled': {
       backgroundColor: theme.palette.grey[300],

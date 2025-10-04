@@ -480,10 +480,10 @@ const ProfileForm: React.FC = () => {
             variant="contained"
             text={saving ? "Saving..." : "Save"}
             sx={{
-              backgroundColor: "#13715B",
+              backgroundColor: "#1769AB",
               border: isSaveDisabled
                 ? "1px solid rgba(0, 0, 0, 0.26)"
-                : "1px solid #13715B",
+                : "1px solid #1769AB",
               gap: 2,
             }}
             icon={<SaveIconSVGWhite />}

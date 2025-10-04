@@ -198,7 +198,7 @@ const AddNewVendor: React.FC<AddNewVendorProps> = ({
   // ESC key handling and focus trapping
   useModalKeyHandling({
     isOpen,
-    onClose: () => setIsOpen(false)
+    onClose: () => setIsOpen(false),
   });
 
   /**
@@ -810,7 +810,10 @@ const AddNewVendor: React.FC<AddNewVendorProps> = ({
             >
               {existingVendor ? "Edit vendor" : "Add new vendor"}
             </Typography>
-            <Close style={{ cursor: "pointer" }} onClick={() => setIsOpen(false)} />
+            <Close
+              style={{ cursor: "pointer" }}
+              onClick={() => setIsOpen(false)}
+            />
           </Stack>
           {!existingVendor && (
             <Typography
@@ -819,7 +822,10 @@ const AddNewVendor: React.FC<AddNewVendorProps> = ({
               marginBottom={theme.spacing(4)}
               sx={{ lineHeight: 1.4 }}
             >
-              Use this form to register a new vendor. Include details about what they provide, who is responsible, and the outcome of your review. Provide enough details so your team can assess risks, responsibilities, and compliance requirements.
+              Use this form to register a new vendor. Include details about what
+              they provide, who is responsible, and the outcome of your review.
+              Provide enough details so your team can assess risks,
+              responsibilities, and compliance requirements.
             </Typography>
           )}
           <Box
@@ -837,8 +843,8 @@ const AddNewVendor: React.FC<AddNewVendorProps> = ({
               variant="contained"
               text="Save"
               sx={{
-                backgroundColor: "#13715B",
-                border: "1px solid #13715B",
+                backgroundColor: "#1769AB",
+                border: "1px solid #1769AB",
                 gap: 2,
               }}
               onClick={handleSave}

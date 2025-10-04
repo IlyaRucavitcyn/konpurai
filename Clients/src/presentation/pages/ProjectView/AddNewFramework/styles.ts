@@ -40,7 +40,7 @@ export const modalDescriptionStyle: SxProps<Theme> = {
 };
 
 export const frameworkCardStyle: SxProps<Theme> = {
-  border: '1.5px solid #13715B',
+  border: '1.5px solid #1769AB',
   borderRadius: 2,
   background: '#e3f5e6',
   p: 2.5,
@@ -56,7 +56,7 @@ export const frameworkCardTitleStyle: SxProps<Theme> = {
 export const frameworkCardAddedStyle: SxProps<Theme> = {
   display: 'flex',
   alignItems: 'center',
-  color: '#13715B',
+  color: '#1769AB',
   gap: 1,
   fontSize: 14,
 };
@@ -75,9 +75,9 @@ export const modalDoneButtonStyle: SxProps<Theme> = {
   borderRadius: 2,
   boxShadow: 'none',
   fontSize: 15,
-  backgroundColor: '#13715B',
+  backgroundColor: '#1769AB',
   color: '#fff',
-  border: '1px solid #13715B',
+  border: '1px solid #1769AB',
   fontFamily: 'Inter, system-ui, Avenir, Helvetica, Arial, sans-serif',
   '&:hover': {
     backgroundColor: '#10614d',

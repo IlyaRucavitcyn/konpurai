@@ -12,7 +12,7 @@ export const getToggleStyles = (theme: Theme) => ({
       transform: 'translateX(18px)',
       color: '#fff',
       '& + .MuiSwitch-track': {
-        backgroundColor: '#13715B',
+        backgroundColor: '#1769AB',
         opacity: 1,
         border: 0,
       },

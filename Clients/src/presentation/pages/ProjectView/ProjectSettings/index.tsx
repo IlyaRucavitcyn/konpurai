@@ -35,7 +35,7 @@ import useProjectData from "../../../../application/hooks/useProjectData";
 import useUsers from "../../../../application/hooks/useUsers";
 import CustomizableButton from "../../../components/Button/CustomizableButton";
 import { ReactComponent as SaveIconSVGWhite } from "../../../assets/icons/save-white.svg";
-import { ReactComponent as DeleteIconWhite }from "../../../assets/icons/trash-filled-white.svg";
+import { ReactComponent as DeleteIconWhite } from "../../../assets/icons/trash-filled-white.svg";
 import CustomizableToast from "../../../components/Toast";
 import CustomizableSkeleton from "../../../components/Skeletons";
 import useFrameworks from "../../../../application/hooks/useFrameworks";
@@ -1173,10 +1173,10 @@ const ProjectSettings = React.memo(
                 sx={{
                   alignSelf: "flex-end",
                   width: "fit-content",
-                  backgroundColor: "#13715B",
+                  backgroundColor: "#1769AB",
                   border: isSaveDisabled
                     ? "1px solid rgba(0, 0, 0, 0.26)"
-                    : "1px solid #13715B",
+                    : "1px solid #1769AB",
                   gap: 2,
                 }}
                 icon={<SaveIconSVGWhite />}
@@ -1267,7 +1267,6 @@ const ProjectSettings = React.memo(
             TitleFontSize={0}
           />
         )}
-
       </Stack>
     );
   }

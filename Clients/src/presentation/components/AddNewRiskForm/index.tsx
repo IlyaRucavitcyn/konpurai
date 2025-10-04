@@ -54,7 +54,7 @@ const COMPONENT_CONSTANTS = {
   BUTTON_HEIGHT: 34,
   TAB_MARGIN_TOP: "30px",
   TAB_PADDING: "12px 0 0",
-  PRIMARY_COLOR: "#13715B",
+  PRIMARY_COLOR: "#1769AB",
   TAB_GAP: "34px",
   MIN_TAB_HEIGHT: "20px",
   BORDER_RADIUS: 2,
@@ -160,7 +160,8 @@ const AddNewRiskForm: FC<AddNewRiskFormProps> = ({
   // Use props if provided, otherwise fallback to hook
   const hookData = useUsers();
   const users = usersProp || hookData.users;
-  const usersLoading = usersLoadingProp !== undefined ? usersLoadingProp : hookData.loading;
+  const usersLoading =
+    usersLoadingProp !== undefined ? usersLoadingProp : hookData.loading;
 
   // Get inputValues from context
   const { inputValues } = useContext(VerifyWiseContext) as {
@@ -429,31 +430,39 @@ const AddNewRiskForm: FC<AddNewRiskFormProps> = ({
   ]);
 
   // Helper function to get only changed fields for UPDATE requests
-  const getChangedFields = useCallback((
-    original: RiskFormValues & MitigationFormValues,
-    current: RiskFormValues & MitigationFormValues
-  ) => {
-    const changedFields: any = {};
+  const getChangedFields = useCallback(
+    (
+      original: RiskFormValues & MitigationFormValues,
+      current: RiskFormValues & MitigationFormValues
+    ) => {
+      const changedFields: any = {};
 
-    // Check each field for changes
-    Object.keys(current).forEach((key) => {
-      const originalValue = original[key as keyof (RiskFormValues & MitigationFormValues)];
-      const currentValue = current[key as keyof (RiskFormValues & MitigationFormValues)];
+      // Check each field for changes
+      Object.keys(current).forEach((key) => {
+        const originalValue =
+          original[key as keyof (RiskFormValues & MitigationFormValues)];
+        const currentValue =
+          current[key as keyof (RiskFormValues & MitigationFormValues)];
 
-      // For arrays, do deep comparison
-      if (Array.isArray(originalValue) && Array.isArray(currentValue)) {
-        if (JSON.stringify(originalValue.sort()) !== JSON.stringify(currentValue.sort())) {
+        // For arrays, do deep comparison
+        if (Array.isArray(originalValue) && Array.isArray(currentValue)) {
+          if (
+            JSON.stringify(originalValue.sort()) !==
+            JSON.stringify(currentValue.sort())
+          ) {
+            changedFields[key] = currentValue;
+          }
+        }
+        // For other values, do simple comparison
+        else if (originalValue !== currentValue) {
           changedFields[key] = currentValue;
         }
-      }
-      // For other values, do simple comparison
-      else if (originalValue !== currentValue) {
-        changedFields[key] = currentValue;
-      }
-    });
+      });
 
-    return changedFields;
-  }, []);
+      return changedFields;
+    },
+    []
+  );
 
   // Helper function to build form data for API submission
   const buildFormData = useCallback(
@@ -523,49 +532,65 @@ const AddNewRiskForm: FC<AddNewRiskFormProps> = ({
 
         // Map frontend field names to backend field names and include only changed fields
         const fieldMapping: Record<string, string> = {
-          riskName: 'risk_name',
-          actionOwner: 'risk_owner',
-          aiLifecyclePhase: 'ai_lifecycle_phase',
-          riskDescription: 'risk_description',
-          riskCategory: 'risk_category',
-          potentialImpact: 'impact',
-          assessmentMapping: 'assessment_mapping',
-          controlsMapping: 'controls_mapping',
-          likelihood: 'likelihood',
-          riskSeverity: 'severity',
-          riskLevel: 'risk_level_autocalculated',
-          reviewNotes: 'review_notes',
-          mitigationStatus: 'mitigation_status',
-          currentRiskLevel: 'current_risk_level',
-          deadline: 'deadline',
-          mitigationPlan: 'mitigation_plan',
-          implementationStrategy: 'implementation_strategy',
-          doc: 'mitigation_evidence_document',
-          approver: 'risk_approval',
-          approvalStatus: 'approval_status',
-          dateOfAssessment: 'date_of_assessment',
-          applicableProjects: 'projects',
-          applicableFrameworks: 'frameworks',
+          riskName: "risk_name",
+          actionOwner: "risk_owner",
+          aiLifecyclePhase: "ai_lifecycle_phase",
+          riskDescription: "risk_description",
+          riskCategory: "risk_category",
+          potentialImpact: "impact",
+          assessmentMapping: "assessment_mapping",
+          controlsMapping: "controls_mapping",
+          likelihood: "likelihood",
+          riskSeverity: "severity",
+          riskLevel: "risk_level_autocalculated",
+          reviewNotes: "review_notes",
+          mitigationStatus: "mitigation_status",
+          currentRiskLevel: "current_risk_level",
+          deadline: "deadline",
+          mitigationPlan: "mitigation_plan",
+          implementationStrategy: "implementation_strategy",
+          doc: "mitigation_evidence_document",
+          approver: "risk_approval",
+          approvalStatus: "approval_status",
+          dateOfAssessment: "date_of_assessment",
+          applicableProjects: "projects",
+          applicableFrameworks: "frameworks",
         };
 
-        Object.keys(changedFields).forEach(frontendField => {
+        Object.keys(changedFields).forEach((frontendField) => {
           const backendField = fieldMapping[frontendField];
           if (backendField && fullData.hasOwnProperty(backendField)) {
-            updateData[backendField] = fullData[backendField as keyof typeof fullData];
+            updateData[backendField] =
+              fullData[backendField as keyof typeof fullData];
           }
         });
 
         // Always include calculated risk levels if any risk-related field changed
-        if (Object.keys(changedFields).some(field =>
-          ['likelihood', 'riskSeverity', 'riskName', 'riskDescription', 'potentialImpact'].includes(field)
-        )) {
+        if (
+          Object.keys(changedFields).some((field) =>
+            [
+              "likelihood",
+              "riskSeverity",
+              "riskName",
+              "riskDescription",
+              "potentialImpact",
+            ].includes(field)
+          )
+        ) {
           updateData.risk_level_autocalculated = riskLevel;
         }
 
         // Always include mitigation risk level if any mitigation-related field changed
-        if (Object.keys(changedFields).some(field =>
-          ['mitigationStatus', 'currentRiskLevel', 'mitigationPlan', 'implementationStrategy'].includes(field)
-        )) {
+        if (
+          Object.keys(changedFields).some((field) =>
+            [
+              "mitigationStatus",
+              "currentRiskLevel",
+              "mitigationPlan",
+              "implementationStrategy",
+            ].includes(field)
+          )
+        ) {
           updateData.final_risk_level = mitigationRiskLevel;
         }
 
@@ -627,9 +652,15 @@ const AddNewRiskForm: FC<AddNewRiskFormProps> = ({
 
       if (popupStatus !== "new") {
         // For updates, get only changed fields
-        const combinedOriginal = { ...originalRiskValues, ...originalMitigationValues };
+        const combinedOriginal = {
+          ...originalRiskValues,
+          ...originalMitigationValues,
+        };
         const combinedCurrent = { ...riskValues, ...mitigationValues };
-        const changedFields = getChangedFields(combinedOriginal, combinedCurrent);
+        const changedFields = getChangedFields(
+          combinedOriginal,
+          combinedCurrent
+        );
 
         formData = buildFormData(
           risk_risklevel.level,
@@ -638,20 +669,23 @@ const AddNewRiskForm: FC<AddNewRiskFormProps> = ({
         );
 
         // Add boolean flags for deleted/emptied linked projects and frameworks
-        if (changedFields.hasOwnProperty('applicableProjects')) {
+        if (changedFields.hasOwnProperty("applicableProjects")) {
           const originalProjects = originalRiskValues?.applicableProjects || [];
           const currentProjects = riskValues.applicableProjects || [];
-          formData.deletedLinkedProject = originalProjects.length > 0 && currentProjects.length === 0;
+          formData.deletedLinkedProject =
+            originalProjects.length > 0 && currentProjects.length === 0;
         }
 
-        if (changedFields.hasOwnProperty('applicableFrameworks')) {
-          const originalFrameworks = originalRiskValues?.applicableFrameworks || [];
+        if (changedFields.hasOwnProperty("applicableFrameworks")) {
+          const originalFrameworks =
+            originalRiskValues?.applicableFrameworks || [];
           const currentFrameworks = riskValues.applicableFrameworks || [];
-          formData.deletedLinkedFrameworks = originalFrameworks.length > 0 && currentFrameworks.length === 0;
+          formData.deletedLinkedFrameworks =
+            originalFrameworks.length > 0 && currentFrameworks.length === 0;
         }
 
-        console.log('Changed fields:', changedFields);
-        console.log('Sending only:', formData);
+        console.log("Changed fields:", changedFields);
+        console.log("Sending only:", formData);
       } else {
         // For creates, send all fields
         formData = buildFormData(

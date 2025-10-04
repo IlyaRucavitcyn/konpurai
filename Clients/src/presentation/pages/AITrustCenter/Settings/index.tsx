@@ -583,7 +583,8 @@ const AITrustCenterSettings: React.FC = () => {
                   lineHeight: 1.4,
                 }}
               >
-                Recommended: 240×120px • Max size: 5MB • Formats: PNG, JPG, GIF, SVG
+                Recommended: 240×120px • Max size: 5MB • Formats: PNG, JPG, GIF,
+                SVG
               </Typography>
             </Stack>
           </Stack>
@@ -702,8 +703,8 @@ const AITrustCenterSettings: React.FC = () => {
         <CustomizableButton
           sx={{
             ...styles.saveButton,
-            backgroundColor: hasUnsavedChanges ? "#13715B" : "#ccc",
-            border: `1px solid ${hasUnsavedChanges ? "#13715B" : "#ccc"}`,
+            backgroundColor: hasUnsavedChanges ? "#1769AB" : "#ccc",
+            border: `1px solid ${hasUnsavedChanges ? "#1769AB" : "#ccc"}`,
           }}
           icon={<SaveIconSVGWhite />}
           variant="contained"
