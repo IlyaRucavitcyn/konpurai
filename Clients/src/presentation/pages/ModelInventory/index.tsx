@@ -734,7 +734,7 @@ const ModelInventory: React.FC = () => {
                   items={[
                     { _id: "all", name: "All categories" },
                     { _id: "Performance", name: "Performance" },
-                    { _id: "Bias & Fairness", name: "Bias & Fairness" },
+                    // { _id: "Bias & Fairness", name: "Bias & Fairness" },
                     { _id: "Security", name: "Security" },
                     { _id: "Data Quality", name: "Data Quality" },
                     { _id: "Compliance", name: "Compliance" },

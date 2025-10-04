@@ -575,10 +575,10 @@ export default function BiasAndFairnessResultsPage() {
         <PageBreadcrumbs
           items={[
             { label: "Dashboard", path: "/" },
-            {
-              label: "Bias & Fairness",
-              path: "/fairness-dashboard#biasModule",
-            },
+            // {
+            //   label: "Bias & Fairness",
+            //   path: "/fairness-dashboard#biasModule",
+            // },
             { label: "Results", path: "" },
           ]}
           autoGenerate={false}

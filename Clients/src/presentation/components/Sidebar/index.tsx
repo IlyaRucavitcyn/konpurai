@@ -127,11 +127,11 @@ const getMenuItems = (openTasksCount: number): MenuItem[] => [
     icon: <ReportingSvg />,
     path: "/reporting",
   },
-  {
-    name: "Bias & Fairness",
-    icon: <FairnessIcon />,
-    path: "/fairness-dashboard",
-  },
+  // {
+  //   name: "Bias & Fairness",
+  //   icon: <FairnessIcon />,
+  //   path: "/fairness-dashboard",
+  // },
   {
     name: "Training Registry",
     icon: <TrainingRegister />,
