@@ -58,8 +58,8 @@ export async function updateSlackIntegration({
 
 export async function sendSlackMessage({ id }: { id: number }): Promise<any> {
   const messageBody = {
-    title: "Welcome to Verifywise",
-    message: "This is a test message from VerifyWise.",
+    title: "Welcome to Konpurai",
+    message: "This is a test message from Konpurai.",
   };
   const response = await apiServices.post(
     `/slackWebhooks/${id}/send`,

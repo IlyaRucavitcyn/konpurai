@@ -214,7 +214,7 @@ const ApiKeys = () => {
                 API Keys
               </Typography>
               <Typography sx={{ fontSize: 13, color: "#666666", mt: 0.5, mb: 3 }}>
-                Manage your API keys for programmatic access to VerifyWise features
+                Manage your API keys for programmatic access to Konpurai features
               </Typography>
             </Box>
             {tokens.length > 0 && (

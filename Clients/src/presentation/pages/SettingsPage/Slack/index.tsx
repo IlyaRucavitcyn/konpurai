@@ -173,7 +173,7 @@ const Slack = () => {
     >
       <Typography sx={vwhomeHeading}>Slack Integration</Typography>
       <Typography sx={singleTheme.textStyles.pageDescription}>
-        Connect your Slack workspace and route VerifyWise notifications to
+        Connect your Slack workspace and route Konpurai notifications to
         specific channels.
       </Typography>
 

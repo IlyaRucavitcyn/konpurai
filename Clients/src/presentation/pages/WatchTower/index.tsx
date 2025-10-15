@@ -63,7 +63,7 @@ const WatchTower = () => {
       <Stack gap={"24px"} maxWidth={1400}>
       <PageHeader
                title="Event Tracker"
-               description="Event Tracker gives you a live window into VerifyWise. It records
+               description="Event Tracker gives you a live window into Konpurai. It records
                 every user action and system event, then lets you dive into the raw
                 logs for deeper troubleshooting. Use it to see who did what, spot
                 patterns, and keep your application healthy"

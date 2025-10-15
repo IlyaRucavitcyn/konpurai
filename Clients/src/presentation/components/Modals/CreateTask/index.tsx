@@ -545,198 +545,199 @@ const CreateTask: FC<CreateTaskProps> = ({
                 </Stack>
               </Suspense>
 
-            {/* Row 2: Due Date and Categories */}
-            <Stack direction="row" sx={{ gap: 8, alignItems: "flex-start" }}>
-              <Suspense fallback={<div>Loading...</div>}>
-                <DatePicker
-                  label="Due date"
-                  date={values.due_date ? dayjs(values.due_date) : null}
-                  handleDateChange={handleDateChange}
+              {/* Row 2: Due Date and Categories */}
+              <Stack direction="row" sx={{ gap: 8, alignItems: "flex-start" }}>
+                <Suspense fallback={<div>Loading...</div>}>
+                  <DatePicker
+                    label="Due date"
+                    date={values.due_date ? dayjs(values.due_date) : null}
+                    handleDateChange={handleDateChange}
+                    sx={{
+                      ...datePickerStyle,
+                      width: "350px",
+                      backgroundColor: theme.palette.background.main,
+                    }}
+                    isRequired
+                    error={errors.due_date}
+                  />
+                </Suspense>
+
+                <Suspense fallback={<div>Loading...</div>}>
+                  <Stack gap={theme.spacing(2)}>
+                    <Typography
+                      component="p"
+                      variant="body1"
+                      color={theme.palette.text.secondary}
+                      fontWeight={500}
+                      fontSize={"13px"}
+                      sx={{ margin: 0, height: "22px" }}
+                    >
+                      Categories
+                    </Typography>
+                    <Autocomplete
+                      multiple
+                      id="categories-input"
+                      size="small"
+                      freeSolo
+                      value={values.categories}
+                      options={[]}
+                      onChange={(_event, newValue: string[]) => {
+                        setValues((prevValues) => ({
+                          ...prevValues,
+                          categories: newValue,
+                        }));
+                        setErrors((prev) => ({ ...prev, categories: "" }));
+                      }}
+                      getOptionLabel={(option: string) => option}
+                      filterSelectedOptions
+                      popupIcon={<GreyDownArrowIcon />}
+                      renderInput={(params) => (
+                        <TextField
+                          {...params}
+                          placeholder="Enter categories"
+                          error={!!errors.categories}
+                          sx={{
+                            "& .MuiOutlinedInput-root": {
+                              minHeight: "34px",
+                              height: "auto",
+                              alignItems: "flex-start",
+                              paddingY: "3px !important",
+                              flexWrap: "wrap",
+                              gap: "2px",
+                            },
+                            "& ::placeholder": {
+                              fontSize: "13px",
+                            },
+                          }}
+                          onKeyDown={(e) => {
+                            if (e.key === "Enter") {
+                              e.preventDefault();
+                              const input = e.target as HTMLInputElement;
+                              const value = input.value.trim();
+                              if (value && !values.categories.includes(value)) {
+                                setValues((prevValues) => ({
+                                  ...prevValues,
+                                  categories: [...prevValues.categories, value],
+                                }));
+                                input.value = "";
+                              }
+                            }
+                          }}
+                        />
+                      )}
+                      sx={{
+                        width: "350px",
+                        backgroundColor: theme.palette.background.main,
+                        "& .MuiOutlinedInput-root": {
+                          borderRadius: "3px",
+                          overflowY: "auto",
+                          flexWrap: "wrap",
+                          maxHeight: "115px",
+                          alignItems: "flex-start",
+                          "&:hover": {
+                            "& .MuiOutlinedInput-notchedOutline": {
+                              border: "none",
+                            },
+                          },
+                          "& .MuiOutlinedInput-notchedOutline": {
+                            border: "none",
+                          },
+                          "&.Mui-focused": {
+                            "& .MuiOutlinedInput-notchedOutline": {
+                              border: "none",
+                            },
+                          },
+                        },
+                        "& .MuiAutocomplete-tag": {
+                          margin: "2px",
+                          maxWidth: "calc(100% - 25px)",
+                          "& .MuiChip-label": {
+                            overflow: "hidden",
+                            textOverflow: "ellipsis",
+                            whiteSpace: "nowrap",
+                          },
+                        },
+                        border: errors.categories
+                          ? `1px solid #f04438`
+                          : `1px solid ${theme.palette.border.dark}`,
+                        borderRadius: "3px",
+                        opacity: errors.categories ? 0.8 : 1,
+                      }}
+                      slotProps={{
+                        paper: {
+                          sx: {
+                            display: "none",
+                          },
+                        },
+                      }}
+                    />
+                    {errors.categories && (
+                      <Typography
+                        color="error"
+                        variant="caption"
+                        sx={{ mt: 0.5, ml: 1, color: "#f04438", opacity: 0.8 }}
+                      >
+                        {errors.categories}
+                      </Typography>
+                    )}
+                  </Stack>
+                </Suspense>
+              </Stack>
+
+              {/* Row 3: Priority and Description */}
+              <Stack direction="row" sx={{ gap: 8 }}>
+                <SelectComponent
+                  items={priorityOptions}
+                  value={values.priority}
+                  error={errors.priority}
                   sx={{
-                    ...datePickerStyle,
                     width: "350px",
                     backgroundColor: theme.palette.background.main,
                   }}
+                  id="priority"
+                  label="Priority"
                   isRequired
-                  error={errors.due_date}
+                  onChange={handleOnSelectChange("priority")}
+                  placeholder="Select priority"
                 />
-              </Suspense>
 
-              <Suspense fallback={<div>Loading...</div>}>
-                <Stack gap={theme.spacing(2)}>
-                  <Typography
-                    component="p"
-                    variant="body1"
-                    color={theme.palette.text.secondary}
-                    fontWeight={500}
-                    fontSize={"13px"}
-                    sx={{ margin: 0, height: "22px" }}
-                  >
-                    Categories
-                  </Typography>
-                  <Autocomplete
-                    multiple
-                    id="categories-input"
-                    size="small"
-                    freeSolo
-                    value={values.categories}
-                    options={[]}
-                    onChange={(_event, newValue: string[]) => {
-                      setValues((prevValues) => ({
-                        ...prevValues,
-                        categories: newValue,
-                      }));
-                      setErrors((prev) => ({ ...prev, categories: "" }));
-                    }}
-                    getOptionLabel={(option: string) => option}
-                    filterSelectedOptions
-                    popupIcon={<GreyDownArrowIcon />}
-                    renderInput={(params) => (
-                      <TextField
-                        {...params}
-                        placeholder="Enter categories"
-                        error={!!errors.categories}
-                        sx={{
-                          "& .MuiOutlinedInput-root": {
-                            minHeight: "34px",
-                            height: "auto",
-                            alignItems: "flex-start",
-                            paddingY: "3px !important",
-                            flexWrap: "wrap",
-                            gap: "2px",
-                          },
-                          "& ::placeholder": {
-                            fontSize: "13px",
-                          },
-                        }}
-                        onKeyDown={(e) => {
-                          if (e.key === "Enter") {
-                            e.preventDefault();
-                            const input = e.target as HTMLInputElement;
-                            const value = input.value.trim();
-                            if (value && !values.categories.includes(value)) {
-                              setValues((prevValues) => ({
-                                ...prevValues,
-                                categories: [...prevValues.categories, value],
-                              }));
-                              input.value = "";
-                            }
-                          }
-                        }}
-                      />
-                    )}
-                    sx={{
-                      width: "350px",
-                      backgroundColor: theme.palette.background.main,
-                      "& .MuiOutlinedInput-root": {
-                        borderRadius: "3px",
-                        overflowY: "auto",
-                        flexWrap: "wrap",
-                        maxHeight: "115px",
-                        alignItems: "flex-start",
-                        "&:hover": {
-                          "& .MuiOutlinedInput-notchedOutline": {
-                            border: "none",
-                          },
-                        },
-                        "& .MuiOutlinedInput-notchedOutline": {
-                          border: "none",
-                        },
-                        "&.Mui-focused": {
-                          "& .MuiOutlinedInput-notchedOutline": {
-                            border: "none",
-                          },
-                        },
-                      },
-                      "& .MuiAutocomplete-tag": {
-                        margin: "2px",
-                        maxWidth: "calc(100% - 25px)",
-                        "& .MuiChip-label": {
-                          overflow: "hidden",
-                          textOverflow: "ellipsis",
-                          whiteSpace: "nowrap",
-                        },
-                      },
-                      border: errors.categories
-                        ? `1px solid #f04438`
-                        : `1px solid ${theme.palette.border.dark}`,
-                      borderRadius: "3px",
-                      opacity: errors.categories ? 0.8 : 1,
-                    }}
-                    slotProps={{
-                      paper: {
-                        sx: {
-                          display: "none",
-                        },
-                      },
-                    }}
+                <Suspense fallback={<div>Loading...</div>}>
+                  <Field
+                    id="description"
+                    label="Description"
+                    width="350px"
+                    type="description"
+                    value={values.description}
+                    onChange={handleOnTextFieldChange("description")}
+                    error={errors.description}
+                    sx={fieldStyle}
+                    placeholder="Enter description"
                   />
-                  {errors.categories && (
-                    <Typography
-                      color="error"
-                      variant="caption"
-                      sx={{ mt: 0.5, ml: 1, color: "#f04438", opacity: 0.8 }}
-                    >
-                      {errors.categories}
-                    </Typography>
-                  )}
-                </Stack>
-              </Suspense>
+                </Suspense>
+              </Stack>
             </Stack>
 
-            {/* Row 3: Priority and Description */}
-            <Stack direction="row" sx={{ gap: 8 }}>
-              <SelectComponent
-                items={priorityOptions}
-                value={values.priority}
-                error={errors.priority}
+            {/* Form Actions */}
+            <Stack
+              direction="row"
+              justifyContent="flex-end"
+              spacing={2}
+              sx={{ pt: 2, mt: 4 }}
+            >
+              <CustomizableButton
+                variant="contained"
+                text={mode === "edit" ? "Update Task" : "Create Task"}
+                isDisabled={isSubmitting}
                 sx={{
-                  width: "350px",
-                  backgroundColor: theme.palette.background.main,
+                  backgroundColor: "#1769AB",
+                  border: "1px solid #1769AB",
+                  gap: 2,
+                  marginTop: 2,
                 }}
-                id="priority"
-                label="Priority"
-                isRequired
-                onChange={handleOnSelectChange("priority")}
-                placeholder="Select priority"
+                onClick={handleSubmit}
+                icon={<SaveIcon size={16} />}
               />
-
-              <Suspense fallback={<div>Loading...</div>}>
-                <Field
-                  id="description"
-                  label="Description"
-                  width="350px"
-                  type="description"
-                  value={values.description}
-                  onChange={handleOnTextFieldChange("description")}
-                  error={errors.description}
-                  sx={fieldStyle}
-                  placeholder="Enter description"
-                />
-              </Suspense>
             </Stack>
-          </Stack>
-
-          {/* Form Actions */}
-          <Stack
-            direction="row"
-            justifyContent="flex-end"
-            spacing={2}
-            sx={{ pt: 2, mt: 4 }}
-          >
-            <CustomizableButton
-              variant="contained"
-              text={mode === "edit" ? "Update Task" : "Create Task"}
-              isDisabled={isSubmitting}
-              sx={{
-                backgroundColor: "#1769AB",
-                border: "1px solid #1769AB",
-                gap: 2,
-                marginTop: 2,
-              }}
-              onClick={handleSubmit}
-              icon={<SaveIcon size={16} />}
-            />
           </Stack>
         </form>
       </Stack>

@@ -106,11 +106,11 @@ const getMenuGroups = (): MenuGroup[] => [
         icon: <AlertTriangle size={16} strokeWidth={1.5} />,
         path: "/risk-management",
       },
-      {
-        name: "Bias & Fairness",
-        icon: <Scale size={16} strokeWidth={1.5} />,
-        path: "/fairness-dashboard",
-      },
+      // {
+      //   name: "Bias & Fairness",
+      //   icon: <Scale size={16} strokeWidth={1.5} />,
+      //   path: "/fairness-dashboard",
+      // },
       {
         name: "Training Registry",
         icon: <GraduationCap size={16} strokeWidth={1.5} />,
